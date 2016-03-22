@@ -1,0 +1,10 @@
+[Unit]
+Description=PsmSsp
+After=com.cisco.spvtg.ccsp.CR.service
+
+[Service]
+ExecStart=/usr/bin/PsmSsp &
+Type=forking
+
+[Install]
+WantedBy=multi-user.target
