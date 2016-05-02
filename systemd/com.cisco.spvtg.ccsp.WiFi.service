@@ -1,0 +1,11 @@
+[Unit]
+Description=CcspWifiSsp
+After=com.cisco.spvtg.ccsp.PSM.service hostapd.service
+Requires=network-setup.service hostapd.service
+
+[Service]
+ExecStart=/bin/sh -c '/usr/bin/startwifi.sh;'
+Type=forking
+
+[Install]
+WantedBy=multi-user.target

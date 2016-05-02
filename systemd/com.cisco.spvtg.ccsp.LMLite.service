@@ -1,0 +1,12 @@
+[Unit]
+Description=CcspLMLite
+After=com.cisco.spvtg.ccsp.PNM.service com.cisco.spvtg.ccsp.WiFi.service
+Requires=network-setup.service com.cisco.spvtg.ccsp.WiFi.service
+
+[Service]
+ExecStart=/bin/sh -c '/usr/bin/startlmlite.sh;'
+Type=forking
+
+[Install]
+WantedBy=multi-user.target
+
