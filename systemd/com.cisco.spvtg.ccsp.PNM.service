@@ -1,0 +1,11 @@
+[Unit]
+Description=CcspPandMSsp
+Requires=network-setup.service
+After=com.cisco.spvtg.ccsp.PSM.service network-setup.service
+
+[Service]
+ExecStart=/usr/bin/CcspPandMSsp &
+
+[Install]
+WantedBy=multi-user.target
+
