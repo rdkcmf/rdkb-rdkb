@@ -1,0 +1,14 @@
+[Unit]
+Description=CcspHotSpot
+After=network-online.target network-setup.service hostapd.service
+
+
+[Service]
+ExecStart=/bin/sh -c '/lib/rdk/hotspot_emu.sh;'
+Type=forking
+
+[Install]
+WantedBy=multi-user.target
+
+
+
