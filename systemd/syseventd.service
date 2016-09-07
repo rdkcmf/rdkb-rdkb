@@ -1,0 +1,13 @@
+[Unit]
+Description=Sysevent-daemon
+After=network-online.target
+
+[Service]
+ExecStart=/bin/sh -c '/lib/rdk/syseventd.sh;'
+Type=forking
+
+[Install]
+WantedBy=multi-user.target
+
+
+

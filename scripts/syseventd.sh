@@ -11,8 +11,8 @@
 #
 
 
-#!/bin/sh 
+#!/bin/sh
 
-sleep 10
-/usr/bin/CcspLMLite &
-
+rm /tmp/syscfg.shmid
+syscfg_create -f /nvram/syscfg.db
+syseventd &
