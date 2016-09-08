@@ -1,0 +1,10 @@
+[Unit]
+Description=unit file for snmp_subagent application
+
+[Service]
+Type=forking
+ExecStart=/usr/bin/snmp_subagnet &
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
