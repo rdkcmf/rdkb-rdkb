@@ -452,6 +452,18 @@
           <syntax>uint32</syntax>
 
         </parameter>
+	
+	<parameter>
+
+          <name>X_COMCAST_COM_xfinitywifiEnable</name>
+
+          <type>boolean</type>
+
+          <syntax>bool</syntax>
+
+          <writable>true</writable>
+
+        </parameter>
 
       </parameters>
 
@@ -995,6 +1007,159 @@
 
     </object>
 
+<object>
+        <name>X_COMCAST-COM_GRE</name>
+        <objectType>object</objectType>
+
+        <objects>
+            <object>
+                <name>Tunnel</name>
+                <objectType>staticTable</objectType>
+                <maxInstance>4</maxInstance>
+
+                <functions>
+                    <func_GetEntryCount>GreTunnel_GetEntryCount</func_GetEntryCount>
+                    <func_GetEntry>GreTunnel_GetEntry</func_GetEntry>
+                    <func_GetParamBoolValue>GreTunnel_GetParamBoolValue</func_GetParamBoolValue>
+                    <func_GetParamUlongValue>GreTunnel_GetParamUlongValue</func_GetParamUlongValue>
+                    <func_GetParamStringValue>GreTunnel_GetParamStringValue</func_GetParamStringValue>
+                    <func_GetParamIntValue>GreTunnel_GetParamIntValue</func_GetParamIntValue>
+                    <func_SetParamBoolValue>GreTunnel_SetParamBoolValue</func_SetParamBoolValue>
+                    <func_SetParamUlongValue>GreTunnel_SetParamUlongValue</func_SetParamUlongValue>
+                    <func_SetParamStringValue>GreTunnel_SetParamStringValue</func_SetParamStringValue>
+                    <func_SetParamIntValue>GreTunnel_SetParamIntValue</func_SetParamIntValue>
+                    <func_Validate>GreTunnel_Validate</func_Validate>
+                    <func_Commit>GreTunnel_Commit</func_Commit>
+                    <func_Rollback>GreTunnel_Rollback</func_Rollback>
+                </functions>
+
+                <parameters>
+                    <parameter>
+                        <name>Enable</name>
+                        <type>boolean</type>
+                        <syntax>bool</syntax>
+                        <writable>true</writable>
+                    </parameter>
+                    <parameter>
+                        <name>Status</name>
+                        <type>string: Up(1), Down(2), Error(3)</type>
+                        <syntax>uint32/mapped</syntax>
+                    </parameter>
+                                        <parameter>
+                        <name>LastChange</name>
+                        <type>unsignedInt</type>
+                        <syntax>uint32</syntax>
+                    </parameter>
+                                        <parameter>
+                        <name>PrimaryRemoteEndpoint</name>
+                        <type>string(256)</type>
+                        <syntax>string</syntax>
+                        <writable>true</writable>
+                    </parameter>
+		     <parameter>
+                        <name>SecondaryRemoteEndpoint</name>
+                        <type>string(256)</type>
+                        <syntax>string</syntax>
+                        <writable>true</writable>
+                    </parameter>
+                                        <parameter>
+                        <name>ConnectedRemoteEndpoint</name>
+                        <type>string(256)</type>
+                        <syntax>string</syntax>
+                    </parameter>
+                                        <parameter>
+                        <name>KeyIdentifierGenerationPolicy</name>
+                        <type>string: Disabled(1), Provisioned(2), Auto(3)</type>
+                        <syntax>uint32/mapped</syntax>
+                        <writable>true</writable>
+                    </parameter>
+                    <parameter>
+                        <name>KeyIdentifier</name>
+                        <type>string</type>
+                        <syntax>string</syntax>
+                        <writable>true</writable>
+                    </parameter>
+                    <parameter>
+                        <name>UseSequenceNumber</name>
+                        <type>boolean</type>
+                        <syntax>bool</syntax>
+                        <writable>true</writable>
+                    </parameter>
+                    <parameter>
+                        <name>UseChecksum</name>
+                        <type>boolean</type>
+                        <syntax>bool</syntax>
+                        <writable>true</writable>
+                    </parameter>
+                                        <parameter>
+                        <name>DSCPMarkPolicy</name>
+                        <type>int[-2:63]</type>
+                        <syntax>int</syntax>
+                        <writable>true</writable>
+                    </parameter>
+                                        <parameter>
+                        <name>KeepAlivePolicy</name>
+                        <type>string: None(1), ICMP(2)</type>
+                        <syntax>uint32/mapped</syntax>
+                        <writable>true</writable>
+                    </parameter>
+                                        <parameter>
+                        <name>RemoteEndpointHealthCheckPingCount</name>
+                        <type>unsignedInt</type>
+                        <syntax>uint32</syntax>
+                        <writable>true</writable>
+			 </parameter>
+                                        <parameter>
+                        <name>RemoteEndpointHealthCheckPingInterval</name>
+                        <type>unsignedInt</type>
+                        <syntax>uint32</syntax>
+                        <writable>true</writable>
+                    </parameter>
+                                        <parameter>
+                        <name>RemoteEndpointHealthCheckPingFailThreshold</name>
+                        <type>unsignedInt</type>
+                        <syntax>uint32</syntax>
+                        <writable>true</writable>
+                    </parameter>
+                                        <parameter>
+                        <name>RemoteEndpointHealthCheckPingIntervalInFailure</name>
+                        <type>unsignedInt</type>
+                        <syntax>uint32</syntax>
+                        <writable>true</writable>
+                    </parameter>
+                                        <parameter>
+                        <name>ReconnectToPrimaryRemoteEndpoint</name>
+                        <type>unsignedInt</type>
+                        <syntax>uint32</syntax>
+                        <writable>true</writable>
+                    </parameter>
+                                        <parameter>
+                        <name>EnableCircuitID</name>
+                        <type>boolean</type>
+                        <syntax>bool</syntax>
+                        <writable>true</writable>
+                    </parameter>
+		   <parameter>
+                        <name>EnableRemoteID</name>
+                        <type>boolean</type>
+                        <syntax>bool</syntax>
+                        <writable>true</writable>
+                    </parameter>
+                                        <parameter>
+                        <name>GRENetworkTunnel</name>
+                        <type>string(255)</type>
+                        <syntax>string</syntax>
+                        <writable>true</writable>
+                    </parameter>
+                                        <parameter>
+                                                <name>InterfaceNumberOfEntries</name>
+                                                <type>unsignedInt</type>
+                                                <syntax>uint32</syntax>
+                                        </parameter>
+                                </parameters>
+		    </object>
+	 </objects>
+</object>
 
 <object>
 
@@ -10166,11 +10331,13 @@
           <objects>
             <object>
               <name>Port</name>
-              <objectType>writableTable</objectType>
+              <objectType>dynWritableTable</objectType>
               <maxInstance>128</maxInstance>
               <functions>
                 <func_GetEntryCount>Port_GetEntryCount</func_GetEntryCount>
                 <func_GetEntry>Port_GetEntry</func_GetEntry>
+		<func_IsUpdated>Port_IsUpdated</func_IsUpdated>
+                <func_Synchronize>Port_Synchronize</func_Synchronize>
                 <func_AddEntry>Port_AddEntry</func_AddEntry>
                 <func_DelEntry>Port_DelEntry</func_DelEntry>
                 <func_GetParamBoolValue>Port_GetParamBoolValue</func_GetParamBoolValue>
@@ -10207,6 +10374,7 @@
               <name>Name</name>
               <type>string(64)</type>
               <syntax>string</syntax>
+	      <writable>true</writable>
             </parameter>
             <parameter>
               <name>LastChange</name>
@@ -10215,7 +10383,7 @@
               <notify>off</notify>
             </parameter>
             <parameter>
-              <name>LowerLayers</name>
+              <name>LinkName</name>
               <type>string</type>
               <syntax>string</syntax>
               <writable>true</writable>

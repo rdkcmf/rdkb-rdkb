@@ -1,15 +1,21 @@
+##########################################################################
+# If not stated otherwise in this file or this component's Licenses.txt
+# file the following copyright and licenses apply:
 #
-# ============================================================================
-# COMCAST C O N F I D E N T I A L AND PROPRIETARY
-# ============================================================================
-# This file and its contents are the intellectual property of Comcast.  It may
-# not be used, copied, distributed or otherwise  disclosed in whole or in part
-# without the express written permission of Comcast.
-# ============================================================================
-# Copyright (c) 2015 Comcast. All rights reserved.
-# ============================================================================
+# Copyright 2016 RDK Management
 #
-
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+##########################################################################
 
 
 #!/bin/sh
@@ -19,7 +25,7 @@ Restart_Hostapd () {
 
 
         ifconfig mon.wlan0 down
-        ps | grep host | grep -v grep | awk '{print $1}' | xargs kill -9
+        ps -eaf | grep host | grep -v grep | awk '{print $2}' | xargs kill -9
         ifconfig wlan0 down
         ifconfig wlan0_0 down
 
@@ -28,7 +34,7 @@ Restart_Hostapd () {
         ifconfig mon.wlan0 up
         ifconfig wlan0_0 up
 
-        ps | grep host | grep -v grep | awk '{print $1}' | xargs kill -9
+        ps -eaf | grep host | grep -v grep | awk '{print $2}' | xargs kill -9
         ifconfig wlan0 up
         hostapd -B /etc/hostapd.conf
         ifconfig mon.wlan0 up
@@ -37,7 +43,7 @@ Restart_Hostapd () {
 
 Hostapd_Restart () {
 	
-        ps | grep host | grep -v grep | awk '{print $1}' | xargs kill -9
+        ps -eaf | grep host | grep -v grep | awk '{print $2}' | xargs kill -9
         ifconfig wlan0 up
         hostapd -B /etc/hostapd.conf
         ifconfig mon.wlan0 up
@@ -51,7 +57,7 @@ if [ "$HOTSPOT_ENABLE" = "true" ]; then
 echo "CCSP-HOTSPOT-RESTART"
 Restart_Hostapd
 
-################# Checking the Hostapd Status Again(due to wlan0_0 failure status) #########################
+################# Checking the Hostapd Status Again(due to wlan0_0 getting failure status) #########################
 
 HOTSPOT_RESTART=`ifconfig wlan0_0 | grep RUNNING | tr -s ' ' | cut -d " " -f4`
 while [ "$HOTSPOT_RESTART" != "RUNNING" ]

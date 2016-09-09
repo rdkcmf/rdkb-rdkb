@@ -108,7 +108,7 @@ create_tunnel () {
 	ip link set dev $GRE_IFNAME name $GRE_IFNAME_DUMMY
 	ip link add gretap0 type gretap remote `sysevent get hotspotfd-tunnelEP` local "`ifconfig -a eth0 | grep inet | grep -v inet6 | tr -s " " | cut -d ":" -f2 | cut -d " " -f1`" ttl 255 dev $WAN_IF
 	brctl addbr brlan1
-	ps | grep ibrlan1 | grep -v grep | awk '{print $1}' | xargs kill -9
+	ps -eaf | grep ibrlan1 | grep -v grep | awk '{print $2}' | xargs kill -9
         brctl addif brlan1 gretap0
         brctl addif brlan1 wlan0_0
         ifconfig gretap0 up
