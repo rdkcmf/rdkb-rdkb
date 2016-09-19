@@ -231,7 +231,6 @@
   <Record name="dmsb.l2net.5.Alias" type="astr">Guest Network 1</Record>
   <Record name="dmsb.l3net.5.ULAEnable" type="astr">false</Record>
   <Record name="eRT.com.cisco.spvtg.ccsp.Device.WiFi.Radio.SSID.7.WLANEnable" type="astr">0</Record>
-  <Record name="Provision.COSALibrary.NAT.PORTTRIGGER.NextInstanceNumber" type="astr" contentType="uint">2</Record>
   <Record name="dmsb.device.deviceinfo.ManufacturerOUI" type="astr">088039</Record>
   <Record name="dmsb.l3net.5.IPv6Enable" type="astr">false</Record>
   <Record name="dmsb.l2net.1.Port.2.PriorityTag" type="astr">FALSE</Record>
@@ -411,7 +410,6 @@
   <Record name="dmsb.l2net.2.Port.8.LinkName" type="astr">sw_3</Record>
   <Record name="dmsb.l2net.4.Members.Link" type="astr">l2sd0-t</Record>
   <Record name="dmsb.l2net.1.Port.8.Upstream" type="astr">FALSE</Record>
-  <Record name="Provision.COSALibrary.Bridging.NextBridgeInstanceNum0.NextBridgeInstanceNum" type="astr" contentType="uint">65</Record>
   <Record name="dmsb.hotspot.gre.1.KeyID" type="astr">12</Record>
   <Record name="eRT.com.cisco.spvtg.ccsp.tr181pa.Device.WiFi.AccessPoint.4.HotSpot" type="astr">0</Record>
   <Record name="eRT.com.cisco.spvtg.ccsp.tr181pa.Device.WiFi.AccessPoint.3.MacFilterList" type="astr">0:</Record>
@@ -867,7 +865,6 @@
   <Record name="dmsb.l2net.2.Port.3.Alias" type="astr">Port3</Record>
   <Record name="dmsb.MultiLAN.HomeSecurity_WiFiRadio" type="astr" contentType="uint">1</Record>
   <Record name="dmsb.l3net.4.MaxMTU" type="astr" contentType="uint">1500</Record>
-  <Record name="Provision.COSALibrary.Bridging.NextPortInstanceNum2.NextPortInstanceNum" type="astr" contentType="uint">9</Record>
   <Record name="eRT.com.cisco.spvtg.ccsp.Device.WiFi.Radio.SSID.5.HideSSID" type="astr">1</Record>
   <Record name="dmsb.hotspot.tunnel.1.interface.1.AssociatedBridgesWiFiPort" type="astr">Device.Bridging.Bridge.3.Port.2.</Record>
   <Record name="dmsb.l2net.2.Port.2.LinkType" type="astr">Ethernet</Record>
