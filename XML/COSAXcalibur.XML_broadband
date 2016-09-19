@@ -6454,7 +6454,7 @@
 
           <name>Trigger</name>
 
-          <objectType>writableTable</objectType>
+          <objectType>dynWritableTable</objectType>
 
           <maxInstance>128</maxInstance>
 
@@ -6463,6 +6463,10 @@
             <func_GetEntryCount>PortTrigger_GetEntryCount</func_GetEntryCount>
 
             <func_GetEntry>PortTrigger_GetEntry</func_GetEntry>
+
+	    <func_IsUpdated>PortTrigger_IsUpdated</func_IsUpdated>
+
+            <func_Synchronize>PortTrigger_Synchronize</func_Synchronize> 
 
             <func_AddEntry>PortTrigger_AddEntry</func_AddEntry>
 
