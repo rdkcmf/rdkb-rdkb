@@ -1,10 +1,10 @@
-[Unit]
-Description=PsmSsp
+[Unit] 
+Description=CcspTandDSsp
 After=CcspCr.service
 
 [Service]
-ExecStart=/usr/bin/PsmSsp &
-Type=forking
+ExecStart=/usr/bin/CcspTandDSsp &
 
 [Install]
 WantedBy=multi-user.target
+

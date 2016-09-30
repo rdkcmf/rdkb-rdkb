@@ -1,7 +1,7 @@
 [Unit]
 Description=CcspLMLite
-After=com.cisco.spvtg.ccsp.PNM.service com.cisco.spvtg.ccsp.WiFi.service
-Requires=network-setup.service com.cisco.spvtg.ccsp.WiFi.service
+After=CcspPandM.service CcspWiFiAgent.service
+Requires=network-setup.service CcspWiFiAgent.service
 
 [Service]
 ExecStart=/bin/sh -c '/usr/bin/startlmlite.sh;'

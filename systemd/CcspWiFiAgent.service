@@ -1,6 +1,6 @@
 [Unit]
 Description=CcspWifiSsp
-After=com.cisco.spvtg.ccsp.PSM.service hostapd.service
+After=CcspPsm.service hostapd.service
 Requires=network-setup.service hostapd.service
 
 [Service]
