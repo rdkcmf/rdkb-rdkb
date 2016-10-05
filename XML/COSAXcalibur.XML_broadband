@@ -2779,9 +2779,11 @@
                 
               <name>LanMode</name>
               
-              <type>string: bridge(1),router(2)</type>
+              <type>string: bridge-dhcp(1),bridge-static(2),router(3)</type>
               
               <syntax>uint32/mapped</syntax>
+	
+	      <writable>true</writable>
               
             </parameter>
             
