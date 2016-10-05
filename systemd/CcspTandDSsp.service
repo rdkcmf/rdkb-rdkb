@@ -3,6 +3,7 @@ Description=CcspTandDSsp
 After=CcspCr.service
 
 [Service]
+Type=forking
 ExecStart=/usr/bin/CcspTandDSsp &
 
 [Install]
