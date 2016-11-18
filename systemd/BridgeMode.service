@@ -1,0 +1,12 @@
+[Unit]
+Description=BridgeMode
+After=CcspLmLite.service hostapd.service
+Requires=network-setup.service CcspLmLite.service hostapd.service
+
+[Service]
+ExecStart=/bin/sh -c '/lib/rdk/BridgeMode_bootup.sh;'
+Type=forking
+
+[Install]
+WantedBy=multi-user.target
+

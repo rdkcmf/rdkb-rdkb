@@ -994,4 +994,5 @@
   <Record name="dmsb.dhcpv4.server.pool.1.MaxAddress" type="astr">192.168.7.70</Record>
   <Record name="dmsb.dhcpv4.server.pool.1.LeaseTime" type="astr">4838400</Record>
   <Record name="dmsb.users.user.3.password" type="astr">password</Record>
+  <Record name="dmsb.X_CISCO_COM_DeviceControl.LanManagementEntry.1.LanMode" type="astr">router</Record>
 </Provision>
