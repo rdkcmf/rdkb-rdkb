@@ -1,0 +1,11 @@
+[Unit]
+Description=iptables-backup
+After=network-online.target network-setup.service CcspPandM.service
+Requires=network-setup.service CcspPandM.service
+
+[Service]
+ExecStart=/bin/sh -c '/lib/rdk/iptables-backup.sh;' &
+
+[Install]
+WantedBy=multi-user.target
+
