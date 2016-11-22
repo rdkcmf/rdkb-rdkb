@@ -995,4 +995,16 @@
   <Record name="dmsb.dhcpv4.server.pool.1.LeaseTime" type="astr">4838400</Record>
   <Record name="dmsb.users.user.3.password" type="astr">password</Record>
   <Record name="dmsb.X_CISCO_COM_DeviceControl.LanManagementEntry.1.LanMode" type="astr">router</Record>
+  <Record name="dmsb.nat.PortMapping.Enable" type="astr">0</Record>
+  <Record name="dmsb.nat.X_CISCO_COM_PortTriggers.Enable" type="astr">0</Record>
+  <Record name="dmsb.NAT.X_CISCO_COM_DMZ.Enable" type="astr">FALSE</Record>
+  <Record name="dmsb.NAT.X_CISCO_COM_DMZ.InternalIP" type="astr">192.168.7.65</Record>
+  <Record name="dmsb.UserInterface.X_CISCO_COM_RemoteAccess.HttpEnable" type="astr">FALSE</Record>
+  <Record name="dmsb.UserInterface.X_CISCO_COM_RemoteAccess.HttpsEnable" type="astr">FALSE</Record>
+  <Record name="dmsb.UserInterface.X_CISCO_COM_RemoteAccess.StartIp" type="astr">192.168.2.23</Record>
+  <Record name="dmsb.UserInterface.X_CISCO_COM_RemoteAccess.EndIp" type="astr">192.168.2.23</Record>
+  <Record name="dmsb.UserInterface.X_CISCO_COM_RemoteAccess.FromAnyIP" type="astr">FALSE</Record>
+  <Record name="dmsb.UserInterface.X_CISCO_COM_RemoteAccess.HttpsPort" type="astr">50060</Record>
+  <Record name="dmsb.UserInterface.X_CISCO_COM_RemoteAccess.HttpPort" type="astr">50070</Record>
+  <Record name="dmsb.X_CISCO_COM_Security.Firewall.FirewallLevel" type="astr">Disable</Record>
 </Provision>
