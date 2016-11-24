@@ -56,7 +56,7 @@ ebtables -t nat -A PREROUTING -i eth1 -p IPv4 --ip-dst 192.168.100.1 -j dnat --t
 sh /lib/rdk/Getting_wlan0_0_mac.sh
 
 ############################ iptables-restore ########################     
-#iptables-restore < /etc/iptables/rules.v4 
+iptables-restore < /etc/iptables/rules.v4 
 
 ###################### Routing Table ##################################
 sh /lib/rdk/webgui.sh

@@ -116,5 +116,5 @@ sh /lib/rdk/webgui.sh
 sh /lib/rdk/Getting_wlan0_0_mac.sh
 
 ############################ iptables-restore ########################     
-#iptables-restore < /etc/iptables/rules.v4
+iptables-restore < /etc/iptables/rules.v4
 
