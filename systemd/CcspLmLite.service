@@ -4,8 +4,7 @@ After=CcspPandM.service CcspWiFiAgent.service
 Requires=network-setup.service CcspWiFiAgent.service
 
 [Service]
-ExecStart=/bin/sh -c '/usr/bin/startlmlite.sh;'
-Type=forking
+ExecStart=/usr/bin/CcspLMLite &
 
 [Install]
 WantedBy=multi-user.target
