@@ -41,26 +41,26 @@ Restart_Hostapd () {
 
 ############ Adding two more IP Address to eth0 Interface ##########
 
-LAN_IP=`cat /var/udhcpd_org.conf | grep router | cut -d ' ' -f3`
-ip addr add $LAN_IP/24 dev eth0
+LAN_IP=`cat /var/dnsmasq_org.conf | grep -w dhcp-range | cut -d ',' -f2 | cut -d '.' -f1-3`
+ip addr add $LAN_IP.1/24 dev eth0
 ip addr add 192.168.100.1/24 dev eth0
 
 ######### Adding default WebUI Access IP in lighttpd Webserver #############
 
 LIGHTTPD_IP=`cat /etc/lighttpd.conf | grep server.bind | grep -v ^# | cut -d '=' -f2`
-router_ip_address=`cat /var/udhcpd_org.conf | grep router | cut -d ' ' -f3`
-sed -i  "s/server.bind =$LIGHTTPD_IP/server.bind = \"$router_ip_address\"/g" /etc/lighttpd.conf
+router_ip_address=`cat /var/dnsmasq_org.conf | grep -w dhcp-range | cut -d ',' -f2 | cut -d '.' -f1-3`
+sed -i  "s/server.bind =$LIGHTTPD_IP/server.bind = \"$router_ip_address.1\"/g" /etc/lighttpd.conf
 
 ############## Deleting Wlan0 from Bridge and Killing udhcpc for brlan0 and eth1 #############
 brctl delif brlan0 wlan0
 ps -eaf | grep ibrlan0 | grep -v grep | awk '{print $2}' | xargs kill -9
 ps -eaf | grep ieth1 | grep -v grep | awk '{print $2}' | xargs kill -9
 
-################# Killing udhcpd and adding WAN interface to Bridge ##############
+################# Killing dnsmasq and adding WAN interface to Bridge ##############
 ifconfig eth2 0.0.0.0
 brctl addif brlan0 eth2
 ifconfig brlan0 0.0.0.0
-killall udhcpd
+killall dnsmasq
 
 
 ######### Adding default WebUI Access LAN IP in lighttpd Webserver #############
@@ -73,7 +73,7 @@ sed -i "28 s/^/#/" /etc/hostapd.conf
 
 ########################## FORWARDING TRAFFIC TO eth0 Interface ##################
 WAN_MAC=`ifconfig eth0|grep HWaddr|awk '{print $5}'| tr '[a-z]' '[A-Z]'`
-ebtables -t nat -I PREROUTING -i eth1 -p IPv4 --ip-dst $LAN_IP -j dnat --to-dst $WAN_MAC --dnat-target ACCEPT
+ebtables -t nat -I PREROUTING -i eth1 -p IPv4 --ip-dst $LAN_IP.1 -j dnat --to-dst $WAN_MAC --dnat-target ACCEPT
 ebtables -t nat -A PREROUTING -i eth1 -p IPv4 --ip-dst 192.168.100.1 -j dnat --to-dst $WAN_MAC --dnat-target ACCEPT
 
 ############### Copying BridgeMode Set-up to default Emulator Set-up ###########
