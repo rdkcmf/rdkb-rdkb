@@ -7672,6 +7672,17 @@
 
               </parameter>
 
+	      <parameter>                                                                                      
+                                                                                                              
+                <name>X_CISCO_COM_Comment</name>                                                              
+                                                                                                              
+                <type>string</type>                                                                           
+                                                                                                              
+                <syntax>string</syntax>                                                                       
+                                                                                                               
+                <writable>true</writable>                                                                     
+                                                                                                                  
+              </parameter>   
 
                   </parameters>
 
