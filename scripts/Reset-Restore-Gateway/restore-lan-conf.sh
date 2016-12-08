@@ -20,7 +20,7 @@
 #!/bin/sh
 
 
-UDHCPD_CONF="/etc/udhcpd.conf"
-UDHCPD_ORG_CONF="/var/udhcpd_orginal.conf"
+DNSMASQ_CONF="/etc/dnsmasq.conf"
+DNSMASQ_ORG_CONF="/var/dnsmasq_orginal.conf"
 
-cp $UDHCPD_ORG_CONF $UDHCPD_CONF
+cp $DNSMASQ_ORG_CONF $DNSMASQ_CONF

@@ -40,8 +40,8 @@ if [ "$BRIDGEMODE_ENABLE" = "bridge-static" ]; then
 		DEFAULT_SSID=`cat /etc/hostapd.conf | grep ssid | head -1`
 		sed -i -e "s/$DEFAULT_SSID/ssid=RDKB-EMU/g" /etc/hostapd.conf		
 			
-		###### Restoring udhcpd and lighttpd Webserver #####
-                cp -fr /var/udhcpd_orginal.conf /etc/udhcpd.conf
+		###### Restoring dnsmasq and lighttpd Webserver #####
+                cp -fr /var/dnsmasq_orginal.conf /etc/dnsmasq.conf
                 sed -i '$d' /etc/lighttpd.conf
 		sh /lib/rdk/webgui.sh
                 cp /usr/bin/setup_routermode.sh /usr/bin/setup.sh

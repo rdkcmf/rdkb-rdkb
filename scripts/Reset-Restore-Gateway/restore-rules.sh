@@ -29,4 +29,5 @@ dmcli simu psmsetv dmsb.NAT.X_CISCO_COM_DMZ.Enable string FALSE
 dmcli simu psmsetv dmsb.nat.X_CISCO_COM_PortTriggers.Enable string 0
 dmcli simu psmsetv dmsb.nat.PortMapping.Enable string 0
 dmcli simu psmsetv dmsb.X_CISCO_COM_Security.Firewall.FirewallLevel string Disable
+dmcli simu psmsetv dmsb.dhcpv4.server.pool.1.StaticAddress.InstanceNumber string 0 
 
