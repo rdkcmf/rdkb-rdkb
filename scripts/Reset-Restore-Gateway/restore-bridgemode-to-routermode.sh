@@ -24,6 +24,8 @@
 
 echo "IN BRIDGEMODE SCRIPT"
 cp -fr /etc/iptables/default_rules.v4 /etc/iptables/rules.v4
+rm /etc/dhcp_static_hosts
+touch /etc/dhcp_static_hosts
 
 BRIDGEMODE_ENABLE=`dmcli simu psmget dmsb.X_CISCO_COM_DeviceControl.LanManagementEntry.1.LanMode | grep value | cut -f3 -d : | cut -f2 -d" "`
 
