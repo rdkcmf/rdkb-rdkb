@@ -25,6 +25,5 @@ BRIDGEMODE_ENABLE=`dmcli simu getv Device.X_CISCO_COM_DeviceControl.LanManagemen
 if [ "$BRIDGEMODE_ENABLE" = "bridge-static" ]; then
 	brctl delif brlan0 wlan0
 	killall dnsmasq
-	killall udhcpd
 	killall CcspLMLite
 fi

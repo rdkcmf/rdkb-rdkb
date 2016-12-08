@@ -49,9 +49,9 @@ Hostapd_Restart () {
                                                                              
 }          
 
-ROUTER=`cat /etc/udhcpd.conf | grep router | cut -d ' ' -f3`
-SUBNETMASK=`cat /etc/udhcpd.conf | grep subnet | cut -d ' ' -f3`
-psmcli nosubsys set dmsb.dhcpv4.server.pool.0.IPRouters $ROUTER
+ROUTER=`cat /etc/dnsmasq.conf | grep -w dhcp-range | cut -d ',' -f2 | cut -d '.' -f1-3`
+SUBNETMASK=`cat /etc/dnsmasq.conf | grep -w dhcp-range | cut -d ',' -f3`
+psmcli nosubsys set dmsb.dhcpv4.server.pool.0.IPRouters $ROUTER.1
 psmcli nosubsys set dmsb.dhcpv4.server.pool.0.SubnetMask $SUBNETMASK
 
 ############ Deleting BridgeMode Interface and Adding Wireless Interface to Bridge ########
@@ -60,13 +60,13 @@ brctl addif brlan0 wlan0
 
 
 ################### Getting Current Router IP Address ##########
-udhcpd_conf_file=/etc/udhcpd.conf                                          
-KEYWORD=router 
-router_ip_address=`grep $KEYWORD $udhcpd_conf_file | cut -d ' ' -f 3`
-ifconfig brlan0 $router_ip_address 
+dnsmasq_conf_file=/etc/dnsmasq.conf                                          
+KEYWORD=dhcp-range 
+router_ip_address=`grep $KEYWORD $dnsmasq_conf_file | cut -d ',' -f1 | cut -d '=' -f2 | cut -d '.' -f1-3`
+ifconfig brlan0 $router_ip_address.1 
 
 ######## Remove Additional IP Address from eth0 #############
-ip addr del $router_ip_address/24 dev eth0
+ip addr del $router_ip_address.1/24 dev eth0
 ip addr del 192.168.100.1/24 dev eth0
 
 
@@ -77,25 +77,25 @@ sed -i "28 s/^#*//" /etc/hostapd.conf
 
 ############# Setting Default WebUI access IP in Lighttpd Webserver ########
 LIGHTTPD_IP=`cat /etc/lighttpd.conf | grep server.bind | grep -v ^# | cut -d '=' -f2`
-sed -i  "s/server.bind =$LIGHTTPD_IP/server.bind = \"$router_ip_address\"/g" /etc/lighttpd.conf
+sed -i  "s/server.bind =$LIGHTTPD_IP/server.bind = \"$router_ip_address.1\"/g" /etc/lighttpd.conf
 
 ######### Remove the Additional IP Address of eth0 Interface ######
 sed -i '$d' /etc/lighttpd.conf 
 
 ############### Remove ebtables rules ##################
 WAN_MAC=`ifconfig eth0|grep HWaddr|awk '{print $5}'| tr '[a-z]' '[A-Z]'`
-ebtables -t nat -D PREROUTING -i eth1 -p IPv4 --ip-dst $router_ip_address -j dnat --to-dst $WAN_MAC --dnat-target ACCEPT
+ebtables -t nat -D PREROUTING -i eth1 -p IPv4 --ip-dst $router_ip_address.1 -j dnat --to-dst $WAN_MAC --dnat-target ACCEPT
 ebtables -t nat -D PREROUTING -i eth1 -p IPv4 --ip-dst 192.168.100.1 -j dnat --to-dst $WAN_MAC --dnat-target ACCEPT
 
 
 ############### Copying RouterMode Set-up to default Emulator Set-up #######
 cp /usr/bin/setup_routermode.sh /usr/bin/setup.sh
 
-################# starting The Lighttpd Webserver and Udhcpd ##############
+################# starting The Lighttpd Webserver and Dnsmasq ##############
 #udhcpd -f /etc/udhcpd.conf &
 /usr/bin/CcspLMLite &
 killall dnsmasq
-/usr/bin/dnsmasq -N -a 127.0.0.1 -z 
+/usr/bin/dnsmasq &
 
 Restart_Hostapd                                                              
                                                                              

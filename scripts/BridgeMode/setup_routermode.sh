@@ -25,9 +25,9 @@ sleep 20
 brctl addbr brlan0
 
 ############# Restoring DHCPv4 default values #######################
-ROUTER=`cat /etc/udhcpd.conf | grep router | cut -d ' ' -f3`
-SUBNETMASK=`cat /etc/udhcpd.conf | grep subnet | cut -d ' ' -f3`                                            
-psmcli nosubsys set dmsb.dhcpv4.server.pool.0.IPRouters $ROUTER                                             
+ROUTER=`cat /etc/dnsmasq.conf | grep -w dhcp-range | cut -d ',' -f1 | cut -d '=' -f2 | cut -d '.' -f1-3`
+SUBNETMASK=`cat /etc/dnsmasq.conf | grep dhcp-range | cut -d ',' -f3`                                            
+psmcli nosubsys set dmsb.dhcpv4.server.pool.0.IPRouters $ROUTER.1                                             
 psmcli nosubsys set dmsb.dhcpv4.server.pool.0.SubnetMask $SUBNETMASK
 
 WAN_IP=`route -n | grep UG | tr -s ' ' | cut -d ' ' -f2`
@@ -86,31 +86,31 @@ brctl addif brlan0 wlan0
 fi
 
 if [ $count ] || [ $wifi ];then
-########### Set ip Address for Bridge interface for udhcpd server##########
+########### Set ip Address for Bridge interface for Dnsmasq server##########
 INTERFACE=brlan0
-DEFAULT_IP_ADDRESS=192.168.7.1
-udhcpd_conf_file=/etc/udhcpd.conf
-KEYWORD=router
+DEFAULT_IP_ADDRESS=10.0.0.1
+dnsmasq_conf_file=/etc/dnsmasq.conf
+KEYWORD=dhcp-range
 #############################################################
 #Set ipaddress for brlan0 interface
 #############################################################
 
 
-if [  -f $udhcpd_conf_file ];then
- echo "getting router ip address from $udhcpd_conf_file"
- router_ip_address=`grep $KEYWORD $udhcpd_conf_file | cut -d ' ' -f 3`
- echo "set ip address as $router_ip_address for $INTERFACE"
- ifconfig $INTERFACE $router_ip_address
+if [  -f $dnsmasq_conf_file ];then
+ echo "getting router ip address from $dnsmasq_conf_file"
+ router_ip_address=`cat $dnsmasq_conf_file | grep -w $KEYWORD | cut -d ',' -f2 | cut -d '.' -f1-3`
+ echo "set ip address as $router_ip_address.1 for $INTERFACE"
+ ifconfig $INTERFACE $router_ip_address.1 netmask 255.255.255.0
 else
  echo "set ip address as default $DEFAULT_IP_ADDRESS for $INTERFACE"
-  ifconfig $INTERFACE $DEFAULT_IP_ADDRESS
+  ifconfig $INTERFACE $DEFAULT_IP_ADDRESS netmask 255.255.255.0
 fi
 
 rm -f wifi_clients.txt
 
 fi
 ###### Routing Table ##################################################### 
-sh /lib/rdk/webgui.sh
+#sh /lib/rdk/webgui.sh
 
 ################### Getting wlan0_0 mac Address(public wifi) #############
 sh /lib/rdk/Getting_wlan0_0_mac.sh
