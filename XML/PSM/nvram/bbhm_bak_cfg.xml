@@ -988,11 +988,11 @@
   <Record name="Provision.COSALibrary.Dhcpv6.Client.1.bNew" type="astr" contentType="bool">0</Record>
   <Record name="Provision.COSALibrary.Dhcpv6.Client.1.SentOption.NextInstanceNumber" type="astr" contentType="uint">2</Record>
   <Record name="Provision.COSALibrary.Dhcpv6.Pool.NextInstanceNumber" type="astr" contentType="uint">1</Record>
-  <Record name="dmsb.dhcpv4.server.pool.0.IPRouters" type="astr">192.168.7.1</Record>
+  <Record name="dmsb.dhcpv4.server.pool.0.IPRouters" type="astr">10.0.0.1</Record>
   <Record name="dmsb.dhcpv4.server.pool.0.SubnetMask" type="astr">255.255.255.0</Record>
-  <Record name="dmsb.dhcpv4.server.pool.1.MinAddress" type="astr">192.168.7.20</Record>
-  <Record name="dmsb.dhcpv4.server.pool.1.MaxAddress" type="astr">192.168.7.70</Record>
-  <Record name="dmsb.dhcpv4.server.pool.1.LeaseTime" type="astr">4838400</Record>
+  <Record name="dmsb.dhcpv4.server.pool.1.MinAddress" type="astr">10.0.0.2</Record>
+  <Record name="dmsb.dhcpv4.server.pool.1.MaxAddress" type="astr">10.0.0.253</Record>
+  <Record name="dmsb.dhcpv4.server.pool.1.LeaseTime" type="astr">120</Record>
   <Record name="dmsb.users.user.3.password" type="astr">password</Record>
   <Record name="dmsb.X_CISCO_COM_DeviceControl.LanManagementEntry.1.LanMode" type="astr">router</Record>
   <Record name="dmsb.nat.PortMapping.Enable" type="astr">0</Record>
@@ -1006,6 +1006,7 @@
   <Record name="dmsb.UserInterface.X_CISCO_COM_RemoteAccess.FromAnyIP" type="astr">FALSE</Record>
   <Record name="dmsb.UserInterface.X_CISCO_COM_RemoteAccess.HttpsPort" type="astr">50060</Record>
   <Record name="dmsb.UserInterface.X_CISCO_COM_RemoteAccess.HttpPort" type="astr">50070</Record>
-  <Record name="dmsb.X_CISCO_COM_Security.Firewall.FirewallLevel" type="astr">Disable</Record>
+  <Record name="dmsb.X_CISCO_COM_Security.Firewall.FirewallLevel" type="astr">Low</Record>
   <Record name="eRT.com.cisco.spvtg.ccsp.Device.WiFi.Radio.1.Channel" type="astr" contentType="uint">6</Record>
+  <Record name="dmsb.dhcpv4.server.pool.1.StaticAddress.InstanceNumber" type="astr">0</Record>
 </Provision>
