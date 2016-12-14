@@ -30,4 +30,12 @@ dmcli simu psmsetv dmsb.nat.X_CISCO_COM_PortTriggers.Enable string 0
 dmcli simu psmsetv dmsb.nat.PortMapping.Enable string 0
 dmcli simu psmsetv dmsb.X_CISCO_COM_Security.Firewall.FirewallLevel string Disable
 dmcli simu psmsetv dmsb.dhcpv4.server.pool.1.StaticAddress.InstanceNumber string 0 
-
+dmcli simu psmsetv dmsb.X_Comcast_com_ParentalControl.ManagedSites.InstanceNumber string 0
+dmcli simu psmsetv dmsb.X_Comcast_com_ParentalControl.ManagedSites.TrustedUser.InstanceNumber string 0
+dmcli simu psmsetv dmsb.X_Comcast_com_ParentalControl.ManagedServices.InstanceNumber string 0
+dmcli simu psmsetv dmsb.X_Comcast_com_ParentalControl.ManagedServices.TrustedUser.InstanceNumber string 0
+dmcli simu psmsetv dmsb.X_Comcast_com_ParentalControl.ManagedDevices.InstanceNumber string 0
+dmcli simu psmsetv dmsb.X_Comcast_com_ParentalControl.ManagedSites.Enable string false
+dmcli simu psmsetv dmsb.X_Comcast_com_ParentalControl.ManagedServices.Enable string false
+dmcli simu psmsetv dmsb.X_Comcast_com_ParentalControl.ManagedDevices.Enable string false
+dmcli simu psmsetv dmsb.X_Comcast_com_ParentalControl.ManagedDevices.AllowAll string false
