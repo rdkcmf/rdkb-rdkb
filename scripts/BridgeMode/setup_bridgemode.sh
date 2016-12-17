@@ -37,7 +37,7 @@ ps -eaf | grep ibrlan0 | grep -v grep | awk '{print $2}' | xargs kill -9
 
 #################### Adding two more IP Address to eth0 Interface ########
 
-LAN_IP=`cat /var/dnsmasq_org.conf | grep cut -d ',' -f1 | cut -d '=' -f2 | cut -d '.' -f1-3`
+LAN_IP=`cat /var/dnsmasq_org.conf | grep dhcp-range | cut -d ',' -f1 | cut -d '=' -f2 | cut -d '.' -f1-3`
 ip addr add $LAN_IP.1/24 dev eth0
 ip addr add 192.168.100.1/24 dev eth0
 

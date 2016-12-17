@@ -21,6 +21,6 @@
 
 
 DNSMASQ_CONF="/etc/dnsmasq.conf"
-DNSMASQ_ORG_CONF="/var/dnsmasq_orginal.conf"
+DNSMASQ_ORG_CONF="/var/dnsmasq_original.conf"
 
 cp $DNSMASQ_ORG_CONF $DNSMASQ_CONF
