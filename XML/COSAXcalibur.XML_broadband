@@ -10602,7 +10602,7 @@
               <notify>off</notify>
             </parameter>
             <parameter>
-              <name>LinkName</name>
+              <name>LowerLayers</name>
               <type>string</type>
               <syntax>string</syntax>
               <writable>true</writable>
