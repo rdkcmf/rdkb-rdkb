@@ -157,7 +157,7 @@
   <Record name="dmsb.l2net.4.Vlan.1.Alias" type="astr">CPE-VLAN1</Record>
   <Record name="dmsb.l2net.4.Members.WiFi" type="astr">ath5</Record>
   <Record name="dmsb.dhcpv4.server.pool.3.LeaseTime" type="astr">86400</Record>
-  <Record name="dmsb.device.deviceinfo.ProductClass" type="astr">XB3</Record>
+  <Record name="dmsb.device.deviceinfo.ProductClass" type="astr">RDKB-EMU</Record>
   <Record name="eRT.com.cisco.spvtg.ccsp.tr181pa.Device.WiFi.AccessPoint.3.HotSpot" type="astr">0</Record>
   <Record name="dmsb.l2net.1.Port.1.Management" type="astr">TRUE</Record>
   <Record name="eRT.com.cisco.spvtg.ccsp.Device.WiFi.Radio.SSID.8.WMMEnable" type="astr">1</Record>
