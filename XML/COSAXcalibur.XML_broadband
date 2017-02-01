@@ -5193,7 +5193,7 @@
 
           <type>string</type>
 
-          <syntax>uint32/ip4_addr</syntax>
+          <syntax>string</syntax>
 
           <writable>true</writable>
 
