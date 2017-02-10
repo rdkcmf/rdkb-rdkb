@@ -1,0 +1,11 @@
+[Unit]
+Description=CcspTr069PaSsp
+After=CcspCr.service CcspPandM.service CcspWiFiAgent.service
+
+[Service]
+ExecStart=/usr/bin/CcspTr069PaSsp &
+Type=forking
+
+[Install]
+WantedBy=multi-user.target
+
