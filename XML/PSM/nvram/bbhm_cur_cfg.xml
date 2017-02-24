@@ -1020,4 +1020,5 @@
   <Record name="dmsb.X_Comcast_com_ParentalControl.ManagedDevices.AllowAll" type="astr">false</Record>
   <Record name="com.cisco.spvtg.ccsp.tr069pa.Device.ManagementServer.URL.Value" type="astr">https://acswg-dt-ai-vip.comcast.net:443/cwmpWeb/DigestCPEMgt?target=/CPEMgt</Record>
   <Record name="com.cisco.spvtg.ccsp.tr069pa.Device.ManagementServer.Password.Value" type="astr">ab2af7cfd752418417cf0de07d2a81269fbe4d894d11cf29e0e4823932214ee2</Record>
+  <Record name="com.cisco.spvtg.ccsp.tr069pa.Device.ManagementServer.EnableCWMP.Value" type="astr">1</Record>
 </Provision>
