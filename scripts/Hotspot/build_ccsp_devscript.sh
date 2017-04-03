@@ -26,7 +26,7 @@ case $2 in
 		git clone https://$1@gerrit.teamccp.com/a/rdk/rdkb/components/opensource/ccsp/CcspCommonLibrary/generic ccsp-commonlib
 		cd ccsp-commonlib
 		autoreconf -i
-		./configure --build=i686-linux --host=i586-rdk-linux --target=i586-rdk-linux --prefix=/build-qemux86broadband/source/ccsp-common/image/usr --exec_prefix=/build-qemux86broadband/source/ccsp-common/image/usr --bindir=/build-qemux86broadband/source/ccsp-common/image/usr/bin --sbindir=/build-qemux86broadband/source/ccsp-common/image/usr/sbin --libexecdir=/build-qemux86broadband/source/ccsp-common/image/usr/lib/ccsp-common-library --datadir=/build-qemux86broadband/source/ccsp-common/image/usr/share --sysconfdir=/build-qemux86broadband/source/ccsp-common/image/etc --sharedstatedir=/build-qemux86broadband/source/ccsp-common/image/com --localstatedir=/build-qemux86broadband/source/ccsp-common/image/var --libdir=/build-qemux86broadband/source/ccsp-common/image/usr/lib --includedir=/build-qemux86broadband/source/ccsp-common/image/usr/include --oldincludedir=/build-qemux86broadband/source/ccsp-common/image/usr/include --infodir=/build-qemux86broadband/source/ccsp-common/image/usr/share/info --mandir=/build-qemux86broadband/source/ccsp-common/image/usr/share/man --disable-silent-rules --disable-dependency-tracking
+		./configure --build=i686-linux --host=i586-rdk-linux --target=i586-rdk-linux --prefix=/build-qemux86broadband/source/ccsp-commonlib/image/usr --exec_prefix=/build-qemux86broadband/source/ccsp-commonlib/image/usr --bindir=/build-qemux86broadband/source/ccsp-commonlib/image/usr/bin --sbindir=/build-qemux86broadband/source/ccsp-commonlib/image/usr/sbin --libexecdir=/build-qemux86broadband/source/ccsp-commonlib/image/usr/lib/ccsp-common-library --datadir=/build-qemux86broadband/source/ccsp-commonlib/image/usr/share --sysconfdir=/build-qemux86broadband/source/ccsp-commonlib/image/etc --sharedstatedir=/build-qemux86broadband/source/ccsp-commonlib/image/com --localstatedir=/build-qemux86broadband/source/ccsp-commonlib/image/var --libdir=/build-qemux86broadband/source/ccsp-commonlib/image/usr/lib --includedir=/build-qemux86broadband/source/ccsp-commonlib/image/usr/include --oldincludedir=/build-qemux86broadband/source/ccsp-commonlib/image/usr/include --infodir=/build-qemux86broadband/source/ccsp-commonlib/image/usr/share/info --mandir=/build-qemux86broadband/source/ccsp-commonlib/image/usr/share/man --disable-silent-rules --disable-dependency-tracking
 		make CFLAGS="-I /usr/include/dbus-1.0 -I /usr/lib/dbus-1.0/include"
 		make install
 	 ;;
@@ -139,7 +139,7 @@ echo "             12.ccsp-webui                           "
 echo "====================================================="
 
 echo "====================================================="
-echo " usage:sh bulid_ccsp_devscript UserName CCSP_Component_Name"
+echo " usage:sh bulid_ccsp_devscript.sh UserName CCSP_Component_Name"
 echo "====================================================="
 
 
