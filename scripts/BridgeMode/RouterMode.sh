@@ -23,27 +23,38 @@ Restart_Hostapd () {
                                                                           
                                                                           
         ifconfig mon.wlan0 down                                           
-        ps -eaf | grep host | grep -v grep | awk '{print $2}' | xargs kill -9
+        ps -eaf | grep hostapd_2.4G | grep -v grep | awk '{print $2}' | xargs kill -9
         ifconfig wlan0 down                                                  
         ifconfig wlan0_0 down                                             
                                                                           
         ifconfig wlan0 up                                                 
-        hostapd -B /etc/hostapd.conf                                      
+        hostapd -B /etc/hostapd_2.4G.conf                                      
         ifconfig mon.wlan0 up                                             
         ifconfig wlan0_0 up                                                  
                                                                              
-        ps -eaf | grep host | grep -v grep | awk '{print $2}' | xargs kill -9
+        ps -eaf | grep hostapd_2.4G | grep -v grep | awk '{print $2}' | xargs kill -9
         ifconfig wlan0 up                                                    
-        hostapd -B /etc/hostapd.conf                                         
+        hostapd -B /etc/hostapd_2.4G.conf                                         
         ifconfig mon.wlan0 up                                                
         ifconfig wlan0_0 up                                                  
 }                                                                            
+
                                                                              
+Restart_Hostapd_5G () {
+	
+	ps -eaf | grep hostapd_5G | grep -v grep | awk '{print $2}' | xargs kill -9                    
+        ifconfig wlan1 down                                                                              
+                      
+	sleep 2                                                                                                    
+        ifconfig wlan1 up                                                                                                 
+        hostapd -B /etc/hostapd_5G.conf                                                                                 
+}
+                                                             
 Hostapd_Restart () {                                                         
                                                                              
-        ps -eaf | grep host | grep -v grep | awk '{print $2}' | xargs kill -9
+        ps -eaf | grep hostapd_2.4G | grep -v grep | awk '{print $2}' | xargs kill -9
         ifconfig wlan0 up                                                    
-        hostapd -B /etc/hostapd.conf                                         
+        hostapd -B /etc/hostapd_2.4G.conf                                         
         ifconfig mon.wlan0 up                                                
         ifconfig wlan0_0 up                                                  
                                                                              
@@ -57,6 +68,7 @@ psmcli nosubsys set dmsb.dhcpv4.server.pool.0.SubnetMask $SUBNETMASK
 ############ Deleting BridgeMode Interface and Adding Wireless Interface to Bridge ########
 brctl delif brlan0 eth2
 brctl addif brlan0 wlan0
+brctl addif brlan0 wlan1
 
 
 ################### Getting Current Router IP Address ##########
@@ -70,10 +82,11 @@ ip addr del $router_ip_address.1/24 dev eth0
 ip addr del 192.168.100.1/24 dev eth0
 
 
-################## TURN ON the Private SSID ###############
-PRIVATE_SSID_ON=`cat /etc/hostapd.conf | grep ^#ssid`
+################## TURN ON the Private SSID for Dual Bands ###############
+#PRIVATE_SSID_ON=`cat /etc/hostapd.conf | grep ^#ssid`
 #sed -i "/$PRIVATE_SSID_ON/ s/^#*//" /etc/hostapd.conf
-sed -i "28 s/^#*//" /etc/hostapd.conf
+sed -i "28 s/^#*//" /etc/hostapd_2.4G.conf
+sed -i "28 s/^#*//" /etc/hostapd_5G.conf
 
 ############# Setting Default WebUI access IP in Lighttpd Webserver ########
 LIGHTTPD_IP=`cat /etc/lighttpd.conf | grep server.bind | grep -v ^# | cut -d '=' -f2`
@@ -97,15 +110,21 @@ cp /usr/bin/setup_routermode.sh /usr/bin/setup.sh
 killall dnsmasq
 /usr/bin/dnsmasq &
 
-Restart_Hostapd                                                              
+#Restart_Hostapd                                                              
+ps -eaf | grep hostapd_2.4G | grep -v grep | awk '{print $2}' | xargs kill -9
+ifconfig wlan0 down
+sleep 3
+ifconfig wlan0_0 down
+sh /lib/rdk/start_hostapd.sh
+Restart_Hostapd_5G                                                              
                                                                              
 ################# Checking the Hostapd Status Again(due to wlan0 getting failure status) #########################
                                                                                                                               
-HOTSPOT_RESTART=`ifconfig wlan0 | grep RUNNING | tr -s ' ' | cut -d " " -f4`                                                
-while [ "$HOTSPOT_RESTART" != "RUNNING" ]                                                                                     
-do                                                                                                                            
-Hostapd_Restart                                                                                                               
-HOTSPOT_RESTART=`ifconfig wlan0 | grep RUNNING | tr -s ' ' | cut -d " " -f4`                                                
-done    
+#HOTSPOT_RESTART=`ifconfig wlan0 | grep RUNNING | tr -s ' ' | cut -d " " -f4`                                                
+#while [ "$HOTSPOT_RESTART" != "RUNNING" ]                                                                                     
+#do                                                                                                                            
+#Hostapd_Restart                                                                                                               
+#HOTSPOT_RESTART=`ifconfig wlan0 | grep RUNNING | tr -s ' ' | cut -d " " -f4`                                                
+#done    
 
 killall lighttpd

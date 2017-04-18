@@ -19,24 +19,47 @@
 
 #!/bin/sh
 
-############################## Restoring Wifi values ######################
+############################## Restoring Wifi values for Private wifi 2.4Ghz  ######################
 
 ############# Restore default ssid ########################################
-SSID=`cat /etc/hostapd.conf | grep ssid | head -1 | cut -d "=" -f2`
-sed -i "28 s/ssid=$SSID/ssid=RDKB-EMU/g" /etc/hostapd.conf
+SSID=`cat /etc/hostapd_2.4G.conf | grep ssid | head -1 | cut -d "=" -f2`
+sed -i "28 s/ssid=$SSID/ssid=RDKB-EMU-2.4G/g" /etc/hostapd_2.4G.conf
 
 ################# Restore default password ################################
-PASSWORD=`cat /etc/hostapd.conf | grep wpa_passphrase | cut -d "=" -f2`
-sed -i  "s/wpa_passphrase=$PASSWORD/wpa_passphrase=password/g" /etc/hostapd.conf    
+PASSWORD=`cat /etc/hostapd_2.4G.conf | grep wpa_passphrase | cut -d "=" -f2`
+sed -i  "s/wpa_passphrase=$PASSWORD/wpa_passphrase=password/g" /etc/hostapd_2.4G.conf    
 
 #################### Restore default Channel ##################################
-CHANNEL=`cat /etc/hostapd.conf | grep channel | cut -d "=" -f2`
-sed -i  "s/channel=$CHANNEL/channel=6/g" /etc/hostapd.conf
+CHANNEL=`cat /etc/hostapd_2.4G.conf | grep channel | cut -d "=" -f2`
+sed -i  "s/channel=$CHANNEL/channel=6/g" /etc/hostapd_2.4G.conf
 
 
 ########################## Reset Wifi  default values into PSM configuration files #########
-dmcli simu psmsetv eRT.com.cisco.spvtg.ccsp.Device.WiFi.Radio.SSID.1.SSID string RDKB-EMU
+dmcli simu psmsetv eRT.com.cisco.spvtg.ccsp.Device.WiFi.Radio.SSID.1.SSID string RDKB-EMU-2.4G
 dmcli simu psmsetv eRT.com.cisco.spvtg.ccsp.Device.WiFi.Radio.SSID.1.Passphrase string password
 dmcli simu psmsetv eRT.com.cisco.spvtg.ccsp.Device.WiFi.Radio.1.Channel uint 6
 
+
 sleep 5
+############################## Restoring Wifi values for Private wifi 5Ghz  ######################
+
+############# Restore default ssid ########################################
+SSID=`cat /etc/hostapd_5G.conf | grep ssid | head -1 | cut -d "=" -f2`
+sed -i "28 s/ssid=$SSID/ssid=RDKB-EMU-5G/g" /etc/hostapd_5G.conf
+
+################# Restore default password ################################
+PASSWORD=`cat /etc/hostapd_5G.conf | grep wpa_passphrase | cut -d "=" -f2`
+sed -i  "s/wpa_passphrase=$PASSWORD/wpa_passphrase=5g-password/g" /etc/hostapd_5G.conf
+
+#################### Restore default Channel ##################################
+CHANNEL=`cat /etc/hostapd_5G.conf | grep channel | cut -d "=" -f2`
+sed -i  "s/channel=$CHANNEL/channel=36/g" /etc/hostapd_5G.conf
+
+
+########################## Reset Wifi  default values into PSM configuration files #########
+dmcli simu psmsetv eRT.com.cisco.spvtg.ccsp.Device.WiFi.Radio.SSID.2.SSID string RDKB-EMU-5G
+dmcli simu psmsetv eRT.com.cisco.spvtg.ccsp.Device.WiFi.Radio.SSID.2.Passphrase string 5g-password
+dmcli simu psmsetv eRT.com.cisco.spvtg.ccsp.Device.WiFi.Radio.2.Channel uint 36
+
+
+sleep 8

@@ -24,6 +24,9 @@ sleep 20
 BRIDGEMODE_ENABLE=`dmcli simu getv Device.X_CISCO_COM_DeviceControl.LanManagementEntry.1.LanMode | grep value | cut -f3 -d : | cut -f2 -d" "`
 if [ "$BRIDGEMODE_ENABLE" = "bridge-static" ]; then
 	brctl delif brlan0 wlan0
+	brctl delif brlan0 wlan1
+	ifconfig wlan0 down
+	ifconfig wlan1 down
 	killall dnsmasq
 	killall CcspLMLite
 fi

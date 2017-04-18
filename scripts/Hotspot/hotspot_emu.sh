@@ -27,6 +27,9 @@ if [ "$HOTSPOT_ENABLE" = "true" ]; then
 echo "CCSP-HOTSPOT"
 /lib/rdk/handle_emu_gre.sh create
 echo "CCSP-HOTSPOT IS SUCCESSFULLY RUNNING"
+else
+echo "wlan0_0 status is down state"
+ifconfig wlan0_0 down
 fi
 
 

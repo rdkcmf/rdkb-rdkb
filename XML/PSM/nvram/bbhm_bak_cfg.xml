@@ -42,7 +42,7 @@
   <Record name="dmsb.l2net.2.Port.2.Enable" type="astr">FALSE</Record>
   <Record name="dmsb.l2net.1.Port.4.Enable" type="astr">TRUE</Record>
   <Record name="dmsb.l2net.2.Port.5.InstanceNum" type="astr">5</Record>
-  <Record name="eRT.com.cisco.spvtg.ccsp.Device.WiFi.Radio.SSID.2.HideSSID" type="astr">0</Record>
+  <Record name="eRT.com.cisco.spvtg.ccsp.Device.WiFi.Radio.SSID.2.HideSSID" type="astr">1</Record>
   <Record name="dmsb.l2net.1.Port.6.Alias" type="astr">Port6</Record>
   <Record name="eRT.com.cisco.spvtg.ccsp.tr181pa.Device.WiFi.Radio.1.DTIMInterval" type="astr">1</Record>
   <Record name="eRT.com.cisco.spvtg.ccsp.tr181pa.Device.WiFi.AccessPoint.11.WpsPushButton" type="astr">0</Record>
@@ -492,7 +492,7 @@
   <Record name="dmsb.l2net.1.Port.3.LinkName" type="astr">sw_2</Record>
   <Record name="eRT.com.cisco.spvtg.ccsp.tr181pa.Device.WiFi.AccessPoint.12.WpsPushButton" type="astr">0</Record>
   <Record name="eRT.com.cisco.spvtg.ccsp.Device.WiFi.Radio.SSID.4.Vlan" type="astr">101</Record>
-  <Record name="eRT.com.cisco.spvtg.ccsp.Device.WiFi.Radio.SSID.2.SSID" type="astr">OutOfService</Record>
+  <Record name="eRT.com.cisco.spvtg.ccsp.Device.WiFi.Radio.SSID.2.SSID" type="astr">RDKB-EMU-5G</Record>
   <Record name="dmsb.l2net.3.Port.3.LinkName" type="astr">gretap0</Record>
   <Record name="dmsb.l2net.2.Port.1.AllowDelete" type="astr">FALSE</Record>
   <Record name="dmsb.l2net.2.Port.3.Upstream" type="astr">FALSE</Record>
@@ -530,7 +530,7 @@
   <Record name="dmsb.l2net.1.Port.6.LinkType" type="astr">WiFi</Record>
   <Record name="eRT.com.cisco.spvtg.ccsp.Device.WiFi.Radio.SSID.12.RadioIndex" type="astr">0</Record>
   <Record name="dmsb.l2net.1.Port.8.AllowDelete" type="astr">FALSE</Record>
-  <Record name="eRT.com.cisco.spvtg.ccsp.Device.WiFi.Radio.SSID.2.Passphrase" type="astr">design9451eager</Record>
+  <Record name="eRT.com.cisco.spvtg.ccsp.Device.WiFi.Radio.SSID.2.Passphrase" type="astr">5g-password</Record>
   <Record name="dmsb.l2net.1.Port.8.Pvid" type="astr">100</Record>
   <Record name="eRT.com.cisco.spvtg.ccsp.tr181pa.Device.WiFi.AccessPoint.14.WmmNoAck" type="astr">1</Record>
   <Record name="eRT.com.cisco.spvtg.ccsp.Device.WiFi.Radio.SSID.6.WMMEnable" type="astr">1</Record>
@@ -1008,6 +1008,7 @@
   <Record name="dmsb.UserInterface.X_CISCO_COM_RemoteAccess.HttpPort" type="astr">50070</Record>
   <Record name="dmsb.X_CISCO_COM_Security.Firewall.FirewallLevel" type="astr">Low</Record>
   <Record name="eRT.com.cisco.spvtg.ccsp.Device.WiFi.Radio.1.Channel" type="astr" contentType="uint">6</Record>
+  <Record name="eRT.com.cisco.spvtg.ccsp.Device.WiFi.Radio.2.Channel" type="astr" contentType="uint">36</Record>
   <Record name="dmsb.dhcpv4.server.pool.1.StaticAddress.InstanceNumber" type="astr">0</Record>
   <Record name="dmsb.X_Comcast_com_ParentalControl.ManagedDevices.InstanceNumber" type="astr">0</Record>
   <Record name="dmsb.X_Comcast_com_ParentalControl.ManagedServices.TrustedUser.InstanceNumber" type="astr">0</Record>

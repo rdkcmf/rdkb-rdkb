@@ -35,15 +35,20 @@ if [ "$BRIDGEMODE_ENABLE" = "bridge-static" ]; then
                 ###### Changing WebUI Value #########
                 dmcli simu psmsetv dmsb.X_CISCO_COM_DeviceControl.LanManagementEntry.1.LanMode string router
 
-                ###### Turn On the Private Wifi #####
-                sed -i "28 s/^#*//" /etc/hostapd.conf
-		DEFAULT_SSID=`cat /etc/hostapd.conf | grep ssid | head -1`
-		sed -i -e "s/$DEFAULT_SSID/ssid=RDKB-EMU/g" /etc/hostapd.conf		
-			
+                ###### Turn On the Private Wifi for Dual Bands #####
+                sed -i "28 s/^#*//" /etc/hostapd_2.4G.conf
+		DEFAULT_SSID=`cat /etc/hostapd_2.4G.conf | grep ssid | head -1`
+		sed -i -e "s/$DEFAULT_SSID/ssid=RDKB-EMU-2.4G/g" /etc/hostapd_2.4G.conf		
+		
+                sed -i "28 s/^#*//" /etc/hostapd_5G.conf
+		DEFAULT_SSID=`cat /etc/hostapd_5G.conf | grep ssid | head -1`
+		sed -i -e "s/$DEFAULT_SSID/ssid=RDKB-EMU-5G/g" /etc/hostapd_5G.conf		
+
 		###### Restoring dnsmasq and lighttpd Webserver #####
                 cp -fr /var/dnsmasq_orginal.conf /etc/dnsmasq.conf
                 sed -i '$d' /etc/lighttpd.conf
 		sh /lib/rdk/webgui.sh
+		sh /lib/rdk/restore-wifi.sh
                 cp /usr/bin/setup_routermode.sh /usr/bin/setup.sh
 fi
 

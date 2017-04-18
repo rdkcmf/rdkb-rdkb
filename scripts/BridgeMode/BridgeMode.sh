@@ -23,18 +23,18 @@
 Restart_Hostapd () {
 
         ifconfig mon.wlan0 down
-        ps -eaf | grep host | grep -v grep | awk '{print $2}' | xargs kill -9
+        ps -eaf | grep hostapd_2.4G | grep -v grep | awk '{print $2}' | xargs kill -9
         ifconfig wlan0 down
         ifconfig wlan0_0 down
 
         ifconfig wlan0 up
-        hostapd -B /etc/hostapd.conf
+        hostapd -B /etc/hostapd_2.4G.conf
         ifconfig mon.wlan0 up
         ifconfig wlan0_0 up
 
-        ps -eaf | grep host | grep -v grep | awk '{print $2}' | xargs kill -9
+        ps -eaf | grep hostapd_2.4G | grep -v grep | awk '{print $2}' | xargs kill -9
         ifconfig wlan0 up
-        hostapd -B /etc/hostapd.conf
+        hostapd -B /etc/hostapd_2.4G.conf
         ifconfig mon.wlan0 up
         ifconfig wlan0_0 up
 }
@@ -53,6 +53,7 @@ sed -i  "s/server.bind =$LIGHTTPD_IP/server.bind = \"$router_ip_address.1\"/g" /
 
 ############## Deleting Wlan0 from Bridge and Killing udhcpc for brlan0 and eth1 #############
 brctl delif brlan0 wlan0
+brctl delif brlan0 wlan1
 ps -eaf | grep ibrlan0 | grep -v grep | awk '{print $2}' | xargs kill -9
 ps -eaf | grep ieth1 | grep -v grep | awk '{print $2}' | xargs kill -9
 
@@ -67,9 +68,11 @@ killall dnsmasq
 echo "\$SERVER[\"socket\"] == \"192.168.100.1:80\"  { }" >> /etc/lighttpd.conf
 
 
-############## TURN OFF the Private Wifi ########################
-PRIVATE_SSID_OFF=`cat /etc/hostapd.conf | grep ^ssid | head -1`
-sed -i "28 s/^/#/" /etc/hostapd.conf
+############## TURN OFF the Private Wifi for Dual Bands ########################
+#PRIVATE_SSID_OFF=`cat /etc/hostapd.conf | grep ^ssid | head -1`
+#sed -i "28 s/^/#/" /etc/hostapd.conf
+ifconfig wlan0 down
+ifconfig wlan1 down
 
 ########################## FORWARDING TRAFFIC TO eth0 Interface ##################
 WAN_MAC=`ifconfig eth0|grep HWaddr|awk '{print $5}'| tr '[a-z]' '[A-Z]'`
@@ -81,7 +84,7 @@ cp /usr/bin/setup_bridgemode.sh /usr/bin/setup.sh
 
 ############### Restarting Hostapd and lighttd webserver #########
 killall CcspLMLite
-Restart_Hostapd
+#Restart_Hostapd
 brctl delif brlan0 wlan0
 
 killall lighttpd
