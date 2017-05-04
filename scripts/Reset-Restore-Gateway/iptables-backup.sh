@@ -37,13 +37,13 @@ HOTSPOT_ENABLE=`dmcli simu getv Device.DeviceInfo.X_COMCAST_COM_xfinitywifiEnabl
 	iptables -D FORWARD -j general_forward                                         
 	iptables -D OUTPUT -j general_output                                            
 	iptables -D general_forward -o brlan1 -p udp --dport=67:68 -j NFQUEUE --queue-bypass --queue-num 1                                   
-	iptables -D general_forward -o brlan1 -p udp --dport=67:68 -j NFQUEUE --queue-bypass --queue-num 2
+	iptables -D general_forward -o brlan2 -p udp --dport=67:68 -j NFQUEUE --queue-bypass --queue-num 2
 	iptables -D general_output -o eth0 -p icmp --icmp-type 3 -j NFQUEUE --queue-bypass --queue-num 0
 
 	iptables -D FORWARD -j general_forward
         iptables -D OUTPUT -j general_output
         iptables -D general_forward -o brlan1 -p udp --dport=67:68 -j NFQUEUE --queue-bypass --queue-num 1
-        iptables -D general_forward -o brlan1 -p udp --dport=67:68 -j NFQUEUE --queue-bypass --queue-num 2
+        iptables -D general_forward -o brlan2 -p udp --dport=67:68 -j NFQUEUE --queue-bypass --queue-num 2
         iptables -D general_output -o eth0 -p icmp --icmp-type 3 -j NFQUEUE --queue-bypass --queue-num 0
 	fi
 
@@ -63,7 +63,7 @@ HOTSPOT_ENABLE=`dmcli simu getv Device.DeviceInfo.X_COMCAST_COM_xfinitywifiEnabl
         iptables -I FORWARD -j general_forward
         iptables -I OUTPUT -j general_output
         iptables -I general_forward -o brlan1 -p udp --dport=67:68 -j NFQUEUE --queue-bypass --queue-num 1
-        iptables -A general_forward -o brlan1 -p udp --dport=67:68 -j NFQUEUE --queue-bypass --queue-num 2
+        iptables -A general_forward -o brlan2 -p udp --dport=67:68 -j NFQUEUE --queue-bypass --queue-num 2
         iptables -A general_output -o eth0 -p icmp --icmp-type 3 -j NFQUEUE --queue-bypass --queue-num 0
         fi
 

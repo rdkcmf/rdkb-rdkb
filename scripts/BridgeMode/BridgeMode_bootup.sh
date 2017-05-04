@@ -23,10 +23,12 @@ sleep 20
 
 BRIDGEMODE_ENABLE=`dmcli simu getv Device.X_CISCO_COM_DeviceControl.LanManagementEntry.1.LanMode | grep value | cut -f3 -d : | cut -f2 -d" "`
 if [ "$BRIDGEMODE_ENABLE" = "bridge-static" ]; then
-	brctl delif brlan0 wlan0
-	brctl delif brlan0 wlan1
-	ifconfig wlan0 down
-	ifconfig wlan1 down
+	INTERFACE_2G=`cat /etc/hostapd_2.4G.conf | grep -w interface | head -1 | cut -d '=' -f2`
+	INTERFCAE_5G=`cat /etc/hostapd_5G.conf | grep -w interface | head -1 | cut -d '=' -f2`
+	brctl delif brlan0 $INTERFACE_2G
+	brctl delif brlan0 $INTERFCAE_5G
+	ifconfig $INTERFACE_2G down
+	ifconfig $INTERFCAE_5G down
 	killall dnsmasq
 	killall CcspLMLite
 fi

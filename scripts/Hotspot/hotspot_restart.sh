@@ -65,12 +65,13 @@ echo "CCSP-HOTSPOT-RESTART"
 #Hostapd_Restart
 #HOTSPOT_RESTART=`ifconfig wlan0_0 | grep RUNNING | tr -s ' ' | cut -d " " -f4`
 #done
+INTERFACE_2G=`cat /etc/hostapd_2.4G.conf | grep -w interface | head -1 | cut -d '=' -f2`
+VIRTUAL_INTERFACE_2G=`cat /etc/hostapd_2.4G.conf | grep -w bss | head -1 | cut -d '=' -f2`
 
 ps -eaf | grep hostapd_2.4G | grep -v grep | awk '{print $2}' | xargs kill -9                                             
-ifconfig wlan0 down                                                                                                       
+ifconfig $INTERFACE_2G down                                                                                                       
 sleep 3                                                                                                                   
-ifconfig wlan0_0 down                                                                                                     
-sh /lib/rdk/start_hostapd.sh 
+ifconfig $VIRTUAL_INTERFACE_2G down                                                                                                  sh /lib/rdk/start_hostapd.sh 
 
 
 /lib/rdk/handle_emu_gre.sh create

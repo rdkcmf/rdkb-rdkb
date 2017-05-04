@@ -53,7 +53,7 @@ ebtables -t nat -I PREROUTING -i eth1 -p IPv4 --ip-dst $LAN_IP.1 -j dnat --to-ds
 ebtables -t nat -A PREROUTING -i eth1 -p IPv4 --ip-dst 192.168.100.1 -j dnat --to-dst $WAN_MAC --dnat-target ACCEPT
 
 ################### Getting wlan0_0 mac Address(public wifi) #############
-sh /lib/rdk/Getting_wlan0_0_mac.sh
+sh /lib/rdk/Getting_wlan0_0_mac.sh wlan0
 
 ############################ iptables-restore ########################     
 iptables-restore < /etc/iptables/rules.v4 

@@ -17,23 +17,22 @@
 # limitations under the License.
 ##########################################################################
 
-
 #!/bin/sh
 
-sleep 30
+########################### Getting Total Number of wireless Interface Count #################
+wifi=`ifconfig | grep wlan | wc -l`
 
-VIRTUAL_INTERFACE_2G=`cat /etc/hostapd_2.4G.conf | grep -w bss | head -1 | cut -d '=' -f2`
-INTERFACE_5G=`cat /etc/hostapd_xfinity_5G.conf | grep -w interface | head -1 | cut -d '=' -f2`
-
-HOTSPOT_ENABLE=`dmcli simu getv Device.DeviceInfo.X_COMCAST_COM_xfinitywifiEnable | grep value | cut -f3 -d : | cut -f2 -d" "`
-if [ "$HOTSPOT_ENABLE" = "true" ]; then
-echo "CCSP-HOTSPOT"
-/lib/rdk/handle_emu_gre.sh create
-echo "CCSP-HOTSPOT IS SUCCESSFULLY RUNNING"
+########################### Killing the private wifi for 5Ghz and Starting the Xfinity-wifi for 5Ghz #############
+if [ $wifi == 1];then
+	killall hostapd
+	ps -eaf | grep hostapd | grep -v grep | awk '{print $2}' | xargs kill -9
+	ifconfig wlan0 down
+	sleep 2
+	ifconfig wlan0 up
+	wifi_oldinterface=`cat /etc/hostapd_xfinity_5G.conf | grep interface | head -1`      
+	echo "wireless old interface $wifi_oldinterface"                                           
+	sed -i "s/$wifi_oldinterface/interface=wlan0/g" /etc/hostapd_xfinity_5G.conf            
+	/usr/sbin/hostapd -B /etc/hostapd_xfinity_5G.conf -dd
 else
-echo "wlan0_0 status is down state"
-ifconfig $VIRTUAL_INTERFACE_2G down
-ifconfig $INTERFACE_5G down
+	echo "wlan0 interface doesnot exist"
 fi
-
-

@@ -18,6 +18,9 @@
 ##########################################################################
 
 #!/bin/sh
+INTERFACE_2G=`cat /etc/hostapd_2.4G.conf | grep -w interface | head -1 | cut -d '=' -f2`
+VIRTUAL_INTERFACE_2G=`cat /etc/hostapd_2.4G.conf | grep -w bss | head -1 | cut -d '=' -f2`
+INTERFACE_5G=`cat /etc/hostapd_5G.conf | grep -w interface | head -1 | cut -d '=' -f2`
 
 Restart_Hostapd () {                                                      
                                                                           
@@ -43,10 +46,10 @@ Restart_Hostapd () {
 Restart_Hostapd_5G () {
 	
 	ps -eaf | grep hostapd_5G | grep -v grep | awk '{print $2}' | xargs kill -9                    
-        ifconfig wlan1 down                                                                              
+        ifconfig $INTERFACE_5G down                                                                              
                       
 	sleep 2                                                                                                    
-        ifconfig wlan1 up                                                                                                 
+        ifconfig $INTERFACE_5G up                                                                                                 
         hostapd -B /etc/hostapd_5G.conf                                                                                 
 }
                                                              
@@ -67,8 +70,8 @@ psmcli nosubsys set dmsb.dhcpv4.server.pool.0.SubnetMask $SUBNETMASK
 
 ############ Deleting BridgeMode Interface and Adding Wireless Interface to Bridge ########
 brctl delif brlan0 eth2
-brctl addif brlan0 wlan0
-brctl addif brlan0 wlan1
+brctl addif brlan0 $INTERFACE_2G 
+brctl addif brlan0 $INTERFACE_5G 
 
 
 ################### Getting Current Router IP Address ##########
@@ -112,9 +115,9 @@ killall dnsmasq
 
 #Restart_Hostapd                                                              
 ps -eaf | grep hostapd_2.4G | grep -v grep | awk '{print $2}' | xargs kill -9
-ifconfig wlan0 down
+ifconfig $INTERFACE_2G down
 sleep 3
-ifconfig wlan0_0 down
+ifconfig $VIRTUAL_INTERFACE_2G down
 sh /lib/rdk/start_hostapd.sh
 Restart_Hostapd_5G                                                              
                                                                              

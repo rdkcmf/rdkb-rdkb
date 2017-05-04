@@ -39,6 +39,8 @@ Restart_Hostapd () {
         ifconfig wlan0_0 up
 }
 
+INTERFACE_2G=`cat /etc/hostapd_2.4G.conf | grep -w interface | head -1 | cut -d '=' -f2`
+INTERFACE_5G=`cat /etc/hostapd_5G.conf | grep -w interface | head -1 | cut -d '=' -f2`
 ############ Adding two more IP Address to eth0 Interface ##########
 
 LAN_IP=`cat /var/dnsmasq_org.conf | grep -w dhcp-range | cut -d ',' -f2 | cut -d '.' -f1-3`
@@ -52,8 +54,8 @@ router_ip_address=`cat /var/dnsmasq_org.conf | grep -w dhcp-range | cut -d ',' -
 sed -i  "s/server.bind =$LIGHTTPD_IP/server.bind = \"$router_ip_address.1\"/g" /etc/lighttpd.conf
 
 ############## Deleting Wlan0 from Bridge and Killing udhcpc for brlan0 and eth1 #############
-brctl delif brlan0 wlan0
-brctl delif brlan0 wlan1
+brctl delif brlan0 $INTERFACE_2G
+brctl delif brlan0 $INTERFACE_5G
 ps -eaf | grep ibrlan0 | grep -v grep | awk '{print $2}' | xargs kill -9
 ps -eaf | grep ieth1 | grep -v grep | awk '{print $2}' | xargs kill -9
 
@@ -71,8 +73,8 @@ echo "\$SERVER[\"socket\"] == \"192.168.100.1:80\"  { }" >> /etc/lighttpd.conf
 ############## TURN OFF the Private Wifi for Dual Bands ########################
 #PRIVATE_SSID_OFF=`cat /etc/hostapd.conf | grep ^ssid | head -1`
 #sed -i "28 s/^/#/" /etc/hostapd.conf
-ifconfig wlan0 down
-ifconfig wlan1 down
+ifconfig $INTERFACE_2G down
+ifconfig $INTERFACE_5G down
 
 ########################## FORWARDING TRAFFIC TO eth0 Interface ##################
 WAN_MAC=`ifconfig eth0|grep HWaddr|awk '{print $5}'| tr '[a-z]' '[A-Z]'`
@@ -85,6 +87,6 @@ cp /usr/bin/setup_bridgemode.sh /usr/bin/setup.sh
 ############### Restarting Hostapd and lighttd webserver #########
 killall CcspLMLite
 #Restart_Hostapd
-brctl delif brlan0 wlan0
+brctl delif brlan0 $INTERFACE_2G
 
 killall lighttpd

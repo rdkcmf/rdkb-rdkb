@@ -19,11 +19,13 @@
 
 #!/bin/sh
 
-############################## Restoring Wifi values for Private wifi 2.4Ghz  ######################
+############################## Restoring Wifi values for Private wifi and Xfinity-wifi 2.4Ghz  ######################
 
 ############# Restore default ssid ########################################
 SSID=`cat /etc/hostapd_2.4G.conf | grep ssid | head -1 | cut -d "=" -f2`
 sed -i "28 s/ssid=$SSID/ssid=RDKB-EMU-2.4G/g" /etc/hostapd_2.4G.conf
+XFINITY_SSID=`cat /etc/hostapd_2.4G.conf | grep ssid | tail -1 | cut -d "=" -f2`
+sed -i "55 s/ssid=$XFINITY_SSID/ssid=Xfinity-Wifi-2.4G/g" /etc/hostapd_2.4G.conf
 
 ################# Restore default password ################################
 PASSWORD=`cat /etc/hostapd_2.4G.conf | grep wpa_passphrase | cut -d "=" -f2`
@@ -35,6 +37,7 @@ sed -i  "s/channel=$CHANNEL/channel=6/g" /etc/hostapd_2.4G.conf
 
 
 ########################## Reset Wifi  default values into PSM configuration files #########
+dmcli simu psmsetv eRT.com.cisco.spvtg.ccsp.Device.WiFi.Radio.SSID.1.HideSSID string 1
 dmcli simu psmsetv eRT.com.cisco.spvtg.ccsp.Device.WiFi.Radio.SSID.1.SSID string RDKB-EMU-2.4G
 dmcli simu psmsetv eRT.com.cisco.spvtg.ccsp.Device.WiFi.Radio.SSID.1.Passphrase string password
 dmcli simu psmsetv eRT.com.cisco.spvtg.ccsp.Device.WiFi.Radio.1.Channel uint 6
@@ -57,9 +60,24 @@ sed -i  "s/channel=$CHANNEL/channel=36/g" /etc/hostapd_5G.conf
 
 
 ########################## Reset Wifi  default values into PSM configuration files #########
+dmcli simu psmsetv eRT.com.cisco.spvtg.ccsp.Device.WiFi.Radio.SSID.2.HideSSID string 1
 dmcli simu psmsetv eRT.com.cisco.spvtg.ccsp.Device.WiFi.Radio.SSID.2.SSID string RDKB-EMU-5G
 dmcli simu psmsetv eRT.com.cisco.spvtg.ccsp.Device.WiFi.Radio.SSID.2.Passphrase string 5g-password
 dmcli simu psmsetv eRT.com.cisco.spvtg.ccsp.Device.WiFi.Radio.2.Channel uint 36
 
 
-sleep 8
+############################## Xfinity wifi for dual bands #####################################
+dmcli simu psmsetv eRT.com.cisco.spvtg.ccsp.Device.WiFi.Radio.SSID.5.HideSSID string 1
+dmcli simu psmsetv eRT.com.cisco.spvtg.ccsp.Device.WiFi.Radio.5.Channel uint 6
+dmcli simu psmsetv eRT.com.cisco.spvtg.ccsp.Device.WiFi.Radio.SSID.6.HideSSID string 1
+dmcli simu psmsetv eRT.com.cisco.spvtg.ccsp.Device.WiFi.Radio.SSID.5.SSID string Xfinity-Wifi-2.4G
+dmcli simu psmsetv eRT.com.cisco.spvtg.ccsp.Device.WiFi.Radio.SSID.6.SSID string Xfinity-Wifi-5G
+dmcli simu psmsetv eRT.com.cisco.spvtg.ccsp.Device.WiFi.Radio.6.Channel uint 36
+
+################################### Xfinity Wifi ############################################
+SSID=`cat /etc/hostapd_xfinity_5G.conf | grep ssid | head -1 | cut -d "=" -f2`
+sed -i "28 s/ssid=$SSID/ssid=Xfinity-Wifi-5G/g" /etc/hostapd_xfinity_5G.conf
+CHANNEL=`cat /etc/hostapd_xfinity_5G.conf | grep channel | cut -d "=" -f2`
+sed -i  "s/channel=$CHANNEL/channel=36/g" /etc/hostapd_xfinity_5G.conf
+
+sleep 10

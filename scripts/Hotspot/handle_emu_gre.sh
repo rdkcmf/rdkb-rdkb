@@ -84,6 +84,9 @@ WAN_IF=eth0
 
 BASEQUEUE=1
 
+INTERFACE_2G=`cat /etc/hostapd_2.4G.conf | grep -w bss | head -1 | cut -d '=' -f2`
+INTERFACE_5G=`cat /etc/hostapd_xfinity_5G.conf | grep -w interface | head -1 | cut -d '=' -f2`
+
 ###################### ENABLING SNOOPER LOGS ################################
 
 init_snooper_sysevents () {
@@ -107,11 +110,33 @@ create_tunnel () {
 
 	ip link set dev $GRE_IFNAME name $GRE_IFNAME_DUMMY
 	ip link add gretap0 type gretap remote `sysevent get hotspotfd-tunnelEP` local "`ifconfig -a eth0 | grep inet | grep -v inet6 | tr -s " " | cut -d ":" -f2 | cut -d " " -f1`" ttl 255 dev $WAN_IF
+
 	brctl addbr brlan1
-	ps -eaf | grep ibrlan1 | grep -v grep | awk '{print $2}' | xargs kill -9
-        brctl addif brlan1 gretap0
-        brctl addif brlan1 wlan0_0
+	brctl addbr brlan2
+
+	sleep 5
+
         ifconfig gretap0 up
+	ps -eaf | grep ibrlan1 | grep -v grep | awk '{print $2}' | xargs kill -9
+	ps -eaf | grep ibrlan2 | grep -v grep | awk '{print $2}' | xargs kill -9
+
+	vconfig add gretap0 100
+	vconfig add gretap0 101
+	ifconfig gretap0.100 up
+	ifconfig gretap0.101 up
+
+	sleep 3
+	
+		
+	ps -eaf | grep igretap0.100 | grep -v grep | awk '{print $2}' | xargs kill -9
+	ps -eaf | grep igretap0.101 | grep -v grep | awk '{print $2}' | xargs kill -9
+	
+	sleep 2
+	
+        brctl addif brlan1 $INTERFACE_2G
+	brctl addif brlan1 gretap0.100
+	brctl addif brlan2 $INTERFACE_5G
+	brctl addif brlan2 gretap0.101
 }
 
 ########################## UPDATING SYSEVENT DAEMON ############################
@@ -140,7 +165,7 @@ update_bridge_config () {
 iptables -I FORWARD -j general_forward
 iptables -I OUTPUT -j general_output
 iptables -I general_forward -o brlan1 -p udp --dport=67:68 -j NFQUEUE --queue-bypass --queue-num 1
-iptables -A general_forward -o brlan1 -p udp --dport=67:68 -j NFQUEUE --queue-bypass --queue-num 2
+iptables -A general_forward -o brlan2 -p udp --dport=67:68 -j NFQUEUE --queue-bypass --queue-num 2
 iptables -A general_output -o eth0 -p icmp --icmp-type 3 -j NFQUEUE --queue-bypass --queue-num 0
 
 }

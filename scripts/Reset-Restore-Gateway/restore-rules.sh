@@ -39,3 +39,4 @@ dmcli simu psmsetv dmsb.X_Comcast_com_ParentalControl.ManagedSites.Enable string
 dmcli simu psmsetv dmsb.X_Comcast_com_ParentalControl.ManagedServices.Enable string false
 dmcli simu psmsetv dmsb.X_Comcast_com_ParentalControl.ManagedDevices.Enable string false
 dmcli simu psmsetv dmsb.X_Comcast_com_ParentalControl.ManagedDevices.AllowAll string false
+dmcli simu psmsetv dmsb.hotspot.tunnel.1.Enable string 1
