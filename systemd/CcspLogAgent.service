@@ -1,0 +1,12 @@
+[Unit]
+Description=CcspLogAgent
+Requires=network-setup.service
+After=CcspPsm.service network-setup.service
+
+[Service]
+Type=forking
+ExecStart=/usr/bin/log_agent &
+
+[Install]
+WantedBy=multi-user.target
+
