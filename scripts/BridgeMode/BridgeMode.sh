@@ -85,7 +85,7 @@ ebtables -t nat -A PREROUTING -i eth1 -p IPv4 --ip-dst 192.168.100.1 -j dnat --t
 cp /usr/bin/setup_bridgemode.sh /usr/bin/setup.sh
 
 ############### Restarting Hostapd and lighttd webserver #########
-killall CcspLMLite
+#killall CcspLMLite
 #Restart_Hostapd
 brctl delif brlan0 $INTERFACE_2G
 

@@ -109,7 +109,7 @@ cp /usr/bin/setup_routermode.sh /usr/bin/setup.sh
 
 ################# starting The Lighttpd Webserver and Dnsmasq ##############
 #udhcpd -f /etc/udhcpd.conf &
-/usr/bin/CcspLMLite &
+#/usr/bin/CcspLMLite &
 killall dnsmasq
 /usr/bin/dnsmasq &
 

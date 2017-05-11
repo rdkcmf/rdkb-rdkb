@@ -5,6 +5,7 @@ After=network-online.target
 [Service]
 ExecStart=/bin/sh -c '/lib/rdk/syseventd.sh;'
 Type=forking
+Restart=always
 
 [Install]
 WantedBy=multi-user.target

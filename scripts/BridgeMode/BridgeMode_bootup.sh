@@ -30,5 +30,5 @@ if [ "$BRIDGEMODE_ENABLE" = "bridge-static" ]; then
 	ifconfig $INTERFACE_2G down
 	ifconfig $INTERFCAE_5G down
 	killall dnsmasq
-	killall CcspLMLite
+#	killall CcspLMLite
 fi

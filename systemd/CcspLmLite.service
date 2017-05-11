@@ -5,6 +5,7 @@ Requires=network-setup.service CcspWiFiAgent.service
 
 [Service]
 ExecStart=/usr/bin/CcspLMLite &
+Restart=always
 
 [Install]
 WantedBy=multi-user.target

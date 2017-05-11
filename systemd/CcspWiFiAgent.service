@@ -6,6 +6,7 @@ Requires=network-setup.service hostapd.service
 [Service]
 ExecStart=/bin/sh -c '/usr/bin/startwifi.sh;'
 Type=forking
+Restart=always
 
 [Install]
 WantedBy=multi-user.target

@@ -5,6 +5,7 @@ After=CcspPsm.service network-setup.service
 
 [Service]
 ExecStart=/usr/bin/CcspPandMSsp &
+Restart=always
 
 [Install]
 WantedBy=multi-user.target

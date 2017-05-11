@@ -5,6 +5,7 @@ After=CcspCr.service
 [Service]
 Type=forking
 ExecStart=/usr/bin/CcspTandDSsp &
+Restart=always
 
 [Install]
 WantedBy=multi-user.target
