@@ -20,10 +20,23 @@
 #!/bin/sh
 
 ########################### Getting Total Number of wireless Interface Count #################
-wifi=`ifconfig | grep wlan | wc -l`
+wifi=`ifconfig -a | grep wlan | wc -l`
+
+########################### Getting Total Number of Channel Count for all Interfaces #############
+
+wifi_wlan0=`iwlist wlan0 freq | grep wlan0 | tr -s ' ' | cut -d ' ' -f2`
+echo "Channel Count = $wifi_wlan0"
+
+
+wifi_wlan1=`iwlist wlan1 freq | grep wlan1 | tr -s ' ' | cut -d ' ' -f2`
+echo "Channel Count = $wifi_wlan1"
 
 ########################### Killing the private wifi for 5Ghz and Starting the Xfinity-wifi for 5Ghz #############
-if [ $wifi == 1];then
+
+
+############################### single dongle #################################################
+
+if [ $wifi == 1 ];then
 	killall hostapd
 	ps -eaf | grep hostapd | grep -v grep | awk '{print $2}' | xargs kill -9
 	ifconfig wlan0 down
@@ -33,6 +46,29 @@ if [ $wifi == 1];then
 	echo "wireless old interface $wifi_oldinterface"                                           
 	sed -i "s/$wifi_oldinterface/interface=wlan0/g" /etc/hostapd_xfinity_5G.conf            
 	/usr/sbin/hostapd -B /etc/hostapd_xfinity_5G.conf -dd
+
+#################################### Double Dongle / Virtual Interface for wlan0_0(3) ##############################################
+
+elif [ $wifi == 3 ] || [ $wifi == 2 ] ; then
+	ps -eaf | grep hostapd_5G | grep -v grep | awk '{print $2}' | xargs kill -9
+	if [ $wifi_wlan0 == 36 ] ; then
+		ifconfig wlan0 down
+		sleep 2
+		ifconfig wlan0 up
+		wifi_oldinterface=`cat /etc/hostapd_xfinity_5G.conf | grep interface | head -1`
+	        echo "wireless old interface $wifi_oldinterface"
+        	sed -i "s/$wifi_oldinterface/interface=wlan0/g" /etc/hostapd_xfinity_5G.conf
+        	/usr/sbin/hostapd -B /etc/hostapd_xfinity_5G.conf -dd
+	else
+		ifconfig wlan1 down                                                
+                sleep 2                
+                ifconfig wlan1 up  
+                wifi_oldinterface=`cat /etc/hostapd_xfinity_5G.conf | grep interface | head -1`
+                echo "wireless old interface $wifi_oldinterface"                               
+                sed -i "s/$wifi_oldinterface/interface=wlan1/g" /etc/hostapd_xfinity_5G.conf   
+                /usr/sbin/hostapd -B /etc/hostapd_xfinity_5G.conf -dd 	
+	fi	
+
 else
-	echo "wlan0 interface doesnot exist"
+	echo "wireless interface doesnot exist"
 fi
