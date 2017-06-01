@@ -1,0 +1,13 @@
+[Unit]
+Description=WebpaBroadBand
+After=CcspPsm.service network-setup.service parodus.service CcspPandM.service CcspWiFiAgent.service CcspLmLite.service
+Requires=parodus.service CcspPandM.service CcspPsm.service CcspWiFiAgent.service CcspLmLite.service
+
+[Service]
+ExecStart=/usr/bin/webpa_pc &
+Type=forking
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
+

@@ -1,0 +1,12 @@
+[Unit]
+Description=Parodus
+After=CcspPsm.service CcspPandM.service CcspWiFiAgent.service CcspLmLite.service
+Requires=network-setup.service CcspPandM.service CcspWiFiAgent.service CcspLmLite.service CcspPsm.service
+
+[Service]
+ExecStart=/bin/sh -c '/lib/rdk/parodus_start.sh;'
+Type=forking
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
