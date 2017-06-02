@@ -122,3 +122,29 @@ iptables-restore < /etc/iptables/rules.v4
 ###############################CcspTR069pa#########################
 touch /var/tmp/tr069paready         
 cp /version.txt /fss/gw/version.txt
+
+############################## Webpa Component ################################
+
+brctl addbr br0
+ifconfig br0 up
+sleep 2
+ifconfig br0 192.168.101.3 up
+
+WEBPA_FILE="/etc/webpa_cfg.json"
+if [ -f "$WEBPA_FILE" ]; then
+        echo "webpa_cfg.json file exists"
+        cp -fr /etc/webpa_cfg.json /nvram/webpa_cfg.json
+        sed -i 's/erouter0/eth0/g'  /nvram/webpa_cfg.json
+fi
+
+DEVICE_PROPERTIES_FILE="/etc/device.properties"
+if [ -f "$DEVICE_PROPERTIES_FILE" ]; then
+        echo "device.properties file exists"
+        WEBPA_COUNT=`cat /etc/device.properties | grep ATOM_INTERFACE | wc -l`
+        if [ $WEBPA_COUNT == 0 ]; then
+        echo "ATOM_INTERFACE="br0"" >> /etc/device.properties
+        echo "ATOM_INTERFACE_IP=192.168.101.3" >> /etc/device.properties
+        echo "PARODUS_URL=tcp://127.0.0.1:6666" >> /etc/device.properties
+        fi
+fi
+
