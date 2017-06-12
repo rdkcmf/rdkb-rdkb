@@ -60,6 +60,7 @@ ps -eaf | grep ibrlan0 | grep -v grep | awk '{print $2}' | xargs kill -9
 ps -eaf | grep ieth1 | grep -v grep | awk '{print $2}' | xargs kill -9
 
 ################# Killing dnsmasq and adding WAN interface to Bridge ##############
+ps -eaf | grep ieth2 | grep -v grep | awk '{print $2}' | xargs kill -9
 ifconfig eth2 0.0.0.0
 brctl addif brlan0 eth2
 ifconfig brlan0 0.0.0.0

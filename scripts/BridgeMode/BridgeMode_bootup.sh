@@ -31,4 +31,9 @@ if [ "$BRIDGEMODE_ENABLE" = "bridge-static" ]; then
 	ifconfig $INTERFCAE_5G down
 	killall dnsmasq
 #	killall CcspLMLite
+else
+	eth2_count=`ifconfig eth2 | grep eth2 | wc -l`
+        if [ $eth2_count == 1 ]; then
+                /sbin/udhcpc -ieth2 &
+        fi
 fi

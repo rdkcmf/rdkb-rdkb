@@ -70,6 +70,7 @@ psmcli nosubsys set dmsb.dhcpv4.server.pool.0.SubnetMask $SUBNETMASK
 
 ############ Deleting BridgeMode Interface and Adding Wireless Interface to Bridge ########
 brctl delif brlan0 eth2
+
 brctl addif brlan0 $INTERFACE_2G 
 brctl addif brlan0 $INTERFACE_5G 
 
@@ -129,5 +130,9 @@ Restart_Hostapd_5G
 #Hostapd_Restart                                                                                                               
 #HOTSPOT_RESTART=`ifconfig wlan0 | grep RUNNING | tr -s ' ' | cut -d " " -f4`                                                
 #done    
+
+###################### To support WAN0 Interface for DMZ #######################
+sleep 2
+/sbin/udhcpc -ieth2 &
 
 killall lighttpd
