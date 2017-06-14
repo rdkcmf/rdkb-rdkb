@@ -11,7 +11,6 @@
   <Record name="dmsb.l2net.1.Port.4.Mode" type="astr">Tagging</Record>
   <Record name="dmsb.cisco.gre.1.seqnumenabled" type="astr" />
   <Record name="dmsb.dhcpv4.server.pool.2.MinAddress" type="astr">172.16.12.100</Record>
-  <Record name="dmsb.l3net.0.MaxMTU" type="astr" contentType="uint">0</Record>
   <Record name="Provision.COSALibrary.Dhcpv4.Pool.1.Option.NextInstanceNumber" type="astr" contentType="uint">1</Record>
   <Record name="dmsb.l3net.4.V6Prefix" type="astr" />
   <Record name="dmsb.l3net.5.V6PreferredLifetime" type="astr">9999-12-31T23:59:59Z</Record>
@@ -74,7 +73,6 @@
   <Record name="dmsb.l2net.2.Port.2.Mode" type="astr">Tagging</Record>
   <Record name="dmsb.l2net.1.Port.4.InstanceNum" type="astr">4</Record>
   <Record name="dmsb.l2net.5.Port.3.InstanceNum" type="astr">3</Record>
-  <Record name="dmsb.l3net.0.ArpCacheTimeout" type="astr" contentType="uint">0</Record>
   <Record name="dmsb.hotspot.gre.1.Enable" type="astr">0</Record>
   <Record name="eRT.com.cisco.spvtg.ccsp.tr181pa.Device.WiFi.AccessPoint.8.WmmNoAck" type="astr">1</Record>
   <Record name="dmsb.l2net.2.Port.4.Alias" type="astr">Port4</Record>
@@ -90,11 +88,13 @@
   <Record name="eRT.com.cisco.spvtg.ccsp.tr181pa.Device.WiFi.AccessPoint.8.BssMaxNumSta" type="astr">30</Record>
   <Record name="dmsb.l2net.1.Port.8.LinkType" type="astr">Ethernet</Record>
   <Record name="dmsb.l2net.5.Port.2.Pvid" type="astr">107</Record>
-  <Record name="dmsb.l3net.4.V4SubnetMask" type="astr">255.255.255.0</Record>
+  <Record name="dmsb.l3net.4.V4SubnetMask" type="astr">10.0.0.255</Record>
   <Record name="eRT.com.cisco.spvtg.ccsp.tr181pa.Device.WiFi.FactoryReset" type="astr">0</Record>
   <Record name="dmsb.hotspot.tunnel.1.interface.1.AssociatedBridges" type="astr">Device.Bridging.Bridge.3.</Record>
   <Record name="eRT.com.cisco.spvtg.ccsp.tr181pa.Device.WiFi.AccessPoint.16.WmmNoAck" type="astr">1</Record>
   <Record name="dmsb.l3net.1.EthLink" type="astr" contentType="uint">3</Record>
+  <Record name="dmsb.l3net.2.EthLink" type="astr" contentType="uint">0</Record>
+  <Record name="dmsb.l3net.3.EthLink" type="astr" contentType="uint">0</Record>
   <Record name="eRT.com.cisco.spvtg.ccsp.tr181pa.Device.WiFi.AccessPoint.11.UAPSDEnable" type="astr">1</Record>
   <Record name="eRT.com.cisco.spvtg.ccsp.tr181pa.Device.WiFi.ValidateSSIDName" type="astr">1</Record>
   <Record name="dmsb.l3net.5.EthLink" type="astr" contentType="uint">2</Record>
@@ -200,7 +200,6 @@
   <Record name="dmsb.l2net.1.Port.2.Name" type="astr">sw_1</Record>
   <Record name="dmsb.l2net.2.Members.Gre" type="astr" />
   <Record name="dmsb.l2net.2.Port.6.Name" type="astr">sw_1</Record>
-  <Record name="dmsb.l3net.0.AutoIPEnable" type="astr" contentType="bool">0</Record>
   <Record name="dmsb.l2net.5.Port.2.Mode" type="astr">Tagging</Record>
   <Record name="eRT.com.cisco.spvtg.ccsp.tr181pa.Device.WiFi.Radio.1.FactoryResetSSID" type="astr">0</Record>
   <Record name="dmsb.l2net.1.Port.7.InstanceNum" type="astr">7</Record>
@@ -276,7 +275,7 @@
   <Record name="dmsb.l2net.1.Port.5.Enable" type="astr">TRUE</Record>
   <Record name="dmsb.l2net.5.Members.Eth" type="astr" />
   <Record name="dmsb.l2net.2.Port.5.Alias" type="astr">Port5</Record>
-  <Record name="dmsb.l2net.3.Name" type="astr">brlan2</Record>
+  <Record name="dmsb.l2net.3.Name" type="astr">eth0</Record>
   <Record name="dmsb.l2net.2.Port.4.LinkName" type="astr">ath3</Record>
   <Record name="dmsb.hotspot.gre.1.KeepAlive.Count" type="astr">3</Record>
   <Record name="dmsb.l2net.1.Port.2.AllowDelete" type="astr">FALSE</Record>
@@ -343,12 +342,13 @@
   <Record name="eRT.com.cisco.spvtg.ccsp.Device.WiFi.Radio.SSID.3.HideSSID" type="astr">0</Record>
   <Record name="dmsb.hotspot.gre.1.ReconnPrimary" type="astr">43200</Record>
   <Record name="dmsb.l3net.6.MaxMTU" type="astr" contentType="uint">1500</Record>
+  <Record name="dmsb.l3net.2.MaxMTU" type="astr" contentType="uint">1500</Record>
+  <Record name="dmsb.l3net.3.MaxMTU" type="astr" contentType="uint">65536</Record>
   <Record name="dmsb.l2net.5.PriorityTag" type="astr">FALSE</Record>
   <Record name="eRT.com.cisco.spvtg.ccsp.Device.WiFi.Radio.SSID.3.Vlan" type="astr">101</Record>
   <Record name="eRT.com.cisco.spvtg.ccsp.Device.WiFi.Radio.SSID.1.SSID" type="astr">RDKB-EMU-2.4G</Record>
   <Record name="dmsb.l3net.4.UPnPIGDEnabled" type="astr" contentType="bool">1</Record>
   <Record name="dmsb.l2net.1.Port.6.LinkName" type="astr">ath0</Record>
-  <Record name="dmsb.l3net.0.Enable" type="astr" contentType="bool">0</Record>
   <Record name="dmsb.l2net.3.Port.2.Pvid" type="astr">102</Record>
   <Record name="dmsb.l2net.2.Vlan.1.Alias" type="astr">CPE-VLAN1</Record>
   <Record name="dmsb.l2net.2.Members.WiFi" type="astr">ath2 ath3</Record>
@@ -358,7 +358,7 @@
   <Record name="dmsb.l2net.3.Standard" type="astr">BRG_STD_8021Q_2005</Record>
   <Record name="eRT.com.cisco.spvtg.ccsp.tr181pa.Device.WiFi.AccessPoint.12.BssMaxNumSta" type="astr">30</Record>
   <Record name="dmsb.l2net.1.Port.5.PriorityTag" type="astr">FALSE</Record>
-  <Record name="dmsb.l3net.6.EthLink" type="astr" contentType="uint">4</Record>
+  <Record name="dmsb.l3net.6.EthLink" type="astr" contentType="uint">0</Record>
   <Record name="dmsb.l2net.1.Port.3.Name" type="astr">sw_2</Record>
   <Record name="dmsb.hotspot.tunnel.1.interface.2.Enable" type="astr">0</Record>
   <Record name="dmsb.l2net.2.Port.7.Name" type="astr">sw_2</Record>
@@ -442,7 +442,7 @@
   <Record name="dmsb.l2net.2.Port.5.Pvid" type="astr">101</Record>
   <Record name="dmsb.l3net.5.Enable" type="astr" contentType="bool">true</Record>
   <Record name="dmsb.hotspot.tunnel.1.UseCheckSum" type="astr" />
-  <Record name="dmsb.EthLink.3.l2net" type="astr" contentType="uint">0</Record>
+  <Record name="dmsb.EthLink.3.l2net" type="astr" contentType="uint">3</Record>
   <Record name="dmsb.l2net.2.Port.1.PriorityTag" type="astr">FALSE</Record>
   <Record name="eRT.com.cisco.spvtg.ccsp.Device.WiFi.Radio.SSID.13.Vlan" type="astr">106</Record>
   <Record name="eRT.com.cisco.spvtg.ccsp.Device.WiFi.Radio.SSID.11.SSID" type="astr">ARRIS-7608-6</Record>
@@ -459,7 +459,6 @@
   <Record name="eRT.com.cisco.spvtg.ccsp.tr181pa.Device.WiFi.AccessPoint.14.HotSpot" type="astr">0</Record>
   <Record name="eRT.com.cisco.spvtg.ccsp.tr181pa.Device.WiFi.Radio.2.DTIMInterval" type="astr">1</Record>
   <Record name="dmsb.l2net.2.Port.6.Alias" type="astr">Port6</Record>
-  <Record name="dmsb.l3net.0.UPnPIGDEnabled" type="astr" contentType="bool">0</Record>
   <Record name="eRT.com.cisco.spvtg.ccsp.tr181pa.Device.WiFi.Radio.1.GreenField" type="astr">0</Record>
   <Record name="eRT.com.cisco.spvtg.ccsp.Device.WiFi.Radio.SSID.7.HideSSID" type="astr">0</Record>
   <Record name="dmsb.l2net.3.Type" type="astr">Bridge</Record>
@@ -502,7 +501,7 @@
   <Record name="dmsb.l2net.3.Port.3.Pvid" type="astr">102</Record>
   <Record name="eRT.com.cisco.spvtg.ccsp.tr181pa.Device.WiFi.AccessPoint.9.BssMaxNumSta" type="astr">30</Record>
   <Record name="eRT.com.cisco.spvtg.ccsp.Device.WiFi.Radio.SSID.2.WLANEnable" type="astr">1</Record>
-  <Record name="dmsb.l3net.5.V4SubnetMask" type="astr">255.255.255.0</Record>
+  <Record name="dmsb.l3net.5.V4SubnetMask" type="astr">0.0.0.0</Record>
   <Record name="eRT.com.cisco.spvtg.ccsp.tr181pa.Device.WiFi.AccessPoint.15.MacFilterMode" type="astr">0</Record>
   <Record name="dmsb.l3net.4.IPv4Enable" type="astr">true</Record>
   <Record name="eRT.cwmp.initialContact" type="astr">0</Record>
@@ -558,6 +557,8 @@
   <Record name="dmsb.l2net.1.Port.5.Upstream" type="astr">FALSE</Record>
   <Record name="Provision.COSALibrary.Dhcpv4.Client.1.Alias" type="astr">Client1</Record>
   <Record name="dmsb.l3net.1.Enable" type="astr" contentType="bool">true</Record>
+  <Record name="dmsb.l3net.2.Enable" type="astr" contentType="bool">true</Record>
+  <Record name="dmsb.l3net.3.Enable" type="astr" contentType="bool">true</Record>
   <Record name="dmsb.l2net.4.Port.1.Pvid" type="astr">103</Record>
   <Record name="Provision.COSALibrary.Dhcpv4.Client.1.ReqOption.NextInstanceNumber" type="astr" contentType="uint">2</Record>
   <Record name="dmsb.l2net.5.Vlan.1.Alias" type="astr">CPE-VLAN1</Record>
@@ -565,7 +566,7 @@
   <Record name="eRT.com.cisco.spvtg.ccsp.Device.WiFi.Radio.SSID.15.RadioIndex" type="astr">1</Record>
   <Record name="eRT.com.cisco.spvtg.ccsp.tr181pa.Device.WiFi.Radio.1.TransmitPower" type="astr">100</Record>
   <Record name="eRT.com.cisco.spvtg.ccsp.Device.WiFi.Radio.SSID.5.Passphrase" type="astr">design9451eager</Record>
-  <Record name="dmsb.l3net.5.Alias" type="astr">Home Security</Record>
+  <Record name="dmsb.l3net.5.Alias" type="astr">Xfinity_Wifi_2G</Record>
   <Record name="eRT.com.cisco.spvtg.ccsp.Device.WiFi.Radio.SSID.13.HideSSID" type="astr">0</Record>
   <Record name="eRT.com.cisco.spvtg.ccsp.Device.WiFi.Radio.SSID.8.WLANEnable" type="astr">0</Record>
   <Record name="dmsb.l3net.6.IPv6Enable" type="astr">false</Record>
@@ -631,7 +632,6 @@
   <Record name="eRT.com.cisco.spvtg.ccsp.tr181pa.Device.WiFi.AccessPoint.13.MacFilterMode" type="astr">0</Record>
   <Record name="eRT.com.cisco.spvtg.ccsp.Device.WiFi.Radio.SSID.3.Security" type="astr">32</Record>
   <Record name="dmsb.l2net.2.Port.7.Upstream" type="astr">FALSE</Record>
-  <Record name="dmsb.l3net.0.Alias" type="astr">Interface8</Record>
   <Record name="eRT.com.cisco.spvtg.ccsp.Device.WiFi.Radio.SSID.13.Encryption" type="astr">3</Record>
   <Record name="dmsb.hotspot.gre.1.GRENetworkInterface" type="astr">Device.X_CISCO_COM_GRE.Interface.1.</Record>
   <Record name="dmsb.EthLink.4.l2net" type="astr" contentType="uint">5</Record>
@@ -656,10 +656,10 @@
   <Record name="dmsb.l2net.1.Port.3.AllowDelete" type="astr">FALSE</Record>
   <Record name="eRT.com.cisco.spvtg.ccsp.tr181pa.Device.WiFi.AccessPoint.3.ApIsolationEnable" type="astr">0</Record>
   <Record name="dmsb.l2net.5.Port.2.AllowDelete" type="astr">FALSE</Record>
-  <Record name="dmsb.l3net.5.V4Addr" type="astr">172.16.12.1</Record>
+  <Record name="dmsb.l3net.5.V4Addr" type="astr">0.0.0.0</Record>
   <Record name="dmsb.l2net.2.Alias" type="astr">Home Security network</Record>
   <Record name="eRT.com.cisco.spvtg.ccsp.tr181pa.Device.WiFi.AccessPoint.1.HotSpot" type="astr">0</Record>
-  <Record name="dmsb.l3net.6.Enable" type="astr" contentType="bool">false</Record>
+  <Record name="dmsb.l3net.6.Enable" type="astr" contentType="bool">true</Record>
   <Record name="eRT.com.cisco.spvtg.ccsp.tr181pa.Device.WiFi.Radio.1.UserControl" type="astr">1</Record>
   <Record name="dmsb.hotspot.tunnel.1.interface.2.AssociatedBridges" type="astr">Device.Bridging.Bridge.4.</Record>
   <Record name="eRT.com.cisco.spvtg.ccsp.tr181pa.Device.WiFi.AccessPoint.5.HotSpot" type="astr">1</Record>
@@ -746,7 +746,7 @@
   <Record name="dmsb.l2net.2.Port.7.AllowDelete" type="astr">TRUE</Record>
   <Record name="dmsb.l2net.2.Port.7.Pvid" type="astr">101</Record>
   <Record name="eRT.com.cisco.spvtg.ccsp.Device.WiFi.Radio.SSID.7.Security" type="astr">32</Record>
-  <Record name="dmsb.l3net.6.Alias" type="astr">Guest Network</Record>
+  <Record name="dmsb.l3net.6.Alias" type="astr">Xfinity_Wifi_5G</Record>
   <Record name="eRT.com.cisco.spvtg.ccsp.Device.WiFi.Radio.SSID.1.WPSEnable" type="astr">2</Record>
   <Record name="dmsb.l2net.2.Port.4.Management" type="astr">FALSE</Record>
   <Record name="eRT.com.cisco.spvtg.ccsp.tr181pa.Device.WiFi.AccessPoint.1.WmmEnable" type="astr">1</Record>
@@ -789,7 +789,9 @@
   <Record name="dmsb.l3net.5.UPnPIGDEnabled" type="astr" contentType="bool">1</Record>
   <Record name="eRT.com.cisco.spvtg.ccsp.tr181pa.Device.WiFi.AccessPoint.14.WmmEnable" type="astr">1</Record>
   <Record name="dmsb.l2net.1.Port.7.LinkType" type="astr">WiFi</Record>
-  <Record name="dmsb.l3net.1.Alias" type="astr">Wan IP</Record>
+  <Record name="dmsb.l3net.1.Alias" type="astr">Interface_eth0</Record>
+  <Record name="dmsb.l3net.2.Alias" type="astr">Interface_eth2</Record>
+  <Record name="dmsb.l3net.3.Alias" type="astr">Interface_lo</Record>
   <Record name="dmsb.l2net.5.Members.Link" type="astr">l2sd0-t</Record>
   <Record name="dmsb.l3net.1.V6ValidLifetime" type="astr" contentType="datetime">9999-12-31T23:59:59Z</Record>
   <Record name="eRT.com.cisco.spvtg.ccsp.tr181pa.Device.WiFi.AccessPoint.15.WmmNoAck" type="astr">1</Record>
@@ -822,7 +824,6 @@
   <Record name="dmsb.l3net.1.IPv6Enable" type="astr">false</Record>
   <Record name="eRT.com.cisco.spvtg.ccsp.Device.WiFi.Radio.SSID.7.WMMEnable" type="astr">1</Record>
   <Record name="dmsb.l3net.5.IPv4Enable" type="astr">true</Record>
-  <Record name="dmsb.l3net.0.EthLink" type="astr" contentType="uint">0</Record>
   <Record name="dmsb.l2net.1.Port.1.PriorityTag" type="astr">FALSE</Record>
   <Record name="dmsb.l2net.1.Port.3.Management" type="astr">FALSE</Record>
   <Record name="eRT.com.cisco.spvtg.ccsp.tr181pa.Device.WiFi.AccessPoint.4.MacFilterList" type="astr">0:</Record>
@@ -844,9 +845,13 @@
   <Record name="eRT.com.cisco.spvtg.ccsp.tr181pa.Device.WiFi.AccessPoint.5.BssMaxNumSta" type="astr">5</Record>
   <Record name="dmsb.l2net.2.Port.2.AllowDelete" type="astr">FALSE</Record>
   <Record name="dmsb.l3net.1.V4SubnetMask" type="astr">255.255.255.0</Record>
+  <Record name="dmsb.l3net.2.V4SubnetMask" type="astr">255.255.255.0</Record>
+  <Record name="dmsb.l3net.3.V4SubnetMask" type="astr">255.0.0.0</Record>
   <Record name="dmsb.l2net.4.Port.3.Pvid" type="astr">103</Record>
   <Record name="eRT.com.cisco.spvtg.ccsp.Device.WiFi.Radio.SSID.13.RadioIndex" type="astr">1</Record>
-  <Record name="dmsb.l3net.6.V4Addr" type="astr">192.168.0.1</Record>
+  <Record name="dmsb.l3net.6.V4Addr" type="astr">0.0.0.0</Record>
+  <Record name="dmsb.l3net.2.V4Addr" type="astr">0.0.0.0</Record>
+  <Record name="dmsb.l3net.3.V4Addr" type="astr">127.0.0.1</Record>
   <Record name="eRT.com.cisco.spvtg.ccsp.Device.WiFi.Radio.SSID.3.Passphrase" type="astr">55599797542B42B8B2</Record>
   <Record name="dmsb.EthLink.2.PriorityTagging" type="astr" contentType="bool">false</Record>
   <Record name="eRT.com.cisco.spvtg.ccsp.Device.WiFi.Radio.SSID.6.WLANEnable" type="astr">0</Record>
@@ -880,7 +885,7 @@
   <Record name="dmsb.l2net.2.Port.8.Upstream" type="astr">FALSE</Record>
   <Record name="dmsb.l3net.5.V6Addr" type="astr" />
   <Record name="dmsb.l2net.1.Port.9.AllowDelete" type="astr">FALSE</Record>
-  <Record name="dmsb.l3net.6.V4SubnetMask" type="astr">255.255.255.0</Record>
+  <Record name="dmsb.l3net.6.V4SubnetMask" type="astr">0.0.0.0</Record>
   <Record name="dmsb.l3net.4.ULAEnable" type="astr">false</Record>
   <Record name="eRT.com.cisco.spvtg.ccsp.tr181pa.Device.WiFi.AccessPoint.2.HotSpot" type="astr">0</Record>
   <Record name="eRT.com.cisco.spvtg.ccsp.Device.WiFi.Radio.SSID.16.RadioIndex" type="astr">0</Record>
