@@ -1,11 +1,11 @@
 [Unit]
 Description=Sysevent-daemon
 After=network-online.target
+OnFailure=systemd-LastRebootReason.service
 
 [Service]
 ExecStart=/bin/sh -c '/lib/rdk/syseventd.sh;'
 Type=forking
-Restart=always
 
 [Install]
 WantedBy=multi-user.target

@@ -73,6 +73,8 @@ runDNSPingTest()
                         if [ `getCorrectiveActionState` = "true" ]                                                
                         then                                                                                      
                                 echo "RDKB_SELFHEAL : Taking corrective action"                                   
+				dmcli simu setv Device.DeviceInfo.X_RDKCENTRAL-COM_LastRebootReason string DNS_Resolving_Failed
+				sleep 5
                                 resetNeeded "" PING                                                               
                         fi                                                                                        
          fi         
@@ -127,12 +129,16 @@ runPingTest()
                 fi            
 		if [ "$ping4_failed" == 1 ]
 		then
+			dmcli simu setv Device.DeviceInfo.X_RDKCENTRAL-COM_LastRebootReason string IPv4_Pinging_failed
+			sleep 5
 			resetNeeded "" PING
 		fi
 }
+
+
 SELFHEAL_ENABLE=`syscfg get selfheal_enable`
 
-while [ $SELFHEAL_ENABLE = "true" ]    
+while [ $SELFHEAL_ENABLE = "true" ]
 do                                        
                              
         if [ "$calcRandom" -eq 1 ]

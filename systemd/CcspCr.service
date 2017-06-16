@@ -1,7 +1,7 @@
 [Unit]
 Description=CcspCrSsp
 After=dbus.service
-OnFailure=systemd-reboot.service
+OnFailure=systemd-LastRebootReason.service
 
 [Service]
 ExecStart=/usr/bin/CcspCrSsp &

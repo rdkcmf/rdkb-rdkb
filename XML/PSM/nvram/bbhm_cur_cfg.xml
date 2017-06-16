@@ -1032,4 +1032,5 @@
   <Record name="eRT.com.cisco.spvtg.ccsp.webpa.X_COMCAST-COM_CID" type="astr">CID</Record>
   <Record name="eRT.com.cisco.spvtg.ccsp.webpa.X_COMCAST-COM_CMC" type="astr">32</Record>
   <Record name="eRT.com.cisco.spvtg.ccsp.webpa.X_COMCAST-COM_SyncProtocolVersion" type="astr">ProtocolVersion</Record>
+  <Record name="dmsb.DeviceInfo.X_RDKCENTRAL-COM_LastRebootReason" type="astr">unknown</Record>
 </Provision>

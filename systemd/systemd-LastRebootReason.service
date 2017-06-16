@@ -1,0 +1,6 @@
+[Unit]
+Description=LastRebootReason
+
+[Service]
+Type=forking
+ExecStart=/bin/sh -c '/lib/rdk/LastRebootReason.sh;'
