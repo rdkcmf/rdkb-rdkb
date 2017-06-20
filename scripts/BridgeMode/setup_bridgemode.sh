@@ -90,3 +90,8 @@ if [ -f "$DEVICE_PROPERTIES_FILE" ]; then
         fi
 fi
 
+################################ Driver Module Support for TP-Link ###############################
+
+if [ -f /lib/modules/3.14.4-yocto-standard/kernel/drivers/net/wireless/rtl8192eu/8192eu.ko ];then
+        insmod /lib/modules/3.14.4-yocto-standard/kernel/drivers/net/wireless/rtl8192eu/8192eu.ko
+fi    
