@@ -5227,7 +5227,7 @@
 
           <name>Type</name>
 
-          <type>string: DHCP(1),IPCP(2),Static(3)</type>
+          <type>string: DHCP(1),DHCPv4(2),DHCPv6(3),RouterAdvertisement(4),IPCP(5),Static(6)</type>
 
           <syntax>uint32/mapped</syntax>
 
