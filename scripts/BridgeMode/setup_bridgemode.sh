@@ -93,5 +93,8 @@ fi
 ################################ Driver Module Support for TP-Link ###############################
 
 if [ -f /lib/modules/3.14.4-yocto-standard/kernel/drivers/net/wireless/rtl8192eu/8192eu.ko ];then
-        insmod /lib/modules/3.14.4-yocto-standard/kernel/drivers/net/wireless/rtl8192eu/8192eu.ko
+	Driver_Count=`lsmod | grep 8192eu | wc -l`
+		if [ $Driver_Count == 0 ]; then
+		        insmod /lib/modules/3.14.4-yocto-standard/kernel/drivers/net/wireless/rtl8192eu/8192eu.ko
+		fi
 fi    
