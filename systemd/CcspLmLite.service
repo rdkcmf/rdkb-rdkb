@@ -4,6 +4,7 @@ After=CcspPandM.service CcspWiFiAgent.service
 Requires=network-setup.service CcspWiFiAgent.service
 
 [Service]
+Type=forking
 ExecStart=/usr/bin/CcspLMLite &
 Restart=always
 
