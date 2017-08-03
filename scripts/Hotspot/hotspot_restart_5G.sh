@@ -25,10 +25,16 @@ INTERFACE_5G=`cat /etc/hostapd_5G.conf | grep -w interface | head -1 | cut -d '=
 Restart_Hostapd () {
 
 	ps -eaf | grep hostapd_xfinity_5G | grep -v grep | awk '{print $2}' | xargs kill -9
+	rmmod rtl8812au
+	sleep 1
+	insmod /lib/modules/3.14.4-yocto-standard/kernel/drivers/net/wireless/rtl8812au/rtl8812au.ko
+	sleep 2 
         ifconfig $INTERFACE_5G down
         sleep 3
         ifconfig $INTERFACE_5G up
         hostapd -B /etc/hostapd_xfinity_5G.conf 
+	sleep 2
+        hostapd -B /etc/hostapd_5G.conf 
 
 }
 

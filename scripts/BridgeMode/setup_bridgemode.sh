@@ -98,3 +98,11 @@ if [ -f /lib/modules/3.14.4-yocto-standard/kernel/drivers/net/wireless/rtl8192eu
 		        insmod /lib/modules/3.14.4-yocto-standard/kernel/drivers/net/wireless/rtl8192eu/8192eu.ko
 		fi
 fi    
+
+if [ -f /lib/modules/3.14.4-yocto-standard/kernel/drivers/net/wireless/rtl8812au/rtl8812au.ko ];then
+        Driver_Count=`lsmod | grep rtl8812au | wc -l`
+                if [ $Driver_Count == 0 ]; then
+                        insmod /lib/modules/3.14.4-yocto-standard/kernel/drivers/net/wireless/rtl8812au/rtl8812au.ko
+                fi
+fi 
+

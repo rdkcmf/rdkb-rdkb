@@ -33,7 +33,10 @@ echo "Channel Count = $wifi_wlan1"
 
 ########################### Killing the private wifi for 5Ghz and Starting the Xfinity-wifi for 5Ghz #############
 
-
+rmmod rtl8812au
+sleep 1
+insmod /lib/modules/3.14.4-yocto-standard/kernel/drivers/net/wireless/rtl8812au/rtl8812au.ko
+sleep 2
 ############################### single dongle #################################################
 
 if [ $wifi == 1 ];then

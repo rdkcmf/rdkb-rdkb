@@ -47,10 +47,13 @@ Restart_Hostapd_5G () {
 	
 	ps -eaf | grep hostapd_5G | grep -v grep | awk '{print $2}' | xargs kill -9                    
         ifconfig $INTERFACE_5G down                                                                              
-                      
+	rmmod rtl8812au
+	sleep 1
+	insmod /lib/modules/3.14.4-yocto-standard/kernel/drivers/net/wireless/rtl8812au/rtl8812au.ko                      
 	sleep 2                                                                                                    
         ifconfig $INTERFACE_5G up                                                                                                 
         hostapd -B /etc/hostapd_5G.conf                                                                                 
+        hostapd -B /etc/hostapd_xfinity_5G.conf                                                                                 
 }
                                                              
 Hostapd_Restart () {                                                         
