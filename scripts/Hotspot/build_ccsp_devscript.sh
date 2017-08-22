@@ -119,7 +119,26 @@ case $2 in
 		make CFLAGS=" -O2 -pipe -g -feliminate-unused-debug-types -DFEATURE_SUPPORT_RDKLOG      -I/usr/include/dbus-1.0     -I/usr/lib/dbus-1.0/include     -I/usr/include/ccsp     -fPIC       -D_COSA_HAL_ -U_COSA_SIM_ -fno-exceptions -ffunction-sections -fdata-sections -fomit-frame-pointer -fno-strict-aliasing            -DCONFIG_SYSTEM_MOCA -D_ANSC_LINUX -D_ANSC_USER -D_ANSC_LITTLE_ENDIAN_ -D_CCSP_CWMP_TCP_CONNREQ_HANDLER            -D_DSLH_STUN_ -D_NO_PKI_KB5_SUPPORT -D_BBHM_SSE_FILE_IO -D_ANSC_USE_OPENSSL_ -DENABLE_SA_KEY            -D_ANSC_AES_USED_ -D_COSA_INTEL_USG_ATOM_ -D_COSA_FOR_COMCAST_ -D_NO_EXECINFO_H_ -DFEATURE_SUPPORT_SYSLOG            -DBUILD_WEB -D_NO_ANSC_ZLIB_ -D_DEBUG -U_ANSC_IPV6_COMPATIBLE_ -D_ENABLE_BAND_STEERING_ -DUSE_NOTIFY_COMPONENT -D_BEACONRATE_SUPPORT            -DDUAL_CORE_XB3 -DINCLUDE_BREAKPAD -DUTC_ENABLE_ATOM -D_ATM_SUPPORT -D_COSA_SIM_    " LDFLAGS="-Wl,-O1 -Wl,--hash-style=gnu -Wl,--as-needed -lrdkloggers       -ldbus-1      -ldl"
 		make install
 	;;
-
+	"parodus")
+		mkdir build_parodus
+		cd build_parodus
+		git clone git://github.com/Comcast/parodus.git parodus
+		cd parodus
+		cp -fr CMakeLists.txt src tests ../
+		cd ..
+		sed -i 's/Werror/Wno-error/' CMakeLists.txt
+		cd parodus
+		cmake ..
+		make
+	;;
+	"ccsp-webpa-adapter")
+		git clone https://gerrit.teamccp.com/rdk/rdkb/components/opensource/ccsp/CcspWebpaAdapter/generic ccsp-webpa-adapter
+		cd ccsp-webpa-adapter
+		autoreconf -i
+		./configure --build=i686-linux --host=i586-rdk-linux --target=i586-rdk-linux --prefix=/build-qemux86broadband/source/webpa/image/usr --exec_prefix=/build-qemux86broadband/source/webpa/image/usr --bindir=/build-qemux86broadband/source/webpa/image/usr/bin --sbindir=/build-qemux86broadband/source/webpa/image/usr/sbin --libexecdir=/build-qemux86broadband/source/webpa/image/usr/lib/ccsp-common-library --datadir=/build-qemux86broadband/source/webpa/image/usr/share --sysconfdir=/build-qemux86broadband/source/webpa/image/etc --sharedstatedir=/build-qemux86broadband/source/webpa/image/com --localstatedir=/build-qemux86broadband/source/webpa/image/var --libdir=/build-qemux86broadband/source/webpa/image/usr/lib --includedir=/build-qemux86broadband/source/webpa/image/usr/include --oldincludedir=/build-qemux86broadband/source/webpa/image/usr/include --infodir=/build-qemux86broadband/source/webpa/image/usr/share/info --mandir=/build-qemux86broadband/source/webpa/image/usr/share/man --disable-silent-rules --disable-dependency-tracking --with-ccsp-arch=pc
+		make CFLAGS=" -pipe -g -feliminate-unused-debug-types -Os -pipe  -DFEATURE_SUPPORT_RDKLOG  -I=/usr/include/breakpad   -D_COSA_HAL_ -U_COSA_SIM_ -fno-exceptions -ffunction-sections -fdata-sections -fomit-frame-pointer -fno-strict-aliasing            -DCONFIG_SYSTEM_MOCA -D_ANSC_LINUX -D_ANSC_USER -D_ANSC_LITTLE_ENDIAN_ -D_CCSP_CWMP_TCP_CONNREQ_HANDLER            -D_DSLH_STUN_ -D_NO_PKI_KB5_SUPPORT -D_BBHM_SSE_FILE_IO -D_ANSC_USE_OPENSSL_ -DENABLE_SA_KEY            -D_ANSC_AES_USED_ -D_COSA_INTEL_USG_ATOM_ -D_COSA_FOR_COMCAST_ -D_NO_EXECINFO_H_ -DFEATURE_SUPPORT_SYSLOG            -DBUILD_WEB -D_NO_ANSC_ZLIB_ -D_DEBUG -U_ANSC_IPV6_COMPATIBLE_ -D_ENABLE_BAND_STEERING_ -DUSE_NOTIFY_COMPONENT -D_BEACONRATE_SUPPORT            -DDUAL_CORE_XB3 -DINCLUDE_BREAKPAD -DUTC_ENABLE_ATOM -D_ATM_SUPPORT -D_COSA_SIM_            -D_YOCTO_       -DPLATFORM_RDKB         -I/usr/include/ccsp  -I/usr/include/wdmp-c        -I/usr/include/libparodus" LDFLAGS="-Wl,-O1 -Wl,--hash-style=gnu -Wl,--as-needed -lrdkloggers -lcjson -lmsgpackc -ltrower-base64 -lnanomsg -lcimplog -lwrp-c -lwdmp-c -llibparodus -lm -lpthread -lstdc++ -lbreakpadwrapper -ldl"
+		make install
+	;;
 esac 	
 }
 echo "====================================================="
@@ -136,6 +155,8 @@ echo "             9.ccsp-tr069-pa                         "
 echo "             10.hal                                  "
 echo "             11.utopia                               "
 echo "             12.ccsp-webui                           "
+echo "             13.parodus                              "
+echo "             14.ccsp-webap-adapter                   "
 echo "====================================================="
 
 echo "====================================================="
