@@ -22,6 +22,7 @@ After=dbus.service
 OnFailure=systemd-LastRebootReason.service
 
 [Service]
+ExecStartPre=-/bin/cp /ccsp_msg.cfg /tmp/ccsp_msg.cfg
 ExecStart=/usr/bin/CcspCrSsp &
 Type=forking
 
