@@ -18,8 +18,8 @@
 ##########################################################################
 [Unit]
 Description=CcspLMLite
-After=CcspPandM.service CcspWiFiAgent.service
-Requires=network-setup.service CcspWiFiAgent.service
+After=CcspPandM.service CcspWiFiAgent.service CcspHotSpot.service
+Requires=network-setup.service CcspWiFiAgent.service CcspHotSpot.service
 
 [Service]
 Type=forking
