@@ -1550,7 +1550,7 @@
 
           </parameter>
 
-                  <parameter>
+                <!--  <parameter>
 
             <name>SNMPEnable</name>
 
@@ -1572,7 +1572,7 @@
 
             <writable>true</writable>
                                                                                               
-		</parameter> 
+		</parameter> -->
  
           <parameter>
 
