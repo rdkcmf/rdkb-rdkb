@@ -20,7 +20,7 @@
 Description=unit file for snmp_subagent application
 
 [Service]
-Type=forking
+#Type=forking
 ExecStart=/usr/bin/snmp_subagent &
 Restart=always
 
