@@ -1,8 +1,9 @@
+#!/bin/sh
 ##########################################################################
 # If not stated otherwise in this file or this component's Licenses.txt
 # file the following copyright and licenses apply:
 #
-# Copyright 2017 RDK Management
+# Copyright 2018 RDK Management
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -16,16 +17,19 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 ##########################################################################
-[Unit]
-Description=CcspTr069PaSsp
-After=CcspCr.service CcspPandM.service CcspWiFiAgent.service
 
-[Service]
-ExecStartPre=/bin/sh -c '/lib/rdk/tr69_cert.sh;'
-ExecStart=/usr/bin/CcspTr069PaSsp &
-Type=forking
-Restart=always
+echo "*** HTTPS root certificate for TR69 ***"
 
-[Install]
-WantedBy=multi-user.target
+if [ ! -f /etc/cacert.pem ]; then
+        echo "HTTPS root certificate for TR69 is missing..."
+
+else
+        echo "Copying HTTPS root certificate for TR69"
+        if [ -f /nvram/cacert.pem ]; then
+                rm -f /nvram/cacert.pem
+        fi
+        cp -f /etc/cacert.pem /nvram/
+fi
+
+
 
