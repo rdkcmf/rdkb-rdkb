@@ -51,7 +51,7 @@ Restart_Hostapd_5G () {
         ifconfig $INTERFACE_5G down                                                                              
 	rmmod rtl8812au
 	sleep 1
-	insmod /lib/modules/3.14.4-yocto-standard/rtl8812au.ko                      
+	modprobe rtl8812au
 	sleep 2                                                                                                    
         ifconfig $INTERFACE_5G up                                                                                                 
         hostapd -B /etc/hostapd_5G.conf                                                                                 
@@ -94,8 +94,8 @@ ip addr del 192.168.100.1/24 dev eth0
 ################## TURN ON the Private SSID for Dual Bands ###############
 #PRIVATE_SSID_ON=`cat /etc/hostapd.conf | grep ^#ssid`
 #sed -i "/$PRIVATE_SSID_ON/ s/^#*//" /etc/hostapd.conf
-sed -i "28 s/^#*//" /etc/hostapd_2.4G.conf
-sed -i "28 s/^#*//" /etc/hostapd_5G.conf
+sed -i "29 s/^#*//" /etc/hostapd_2.4G.conf
+sed -i "29 s/^#*//" /etc/hostapd_5G.conf
 
 ############# Setting Default WebUI access IP in Lighttpd Webserver ########
 LIGHTTPD_IP=`cat /etc/lighttpd.conf | grep server.bind | grep -v ^# | cut -d '=' -f2`
@@ -106,6 +106,8 @@ sed -i '$d' /etc/lighttpd.conf
 
 ############### Remove ebtables rules ##################
 WAN_MAC=`ifconfig eth0|grep HWaddr|awk '{print $5}'| tr '[a-z]' '[A-Z]'`
+echo "$WAN_MAC"
+sleep 3
 ebtables -t nat -D PREROUTING -i eth1 -p IPv4 --ip-dst $router_ip_address.1 -j dnat --to-dst $WAN_MAC --dnat-target ACCEPT
 ebtables -t nat -D PREROUTING -i eth1 -p IPv4 --ip-dst 192.168.100.1 -j dnat --to-dst $WAN_MAC --dnat-target ACCEPT
 

@@ -29,7 +29,7 @@ Restart_Hostapd () {
 	ps -eaf | grep hostapd_5G | grep -v grep | awk '{print $2}' | xargs kill -9
 	rmmod rtl8812au
 	sleep 1
-	insmod /lib/modules/3.14.4-yocto-standard/rtl8812au.ko
+	modprobe rtl8812au
 	sleep 2 
         ifconfig $INTERFACE_5G down
         sleep 3
