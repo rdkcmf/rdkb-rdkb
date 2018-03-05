@@ -23,9 +23,9 @@
 
 ############# Restore default ssid ########################################
 SSID=`cat /etc/hostapd_2.4G.conf | grep ssid | head -1 | cut -d "=" -f2`
-sed -i "28 s/ssid=$SSID/ssid=RDKB-EMU-2.4G/g" /etc/hostapd_2.4G.conf
+sed -i "29 s/ssid=$SSID/ssid=RDKB-EMU-2.4G/g" /etc/hostapd_2.4G.conf
 XFINITY_SSID=`cat /etc/hostapd_2.4G.conf | grep ssid | tail -1 | cut -d "=" -f2`
-sed -i "55 s/ssid=$XFINITY_SSID/ssid=Xfinity-Wifi-2.4G/g" /etc/hostapd_2.4G.conf
+sed -i "59 s/ssid=$XFINITY_SSID/ssid=Xfinity-Wifi-2.4G/g" /etc/hostapd_2.4G.conf
 
 ################# Restore default password ################################
 PASSWORD=`cat /etc/hostapd_2.4G.conf | grep wpa_passphrase | cut -d "=" -f2`
@@ -48,7 +48,7 @@ sleep 5
 
 ############# Restore default ssid ########################################
 SSID=`cat /etc/hostapd_5G.conf | grep ssid | head -1 | cut -d "=" -f2`
-sed -i "28 s/ssid=$SSID/ssid=RDKB-EMU-5G/g" /etc/hostapd_5G.conf
+sed -i "29 s/ssid=$SSID/ssid=RDKB-EMU-5G/g" /etc/hostapd_5G.conf
 
 ################# Restore default password ################################
 PASSWORD=`cat /etc/hostapd_5G.conf | grep wpa_passphrase | cut -d "=" -f2`
