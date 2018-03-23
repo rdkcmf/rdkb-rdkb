@@ -2,7 +2,7 @@
 # If not stated otherwise in this file or this component's Licenses.txt
 # file the following copyright and licenses apply:
 #
-# Copyright 2017 RDK Management
+# Copyright 2018 RDK Management
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -18,10 +18,11 @@
 ##########################################################################
 [Unit]
 Description=WebpaBroadBand
-After=CcspPsm.service network-setup.service parodus.service CcspPandM.service CcspWiFiAgent.service CcspLmLite.service
-Requires=parodus.service CcspPandM.service CcspPsm.service CcspWiFiAgent.service CcspLmLite.service
+After=PsmSsp.service parodus.service CcspPandMSsp.service ccspwifiagent.service CcspLMLite.service
+Requires=parodus.service 
 
 [Service]
+ExecStartPre=/bin/sh -c '/lib/rdk/webpa_pre_setup.sh;'
 ExecStart=/usr/bin/webpa &
 Type=forking
 Restart=always
