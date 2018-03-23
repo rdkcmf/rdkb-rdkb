@@ -3,7 +3,7 @@
 # If not stated otherwise in this file or this component's Licenses.txt
 # file the following copyright and licenses apply:
 #
-# Copyright 2017 RDK Management
+# Copyright 2018 RDK Management
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -18,9 +18,8 @@
 # limitations under the License.
 ##########################################################################
 
-
 BINPATH="/usr/bin"
-GET="dmcli simu getv"
+GET="dmcli eRT getv"
 SET=""
 
 echo "Check parodusCmd.cmd in /tmp"
@@ -52,23 +51,21 @@ else
   SerialNumber=`$GET Device.DeviceInfo.SerialNumber | grep value| tr -s ' ' |cut -f5 -d" "`
   Manufacturer=`$GET Device.DeviceInfo.Manufacturer | grep value| tr -s ' ' |cut -f5 -d" "`
   HW_MAC=`$GET Device.X_CISCO_COM_CableModem.MACAddress | grep value| tr -s ' ' |cut -f5 -d" "`
-  HW_MAC=`ifconfig eth0 | grep HWaddr | tr -s ' ' | cut -d ' ' -f5`
+  HW_MAC=`ifconfig erouter0 | grep HWaddr | tr -s ' ' | cut -d ' ' -f5`
   LastRebootReason=`$GET Device.DeviceInfo.X_RDKCENTRAL-COM_LastRebootReason | grep value| tr -s ' ' |cut -f5 -d" "`
   FirmwareName=`$GET Device.DeviceInfo.X_CISCO_COM_FirmwareName | grep value| tr -s ' ' |cut -f5 -d" "`
   BootTime=`$GET Device.DeviceInfo.X_RDKCENTRAL-COM_BootTime | grep value| tr -s ' ' |cut -f5 -d" "`
   MaxPingWaitTimeInSec=180;
-  DeviceNetworkInterface=eth0;
-  ServerURL=https://communitywebpaserverurl:8080;
+  DeviceNetworkInterface="erouter0";
+  ServerURL=communitywebpaserverurl;
   BackOffMax=9;
-  PARODUS_URL=tcp://127.0.0.1:6666;                                                                                 
-  SSL_CERT_PATH=/etc/ssl/certs/ca-certificates.crt;
-  FirmwareName=`cat /version.txt | grep imagename | cut -d ':' -f2`;
+  PARODUS_URL=tcp://127.0.0.1:6666;
+  SSL_CERT_PATH=/etc/ssl/certs/ca-certificates.crt
 
   echo "Framing command for parodus"
 
 #  command="/usr/bin/parodus --hw-model=$ModelName --hw-serial-number=$SerialNumber --hw-manufacturer=$Manufacturer --hw-mac=$HW_MAC --hw-last-reboot-reason=$LastRebootReason --fw-name=$FirmwareName --boot-time=$BootTime --webpa-ping-time=$MaxPingWaitTimeInSec --webpa-inteface-used=$DeviceNetworkInterface --webpa-url=$ServerURL --webpa-backoff-max=$BackOffMax"
-
-  command="/usr/bin/parodus --hw-model=$ModelName --hw-serial-number=$SerialNumber --hw-manufacturer=$Manufacturer --hw-last-reboot-reason=$LastRebootReason --fw-name=$FirmwareName --boot-time=$BootTime --hw-mac=$HW_MAC --webpa-ping-time=180 --webpa-interface-used=eth0 --webpa-url=$ServerURL --webpa-backoff-max=$BackOffMax  --parodus-local-url=$PARODUS_URL --partner-id=comcast --ssl-cert-path=$SSL_CERT_PATH --force-ipv4 "
+   command="/usr/bin/parodus --hw-model=$ModelName --hw-serial-number=$SerialNumber --hw-manufacturer=$Manufacturer --hw-last-reboot-reason=$LastRebootReason --fw-name=$FirmwareName --boot-time=$BootTime --hw-mac=$HW_MAC --webpa-ping-time=180 --webpa-interface-used=erouter0 --webpa-url=$ServerURL --webpa-backoff-max=$BackOffMax  --parodus-local-url=$PARODUS_URL --partner-id=comcast --ssl-cert-path=$SSL_CERT_PATH --force-ipv4 " 
 
   echo $command >/tmp/parodusCmd.cmd
 
