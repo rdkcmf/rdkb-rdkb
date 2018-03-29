@@ -501,6 +501,16 @@
           <writable>true</writable>
 
         </parameter>
+
+	<parameter>
+
+          <name>X_RDKCENTRAL-COM_BootTime</name>
+
+          <type>unsignedInt</type>         
+
+          <syntax>uint32</syntax>
+
+        </parameter> 
 	
 	 <parameter>
 
