@@ -36,13 +36,13 @@ if [ "$BRIDGEMODE_ENABLE" = "bridge-static" ]; then
                 dmcli simu psmsetv dmsb.X_CISCO_COM_DeviceControl.LanManagementEntry.1.LanMode string router
 
                 ###### Turn On the Private Wifi for Dual Bands #####
-                sed -i "29 s/^#*//" /etc/hostapd_2.4G.conf
-		DEFAULT_SSID=`cat /etc/hostapd_2.4G.conf | grep ssid | head -1`
-		sed -i -e "s/$DEFAULT_SSID/ssid=RDKB-EMU-2.4G/g" /etc/hostapd_2.4G.conf		
+                sed -i "29 s/^#*//" /nvram/hostapd0.conf
+		DEFAULT_SSID=`cat /nvram/hostapd0.conf | grep ssid | head -1`
+		sed -i -e "s/$DEFAULT_SSID/ssid=RDKB-EMU-2.4G/g" /nvram/hostapd0.conf		
 		
-                sed -i "29 s/^#*//" /etc/hostapd_5G.conf
-		DEFAULT_SSID=`cat /etc/hostapd_5G.conf | grep ssid | head -1`
-		sed -i -e "s/$DEFAULT_SSID/ssid=RDKB-EMU-5G/g" /etc/hostapd_5G.conf		
+                sed -i "29 s/^#*//" /nvram/hostapd1.conf
+		DEFAULT_SSID=`cat /nvram/hostapd1.conf | grep ssid | head -1`
+		sed -i -e "s/$DEFAULT_SSID/ssid=RDKB-EMU-5G/g" /nvram/hostapd1.conf		
 
 		###### Restoring dnsmasq and lighttpd Webserver #####
                 cp -fr /var/dnsmasq_orginal.conf /etc/dnsmasq.conf

@@ -23,24 +23,24 @@
 Restart_Hostapd () {
 
         ifconfig mon.wlan0 down
-        ps -eaf | grep hostapd_2.4G | grep -v grep | awk '{print $2}' | xargs kill -9
+        ps -eaf | grep hostapd0 | grep -v grep | awk '{print $2}' | xargs kill -9
         ifconfig wlan0 down
         ifconfig wlan0_0 down
 
         ifconfig wlan0 up
-        hostapd -B /etc/hostapd_2.4G.conf
+        hostapd -B /nvram/hostapd0.conf
         ifconfig mon.wlan0 up
         ifconfig wlan0_0 up
 
-        ps -eaf | grep hostapd_2.4G | grep -v grep | awk '{print $2}' | xargs kill -9
+        ps -eaf | grep hostapd0 | grep -v grep | awk '{print $2}' | xargs kill -9
         ifconfig wlan0 up
-        hostapd -B /etc/hostapd_2.4G.conf
+        hostapd -B /nvram/hostapd0.conf
         ifconfig mon.wlan0 up
         ifconfig wlan0_0 up
 }
 
-INTERFACE_2G=`cat /etc/hostapd_2.4G.conf | grep -w interface | head -1 | cut -d '=' -f2`
-INTERFACE_5G=`cat /etc/hostapd_5G.conf | grep -w interface | head -1 | cut -d '=' -f2`
+INTERFACE_2G=`cat /nvram/hostapd0.conf | grep -w interface | head -1 | cut -d '=' -f2`
+INTERFACE_5G=`cat /nvram/hostapd1.conf | grep -w interface | head -1 | cut -d '=' -f2`
 ############ Adding two more IP Address to eth0 Interface ##########
 
 LAN_IP=`cat /var/dnsmasq_org.conf | grep -w dhcp-range | cut -d ',' -f2 | cut -d '.' -f1-3`
@@ -68,7 +68,7 @@ killall dnsmasq
 
 
 ######### Adding default WebUI Access LAN IP in lighttpd Webserver #############
-echo "\$SERVER[\"socket\"] == \"192.168.100.1:80\"  { }" >> /etc/lighttpd.conf
+echo "\$SERVER[\"socket\"] == \"192.168.100.1:8080\"  { }" >> /etc/lighttpd.conf
 
 
 ############## TURN OFF the Private Wifi for Dual Bands ########################

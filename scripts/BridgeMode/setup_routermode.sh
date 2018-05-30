@@ -77,7 +77,7 @@ echo "wlan0count=$wifi"
 sleep 5
 wifi=`ifconfig | grep wlan | wc -l`
 
-INTERFACE_2G=`cat /etc/hostapd_2.4G.conf | grep -w interface | head -1 | cut -d '=' -f2`
+INTERFACE_2G=`cat /usr/ccsp/wifi/hostapd0.conf | grep -w interface | head -1 | cut -d '=' -f2`
 if [ $wifi != 0 ];then
 echo "wlan0 interface exists"
 ######### Add Wireless interface to Bridge interface ######################
@@ -114,7 +114,7 @@ fi
 #sh /lib/rdk/webgui.sh
 
 ################### Getting wlan0_0 mac Address(public wifi) #############
-sh /lib/rdk/Getting_wlan0_0_mac.sh wlan0
+#sh /lib/rdk/Getting_wlan0_0_mac.sh wlan0
 
 ############################ iptables-restore ########################     
 iptables-restore < /etc/iptables/rules.v4

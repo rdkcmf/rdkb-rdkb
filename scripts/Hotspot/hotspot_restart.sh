@@ -25,27 +25,27 @@ Restart_Hostapd () {
 
 
         ifconfig mon.wlan0 down
-        ps -eaf | grep hostapd_2.4G | grep -v grep | awk '{print $2}' | xargs kill -9
+        ps -eaf | grep hostapd0 | grep -v grep | awk '{print $2}' | xargs kill -9
         ifconfig wlan0 down
         ifconfig wlan0_0 down
 
         ifconfig wlan0 up
-        hostapd -B /etc/hostapd_2.4G.conf
+        hostapd -B /nvram/hostapd0.conf
         ifconfig mon.wlan0 up
         ifconfig wlan0_0 up
 
-        ps -eaf | grep hostapd_2.4G | grep -v grep | awk '{print $2}' | xargs kill -9
+        ps -eaf | grep hostapd0 | grep -v grep | awk '{print $2}' | xargs kill -9
         ifconfig wlan0 up
-        hostapd -B /etc/hostapd_2.4G.conf
+        hostapd -B /nvram/hostapd0.conf
         ifconfig mon.wlan0 up
         ifconfig wlan0_0 up
 }
 
 Hostapd_Restart () {
 	
-        ps -eaf | grep hostapd_2.4G | grep -v grep | awk '{print $2}' | xargs kill -9
+        ps -eaf | grep hostapd0 | grep -v grep | awk '{print $2}' | xargs kill -9
         ifconfig wlan0 up
-        hostapd -B /etc/hostapd_2.4G.conf
+        hostapd -B /nvram/hostapd0.conf
         ifconfig mon.wlan0 up
         ifconfig wlan0_0 up
 
@@ -59,22 +59,21 @@ echo "CCSP-HOTSPOT-RESTART"
 
 ################# Checking the Hostapd Status Again(due to wlan0_0 getting failure status) #########################
 
-#HOTSPOT_RESTART=`ifconfig wlan0_0 | grep RUNNING | tr -s ' ' | cut -d " " -f4`
-#while [ "$HOTSPOT_RESTART" != "RUNNING" ]
-#do
-#Hostapd_Restart
-#HOTSPOT_RESTART=`ifconfig wlan0_0 | grep RUNNING | tr -s ' ' | cut -d " " -f4`
-#done
-INTERFACE_2G=`cat /etc/hostapd_2.4G.conf | grep -w interface | head -1 | cut -d '=' -f2`
-VIRTUAL_INTERFACE_2G=`cat /etc/hostapd_2.4G.conf | grep -w bss | head -1 | cut -d '=' -f2`
-
-ps -eaf | grep hostapd_2.4G | grep -v grep | awk '{print $2}' | xargs kill -9                                             
-ifconfig $INTERFACE_2G down                                                                                                       
-sleep 3                                                                                                                   
-ifconfig $VIRTUAL_INTERFACE_2G down                                                                                                  sh /lib/rdk/start_hostapd.sh 
+PUBLIC_INTERFACE_2G=`cat /nvram/hostapd4.conf | grep -w interface | head -1 | cut -d '=' -f2`
+PUBLIC_INTERFACE_5G=`cat /nvram/hostapd5.conf | grep -w interface | head -1 | cut -d '=' -f2`
+VIRTUAL_INTERFACE_2G=`cat /nvram/hostapd0.conf | grep -w bss | head -1 | cut -d '=' -f2`
+DONGLE_INDENTIFICATION=`cat /nvram/hostapd0.conf | grep bss= | cut -c1`
 
 
 /lib/rdk/handle_emu_gre.sh create
 echo "CCSP-HOTSPOT IS SUCCESSFULLY RUNNING"
+else
+if [ "$DONGLE_INDENTIFICATION" == "#" ] ; then
+	ifconfig $VIRTUAL_INTERFACE_2G down
+	ifconfig $PUBLIC_INTERFACE_5G down
+else
+	ifconfig $PUBLIC_INTERFACE_2G down
+	ifconfig $PUBLIC_INTERFACE_5G down
+fi
 fi
 

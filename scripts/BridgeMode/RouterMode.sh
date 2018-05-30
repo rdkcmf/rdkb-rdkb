@@ -18,51 +18,46 @@
 # limitations under the License.
 ##########################################################################
 
-INTERFACE_2G=`cat /etc/hostapd_2.4G.conf | grep -w interface | head -1 | cut -d '=' -f2`
-VIRTUAL_INTERFACE_2G=`cat /etc/hostapd_2.4G.conf | grep -w bss | head -1 | cut -d '=' -f2`
-INTERFACE_5G=`cat /etc/hostapd_5G.conf | grep -w interface | head -1 | cut -d '=' -f2`
+INTERFACE_2G=`cat /nvram/hostapd0.conf | grep -w interface | head -1 | cut -d '=' -f2`
+VIRTUAL_INTERFACE_2G=`cat /nvram/hostapd0.conf | grep -w bss | head -1 | cut -d '=' -f2`
+INTERFACE_5G=`cat /nvram/hostapd1.conf | grep -w interface | head -1 | cut -d '=' -f2`
 
 Restart_Hostapd () {                                                      
                                                                           
                                                                           
         ifconfig mon.wlan0 down                                           
-        ps -eaf | grep hostapd_2.4G | grep -v grep | awk '{print $2}' | xargs kill -9
+        ps -eaf | grep hostapd0 | grep -v grep | awk '{print $2}' | xargs kill -9
         ifconfig wlan0 down                                                  
         ifconfig wlan0_0 down                                             
                                                                           
         ifconfig wlan0 up                                                 
-        hostapd -B /etc/hostapd_2.4G.conf                                      
+        hostapd -B /nvram/hostapd0.conf                                      
         ifconfig mon.wlan0 up                                             
         ifconfig wlan0_0 up                                                  
                                                                              
-        ps -eaf | grep hostapd_2.4G | grep -v grep | awk '{print $2}' | xargs kill -9
+        ps -eaf | grep hostapd0 | grep -v grep | awk '{print $2}' | xargs kill -9
         ifconfig wlan0 up                                                    
-        hostapd -B /etc/hostapd_2.4G.conf                                         
+        hostapd -B /nvram/hostapd0.conf                                         
         ifconfig mon.wlan0 up                                                
         ifconfig wlan0_0 up                                                  
 }                                                                            
 
                                                                              
 Restart_Hostapd_5G () {
-	
-	ps -eaf | grep hostapd_5G | grep -v grep | awk '{print $2}' | xargs kill -9                    
-	sleep 2
-	ps -eaf | grep hostapd_xfinity_5G | grep -v grep | awk '{print $2}' | xargs kill -9                    
-        ifconfig $INTERFACE_5G down                                                                              
 	rmmod rtl8812au
 	sleep 1
 	modprobe rtl8812au
-	sleep 2                                                                                                    
-        ifconfig $INTERFACE_5G up                                                                                                 
-        hostapd -B /etc/hostapd_5G.conf                                                                                 
-        hostapd -B /etc/hostapd_xfinity_5G.conf                                                                                 
+	sleep 1                                                                                                    
+        hostapd -B /nvram/hostapd1.conf                                                                                 
+	sleep 1
+        hostapd -B /nvram/hostapd5.conf                                                                                 
 }
                                                              
 Hostapd_Restart () {                                                         
                                                                              
-        ps -eaf | grep hostapd_2.4G | grep -v grep | awk '{print $2}' | xargs kill -9
+        ps -eaf | grep hostapd0 | grep -v grep | awk '{print $2}' | xargs kill -9
         ifconfig wlan0 up                                                    
-        hostapd -B /etc/hostapd_2.4G.conf                                         
+        hostapd -B /nvram/hostapd0.conf                                         
         ifconfig mon.wlan0 up                                                
         ifconfig wlan0_0 up                                                  
                                                                              
@@ -94,8 +89,8 @@ ip addr del 192.168.100.1/24 dev eth0
 ################## TURN ON the Private SSID for Dual Bands ###############
 #PRIVATE_SSID_ON=`cat /etc/hostapd.conf | grep ^#ssid`
 #sed -i "/$PRIVATE_SSID_ON/ s/^#*//" /etc/hostapd.conf
-sed -i "29 s/^#*//" /etc/hostapd_2.4G.conf
-sed -i "29 s/^#*//" /etc/hostapd_5G.conf
+sed -i "29 s/^#*//" /nvram/hostapd0.conf
+sed -i "29 s/^#*//" /nvram/hostapd1.conf
 
 ############# Setting Default WebUI access IP in Lighttpd Webserver ########
 LIGHTTPD_IP=`cat /etc/lighttpd.conf | grep server.bind | grep -v ^# | cut -d '=' -f2`
@@ -107,7 +102,7 @@ sed -i '$d' /etc/lighttpd.conf
 ############### Remove ebtables rules ##################
 WAN_MAC=`ifconfig eth0|grep HWaddr|awk '{print $5}'| tr '[a-z]' '[A-Z]'`
 echo "$WAN_MAC"
-sleep 3
+sleep 1
 ebtables -t nat -D PREROUTING -i eth1 -p IPv4 --ip-dst $router_ip_address.1 -j dnat --to-dst $WAN_MAC --dnat-target ACCEPT
 ebtables -t nat -D PREROUTING -i eth1 -p IPv4 --ip-dst 192.168.100.1 -j dnat --to-dst $WAN_MAC --dnat-target ACCEPT
 
@@ -122,12 +117,23 @@ killall dnsmasq
 /usr/bin/dnsmasq &
 
 #Restart_Hostapd                                                              
-ps -eaf | grep hostapd_2.4G | grep -v grep | awk '{print $2}' | xargs kill -9
+ps -eaf | grep hostapd0 | grep -v grep | awk '{print $2}' | xargs kill -9
+killall hostapd
 ifconfig $INTERFACE_2G down
-sleep 3
+sleep 1
 ifconfig $VIRTUAL_INTERFACE_2G down
 sh /lib/rdk/start_hostapd.sh
+DONGLE_IDENTIFIACTION=`cat /nvram/hostapd0.conf | grep bss= | cut -c1`
+if [ "$DONGLE_IDENTIFIACTION" == "#" ] ; then
+echo "tp-link"
+else
+echo "tenda"
 Restart_Hostapd_5G                                                              
+fi
+
+echo "1" > /tmp/Get2gssidEnable.txt
+echo "1" > /tmp/Get5gssidEnable.txt
+
                                                                              
 ################# Checking the Hostapd Status Again(due to wlan0 getting failure status) #########################
                                                                                                                               
@@ -139,7 +145,7 @@ Restart_Hostapd_5G
 #done    
 
 ###################### To support WAN0 Interface for DMZ #######################
-sleep 2
+sleep 1
 /sbin/udhcpc -ieth2 &
 
 killall lighttpd

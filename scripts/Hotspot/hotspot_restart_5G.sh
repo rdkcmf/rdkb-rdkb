@@ -20,13 +20,13 @@
 
 
 
-INTERFACE_5G=`cat /etc/hostapd_5G.conf | grep -w interface | head -1 | cut -d '=' -f2`
+INTERFACE_5G=`cat /nvram/hostapd1.conf | grep -w interface | head -1 | cut -d '=' -f2`
 
 Restart_Hostapd () {
 
-	ps -eaf | grep hostapd_xfinity_5G | grep -v grep | awk '{print $2}' | xargs kill -9
+	ps -eaf | grep hostapd5 | grep -v grep | awk '{print $2}' | xargs kill -9
 	sleep 2
-	ps -eaf | grep hostapd_5G | grep -v grep | awk '{print $2}' | xargs kill -9
+	ps -eaf | grep hostapd1 | grep -v grep | awk '{print $2}' | xargs kill -9
 	rmmod rtl8812au
 	sleep 1
 	modprobe rtl8812au
@@ -34,9 +34,9 @@ Restart_Hostapd () {
         ifconfig $INTERFACE_5G down
         sleep 3
         ifconfig $INTERFACE_5G up
-        hostapd -B /etc/hostapd_xfinity_5G.conf 
+        hostapd -B /nvram/hostapd5.conf
 	sleep 2
-        hostapd -B /etc/hostapd_5G.conf 
+        hostapd -B /nvram/hostapd1.conf 
 
 }
 
@@ -44,11 +44,22 @@ HOTSPOT_ENABLE=`dmcli simu getv Device.DeviceInfo.X_COMCAST_COM_xfinitywifiEnabl
 
 echo "HOTSPOT_ENABLE_5G = $HOTSPOT_ENABLE"
 
+PUBLIC_INTERFACE_2G=`cat /nvram/hostapd4.conf | grep -w interface | head -1 | cut -d '=' -f2`
+PUBLIC_INTERFACE_5G=`cat /nvram/hostapd5.conf | grep -w interface | head -1 | cut -d '=' -f2`
+VIRTUAL_INTERFACE_2G=`cat /nvram/hostapd0.conf | grep -w bss | head -1 | cut -d '=' -f2`
+DONGLE_INDENTIFICATION=`cat /nvram/hostapd0.conf | grep bss= | cut -c1`
 
 if [ "$HOTSPOT_ENABLE" = "true" ]; then
-echo "CCSP-HOTSPOT-RESTART"
-Restart_Hostapd
+
 /lib/rdk/handle_emu_gre.sh create
 echo "CCSP-HOTSPOT IS SUCCESSFULLY RUNNING"
+else
+if [ "$DONGLE_INDENTIFICATION" == "#" ] ; then                         
+        ifconfig $VIRTUAL_INTERFACE_2G down                                                                                   
+        ifconfig $PUBLIC_INTERFACE_5G down
+else                                                                                         
+        ifconfig $PUBLIC_INTERFACE_2G down                                                   
+        ifconfig $PUBLIC_INTERFACE_5G down                                              
+fi         
 fi
 

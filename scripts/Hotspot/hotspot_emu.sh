@@ -22,8 +22,10 @@
 
 sleep 30
 
-VIRTUAL_INTERFACE_2G=`cat /etc/hostapd_2.4G.conf | grep -w bss | head -1 | cut -d '=' -f2`
-INTERFACE_5G=`cat /etc/hostapd_xfinity_5G.conf | grep -w interface | head -1 | cut -d '=' -f2`
+DONGLE_INDENTIFICATION=`cat /nvram/hostapd0.conf | grep bss= | cut -c1`
+VIRTUAL_INTERFACE_2G=`cat /nvram/hostapd0.conf | grep -w bss | head -1 | cut -d '=' -f2`
+INTERFACE_5G=`cat /nvram/hostapd5.conf | grep -w interface | head -1 | cut -d '=' -f2`
+INTERFACE_2G=`cat /nvram/hostapd4.conf | grep -w interface | head -1 | cut -d '=' -f2`
 
 HOTSPOT_ENABLE=`dmcli simu getv Device.DeviceInfo.X_COMCAST_COM_xfinitywifiEnable | grep value | cut -f3 -d : | cut -f2 -d" "`
 if [ "$HOTSPOT_ENABLE" = "true" ]; then
@@ -32,7 +34,11 @@ echo "CCSP-HOTSPOT"
 echo "CCSP-HOTSPOT IS SUCCESSFULLY RUNNING"
 else
 echo "wlan0_0 status is down state"
+if [ "$DONGLE_INDENTIFICATION" == "#" ] ; then
+ifconfig $INTERFACE_2G down
+else
 ifconfig $VIRTUAL_INTERFACE_2G down
+fi
 ifconfig $INTERFACE_5G down
 fi
 

@@ -84,8 +84,15 @@ WAN_IF=eth0
 
 BASEQUEUE=1
 
-INTERFACE_2G=`cat /etc/hostapd_2.4G.conf | grep -w bss | head -1 | cut -d '=' -f2`
-INTERFACE_5G=`cat /etc/hostapd_xfinity_5G.conf | grep -w interface | head -1 | cut -d '=' -f2`
+DONGLE_INDENTIFICATION=`cat /nvram/hostapd0.conf | grep bss= | cut -c1`
+if [ "$DONGLE_INDENTIFICATION" == "#" ] ; then
+echo "TP-link"
+INTERFACE_2G=`cat /nvram/hostapd4.conf | grep -w interface | head -1 | cut -d '=' -f2`
+else
+echo "tenda"
+INTERFACE_2G=`cat /nvram/hostapd0.conf | grep -w bss | head -1 | cut -d '=' -f2`
+fi
+INTERFACE_5G=`cat /nvram/hostapd5.conf | grep -w interface | head -1 | cut -d '=' -f2`
 
 ###################### ENABLING SNOOPER LOGS ################################
 

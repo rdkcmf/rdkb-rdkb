@@ -58,7 +58,7 @@ else
   BootTime=`$GET Device.DeviceInfo.X_RDKCENTRAL-COM_BootTime | grep value| tr -s ' ' |cut -f5 -d" "`
   MaxPingWaitTimeInSec=180;
   DeviceNetworkInterface=eth0;
-  ServerURL=https://communitywebpaserverurl:8080;
+  ServerURL=http://54.166.121.187:8080;
   BackOffMax=9;
   PARODUS_URL=tcp://127.0.0.1:6666;                                                                                 
   SSL_CERT_PATH=/etc/ssl/certs/ca-certificates.crt;
