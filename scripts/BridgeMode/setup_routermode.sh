@@ -154,3 +154,10 @@ Driver_Count=`lsmod | grep rtl8812au | wc -l`
                        modprobe rtl8812au
           fi
 
+########################################## ParentalControl(Managed Devices) ##########################
+if [ ! -d "/tmp/pcontrol" ]
+then
+     mkdir /tmp/pcontrol
+     cp -rf /usr/www/cmn/ /tmp/pcontrol
+     cp /usr/www/index_pcontrol.php /tmp/pcontrol/index.php
+fi

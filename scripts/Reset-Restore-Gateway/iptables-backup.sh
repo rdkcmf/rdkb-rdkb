@@ -45,6 +45,10 @@ HOTSPOT_ENABLE=`dmcli simu getv Device.DeviceInfo.X_COMCAST_COM_xfinitywifiEnabl
         iptables -D general_forward -o brlan1 -p udp --dport=67:68 -j NFQUEUE --queue-bypass --queue-num 1
         iptables -D general_forward -o brlan2 -p udp --dport=67:68 -j NFQUEUE --queue-bypass --queue-num 2
         iptables -D general_output -o eth0 -p icmp --icmp-type 3 -j NFQUEUE --queue-bypass --queue-num 0
+	iptables -t nat -D prerouting_redirect -p tcp --dport 80 -j DNAT --to-destination 0.0.0.0:21515
+	iptables -t nat -D prerouting_redirect -p tcp --dport 443 -j DNAT --to-destination 0.0.0.0:21515
+	iptables -t nat -D prerouting_redirect -p tcp  -j DNAT --to-destination 0.0.0.0:21515
+	iptables -t nat -D prerouting_redirect -p udp ! --dport 53 -j DNAT --to-destination 0.0.0.0:21515
 	fi
 
 ###################### SAVING WHOLE IPTBALES RULES ######################################
@@ -65,6 +69,10 @@ HOTSPOT_ENABLE=`dmcli simu getv Device.DeviceInfo.X_COMCAST_COM_xfinitywifiEnabl
         iptables -I general_forward -o brlan1 -p udp --dport=67:68 -j NFQUEUE --queue-bypass --queue-num 1
         iptables -A general_forward -o brlan2 -p udp --dport=67:68 -j NFQUEUE --queue-bypass --queue-num 2
         iptables -A general_output -o eth0 -p icmp --icmp-type 3 -j NFQUEUE --queue-bypass --queue-num 0
+	iptables -t nat -A prerouting_redirect -p tcp --dport 80 -j DNAT --to-destination 0.0.0.0:21515
+	iptables -t nat -A prerouting_redirect -p tcp --dport 443 -j DNAT --to-destination 0.0.0.0:21515
+	iptables -t nat -A prerouting_redirect -p tcp  -j DNAT --to-destination 0.0.0.0:21515
+	iptables -t nat -A prerouting_redirect -p udp ! --dport 53 -j DNAT --to-destination 0.0.0.0:21515
         fi
 
 	sleep 3
