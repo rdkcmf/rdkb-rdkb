@@ -31,6 +31,11 @@ do
 	iptables -t nat -D POSTROUTING -o eth0 -j MASQUERADE
 	iptables -D FORWARD -i eth0 -o brlan0 -m state --state RELATED,ESTABLISHED -j ACCEPT
 	iptables -D FORWARD -i brlan0 -o eth0 -j ACCEPT
+	iptables -t nat -D PREROUTING -j prerouting_mgmt_override
+	iptables -t nat -D prerouting_redirect -p tcp --dport 80 -j DNAT --to-destination 0.0.0.0:21515
+	iptables -t nat -D prerouting_redirect -p tcp --dport 443 -j DNAT --to-destination 0.0.0.0:21515
+	iptables -t nat -D prerouting_redirect -p tcp  -j DNAT --to-destination 0.0.0.0:21515
+	iptables -t nat -D prerouting_redirect -p udp ! --dport 53 -j DNAT --to-destination 0.0.0.0:21515
 
 HOTSPOT_ENABLE=`dmcli simu getv Device.DeviceInfo.X_COMCAST_COM_xfinitywifiEnable | grep value | cut -f3 -d : | cut -f2 -d " "`
 	if [ "$HOTSPOT_ENABLE" = "true" ]; then 
@@ -45,10 +50,6 @@ HOTSPOT_ENABLE=`dmcli simu getv Device.DeviceInfo.X_COMCAST_COM_xfinitywifiEnabl
         iptables -D general_forward -o brlan1 -p udp --dport=67:68 -j NFQUEUE --queue-bypass --queue-num 1
         iptables -D general_forward -o brlan2 -p udp --dport=67:68 -j NFQUEUE --queue-bypass --queue-num 2
         iptables -D general_output -o eth0 -p icmp --icmp-type 3 -j NFQUEUE --queue-bypass --queue-num 0
-	iptables -t nat -D prerouting_redirect -p tcp --dport 80 -j DNAT --to-destination 0.0.0.0:21515
-	iptables -t nat -D prerouting_redirect -p tcp --dport 443 -j DNAT --to-destination 0.0.0.0:21515
-	iptables -t nat -D prerouting_redirect -p tcp  -j DNAT --to-destination 0.0.0.0:21515
-	iptables -t nat -D prerouting_redirect -p udp ! --dport 53 -j DNAT --to-destination 0.0.0.0:21515
 	fi
 
 ###################### SAVING WHOLE IPTBALES RULES ######################################
@@ -61,6 +62,11 @@ HOTSPOT_ENABLE=`dmcli simu getv Device.DeviceInfo.X_COMCAST_COM_xfinitywifiEnabl
 	iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
 	iptables -A FORWARD -i eth0 -o brlan0 -m state --state RELATED,ESTABLISHED -j ACCEPT
 	iptables -A FORWARD -i brlan0 -o eth0 -j ACCEPT
+	iptables -t nat -I PREROUTING -j prerouting_mgmt_override
+	iptables -t nat -A prerouting_redirect -p tcp --dport 80 -j DNAT --to-destination 0.0.0.0:21515
+	iptables -t nat -A prerouting_redirect -p tcp --dport 443 -j DNAT --to-destination 0.0.0.0:21515
+	iptables -t nat -A prerouting_redirect -p tcp  -j DNAT --to-destination 0.0.0.0:21515
+	iptables -t nat -A prerouting_redirect -p udp ! --dport 53 -j DNAT --to-destination 0.0.0.0:21515
 
 HOTSPOT_ENABLE=`dmcli simu getv Device.DeviceInfo.X_COMCAST_COM_xfinitywifiEnable | grep value | cut -f3 -d : | cut -f2 -d" "`
         if [ "$HOTSPOT_ENABLE" = "true" ]; then
@@ -69,10 +75,6 @@ HOTSPOT_ENABLE=`dmcli simu getv Device.DeviceInfo.X_COMCAST_COM_xfinitywifiEnabl
         iptables -I general_forward -o brlan1 -p udp --dport=67:68 -j NFQUEUE --queue-bypass --queue-num 1
         iptables -A general_forward -o brlan2 -p udp --dport=67:68 -j NFQUEUE --queue-bypass --queue-num 2
         iptables -A general_output -o eth0 -p icmp --icmp-type 3 -j NFQUEUE --queue-bypass --queue-num 0
-	iptables -t nat -A prerouting_redirect -p tcp --dport 80 -j DNAT --to-destination 0.0.0.0:21515
-	iptables -t nat -A prerouting_redirect -p tcp --dport 443 -j DNAT --to-destination 0.0.0.0:21515
-	iptables -t nat -A prerouting_redirect -p tcp  -j DNAT --to-destination 0.0.0.0:21515
-	iptables -t nat -A prerouting_redirect -p udp ! --dport 53 -j DNAT --to-destination 0.0.0.0:21515
         fi
 
 	sleep 3
