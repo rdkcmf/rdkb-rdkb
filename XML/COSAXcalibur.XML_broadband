@@ -499,6 +499,54 @@
           <syntax>bool</syntax>
 
         </parameter>   
+
+	<parameter>                                               
+                                                                         
+          <name>X_RDKCENTRAL-COM_CloudUIEnable</name>               
+                               
+          <type>boolean</type>
+   
+          <syntax>bool</syntax>
+    
+          <writable>true</writable>      
+
+         </parameter>                                               
+	  <parameter>                                                      
+                                          
+          <name>X_RDKCENTRAL-COM_CloudPersonalizationURL</name>
+                                                 
+          <type>string</type>
+                                                                      
+          <syntax>string</syntax>                                     
+                                                                           
+          <writable>true</writable>                                   
+                                 
+         </parameter>
+
+	
+	 <parameter>                                                
+                                          
+          <name>X_RDKCENTRAL-COM_ConfigureWiFi</name>
+                                                 
+          <type>boolean</type>
+                                                                      
+          <syntax>bool</syntax>                                       
+                                                                           
+          <writable>true</writable>                                   
+                                 
+         </parameter>
+	
+	<parameter>
+
+          <name>X_RDKCENTRAL-COM_CaptivePortalEnable</name>
+
+          <type>boolean</type>
+
+          <syntax>bool</syntax>            
+
+          <writable>true</writable>
+
+         </parameter>
 	
 	<parameter>
 
@@ -681,7 +729,265 @@
                 <writable>true</writable>                
             </parameter>                                 
         </parameters>                                    
-        </object>      
+	<objects>
+		 <object>
+                <name>RDKB_Control</name>
+                <objectType>object</objectType>
+                <functions>
+                        <func_GetParamBoolValue>RDKB_Control_GetParamBoolValue</func_GetParamBoolValue>
+                        <func_SetParamBoolValue>RDKB_Control_SetParamBoolValue</func_SetParamBoolValue>
+                </functions>
+                <parameters>
+                        <parameter>
+                                <name>ActivatePartnerId</name>
+                                <type>boolean</type>
+                                <syntax>bool</syntax>
+                                <writable>true</writable>
+                        </parameter>
+                        <parameter>
+                                <name>ClearPartnerId</name>
+                                <type>boolean</type>
+                                <syntax>bool</syntax>
+                                <writable>true</writable>
+                        </parameter>
+                </parameters>
+        </object>
+	   <object>                                                                                                     
+                <name>RDKB_UIBranding</name>                                                                           
+                <objectType>object</objectType>                                                                        
+                <functions>                                                                                            
+                        <func_GetParamStringValue>RDKB_UIBranding_GetParamStringValue</func_GetParamStringValue>       
+                            <func_SetParamStringValue>RDKB_UIBranding_SetParamStringValue</func_SetParamStringValue>   
+                </functions>                                                                                           
+                <parameters>                                                                                           
+                        <parameter>                                                                                    
+                                <name>DefaultAdminIP</name>                                                            
+                                <type>string</type>                                                                    
+                                <syntax>string</syntax>                                                                
+                                <writable>false</writable>                                                             
+                        </parameter>                                                                                   
+                        <parameter>                                                                                    
+                                <name>DefaultLocalIPv4SubnetRange</name>                                               
+                                <type>string</type>                                                                    
+                                <syntax>string</syntax>                                                                
+                                <writable>false</writable>                                                             
+                        </parameter>                                                                                   
+                </parameters>                                                                                          
+	   <objects>                                                                                      
+         <object>                                                                                      
+                <name>Footer</name>                                                                    
+                <objectType>object</objectType>                                                        
+                <functions>                                                                            
+                        <func_GetParamStringValue>Footer_GetParamStringValue</func_GetParamStringValue>
+                        <func_SetParamStringValue>Footer_SetParamStringValue</func_SetParamStringValue>
+                </functions>                                                                           
+                <parameters>                                                                           
+                        <parameter>                                                                    
+                                <name>PartnerLink</name>                                               
+                                <type>string</type>                                                    
+                                <syntax>string</syntax>                                                
+                                <writable>true</writable>                                              
+                        </parameter>                                                                   
+                        <parameter>                                                                    
+                                <name>UserGuideLink</name>                                             
+                                <type>string</type>                                                    
+                                <syntax>string</syntax>                                                
+                                <writable>true</writable>                                              
+                        </parameter>                                                                   
+                        <parameter>                                                                    
+                                <name>CustomerCentralLink</name>                                                
+                                <type>string</type>                                                                 
+                                <syntax>string</syntax>                                                             
+                                <writable>true</writable>                                                           
+                        </parameter>                                                                                
+                        <parameter>                                                                                 
+                                <name>PartnerText</name>                                                            
+                                <type>string</type>                                                                 
+                                <syntax>string</syntax>                                                             
+                                <writable>true</writable>                                                           
+                        </parameter>                                                                                
+                        <parameter>                                                                                 
+                                <name>UserGuideText</name>                                                          
+                                <type>string</type>                                                                 
+                                <syntax>string</syntax>                                                             
+                                <writable>true</writable>                                                           
+                        </parameter>                                                                                
+                        <parameter>                                                                                 
+                                <name>CustomerCentralText</name>                                                    
+                                <type>string</type>                                                                 
+                                <syntax>string</syntax>                                                             
+                                <writable>true</writable>                                                           
+                        </parameter>                                                                                
+                </parameters>                                                                                       
+          </object>                 
+	   <object>
+                <name>Connection</name>
+                <objectType>object</objectType>
+                <functions>
+                        <func_GetParamStringValue>Connection_GetParamStringValue</func_GetParamStringValue>
+                        <func_SetParamStringValue>Connection_SetParamStringValue</func_SetParamStringValue>
+                </functions>
+                <parameters>
+                        <parameter>
+                                <name>MSOmenu</name>
+                                <type>string</type>
+                                <syntax>string</syntax>
+                                <writable>true</writable>
+                        </parameter>
+                        <parameter>
+                                <name>MSOinfo</name>
+                                <type>string</type>
+                                <syntax>string</syntax>
+                                <writable>true</writable>
+                        </parameter>
+                        <parameter>
+                                <name>StatusTitle</name>
+                                <type>string</type>
+                                <syntax>string</syntax>
+                                <writable>true</writable>
+                        </parameter>
+                        <parameter>
+                                <name>StatusInfo</name>
+                                <type>string</type>
+                                <syntax>string</syntax>
+                                <writable>true</writable>
+                        </parameter>
+                </parameters>
+          </object>
+
+          <object>
+                <name>NetworkDiagnosticTools</name>
+                <objectType>object</objectType>
+                <functions>
+                        <func_GetParamStringValue>NetworkDiagnosticTools_GetParamStringValue</func_GetParamStringValue>
+                        <func_SetParamStringValue>NetworkDiagnosticTools_SetParamStringValue</func_SetParamStringValue>
+                </functions>
+                <parameters>
+                        <parameter>
+                                <name>ConnectivityTestURL</name>
+                                <type>string</type>
+                                <syntax>string</syntax>
+                                <writable>true</writable>
+                        </parameter>
+                </parameters>
+          </object>
+
+          <object>                
+		<name>WiFiPersonalization</name>                                                                       
+                <objectType>object</objectType>                                                                        
+                <functions>                                                                                            
+                        <func_GetParamBoolValue>WiFiPersonalization_GetParamBoolValue</func_GetParamBoolValue>         
+                        <func_GetParamStringValue>WiFiPersonalization_GetParamStringValue</func_GetParamStringValue>   
+                        <func_SetParamBoolValue>WiFiPersonalization_SetParamBoolValue</func_SetParamBoolValue>         
+                        <func_SetParamStringValue>WiFiPersonalization_SetParamStringValue</func_SetParamStringValue>   
+                </functions>                                                                                           
+                <parameters>                                                                                        
+                        <parameter>                                                                                 
+                                <name>Support</name>                                                                
+                                <type>boolean</type>                                                                
+                                <syntax>bool</syntax>                                                               
+                                <writable>true</writable>                                                           
+                        </parameter>                                                                                   
+                        <parameter>                                                                                    
+                                <name>PartnerHelpLink</name>                                                           
+                                <type>string</type>                                                                    
+                                <syntax>string</syntax>                                                                
+                                <writable>true</writable>                                                              
+                        </parameter>                                                                                
+                        <parameter>                                                                                 
+                                <name>SMSsupport</name>                                                             
+                                <type>boolean</type>                                                                
+                                <syntax>bool</syntax>                                                               
+                                <writable>true</writable>                                                           
+                        </parameter>                                                                                
+                        <parameter>                                                                             
+                                <name>MyAccountAppSupport</name>                                                       
+                                <type>boolean</type>                                                                   
+                                <syntax>bool</syntax>                                                               
+                                <writable>true</writable>                                                           
+                        </parameter>                                                                                
+                        <parameter>                                                                                 
+                                <name>MSOLogo</name>                                                                
+                                <type>string</type>                                                                 
+                                <syntax>string</syntax>                                                             
+                                <writable>false</writable>                                                             
+                        </parameter>                                                                                   
+                        <parameter>                                                                                    
+                                <name>Title</name>                                                                     
+                                <type>string</type>                                                                    
+                                <syntax>string</syntax>                                                                
+                                <writable>false</writable>                                                      
+                        </parameter>                                                                                
+                        <parameter>                                                                           
+                                <name>WelcomeMessage</name>                                                         
+                                <type>string</type>                                                                    
+                                <syntax>string</syntax>                                                                
+                                <writable>false</writable>                                                             
+                        </parameter>                                                                                   
+                </parameters>                                                                                          
+          </object>                       
+	          <object>
+                <name>LocalUI</name>
+                <objectType>object</objectType>
+                <functions>
+                                <func_GetParamStringValue>LocalUI_GetParamStringValue</func_GetParamStringValue>
+                                <func_SetParamStringValue>LocalUI_SetParamStringValue</func_SetParamStringValue>
+                                <func_GetParamBoolValue>LocalUI_GetParamBoolValue</func_GetParamBoolValue>
+                                <func_SetParamBoolValue>LocalUI_SetParamBoolValue</func_SetParamBoolValue>
+                </functions>
+                <parameters>
+                        <parameter>
+                                <name>MSOLogo</name>
+                                <type>string</type>
+                                <syntax>string</syntax>
+                                <writable>false</writable>
+                        </parameter>
+                        <parameter>
+                                <name>DefaultLoginUsername</name>
+                                <type>string</type>
+                                <syntax>string</syntax>
+                                <writable>false</writable>
+                        </parameter>
+                        <parameter>
+                                <name>DefaultLoginPassword</name>
+                                <type>string</type>
+                                <syntax>string</syntax>
+                                <writable>false</writable>
+                        </parameter>
+                        <parameter>
+                                <name>HomeNetworkControl</name>
+                                <type>boolean</type>
+                                <syntax>bool</syntax>
+                                <writable>false</writable>
+                        </parameter>
+                        <parameter>
+                                <name>MSOLogoTitle</name>
+                                <type>string</type>
+                                <syntax>string</syntax>
+                                <writable>flase</writable>
+                        </parameter>
+                </parameters>
+          </object>
+          <object>
+                <name>HelpTip</name>
+                <objectType>object</objectType>
+                <functions>
+                                <func_GetParamStringValue>HelpTip_GetParamStringValue</func_GetParamStringValue>
+                                <func_SetParamStringValue>HelpTip_SetParamStringValue</func_SetParamStringValue>
+                </functions>
+		<parameters>
+                        <parameter>
+                                <name>NetworkName</name>
+                                <type>string</type>
+                                <syntax>string</syntax>
+                                <writable>flase</writable>
+                        </parameter>
+                </parameters>
+          </object>
+	</objects>
+        </object>
+        </objects>
+        </object> <!--X_RDKCENTRAL-COM_Syndication-->
 
         <object>
 
@@ -9158,7 +9464,7 @@
             <writable>true</writable>
 
           </parameter>
-
+ 
           </parameters>
 
         </object>

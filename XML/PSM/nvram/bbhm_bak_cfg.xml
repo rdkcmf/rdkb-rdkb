@@ -1022,13 +1022,13 @@
   <Record name="dmsb.nat.X_CISCO_COM_PortTriggers.Enable" type="astr">0</Record>
   <Record name="dmsb.NAT.X_CISCO_COM_DMZ.Enable" type="astr">FALSE</Record>
   <Record name="dmsb.NAT.X_CISCO_COM_DMZ.InternalIP" type="astr">0.0.0.0</Record>
-  <Record name="dmsb.UserInterface.X_CISCO_COM_RemoteAccess.HttpEnable" type="astr">FALSE</Record>
+  <Record name="dmsb.UserInterface.X_CISCO_COM_RemoteAccess.HttpEnable" type="astr">TRUE</Record>
   <Record name="dmsb.UserInterface.X_CISCO_COM_RemoteAccess.HttpsEnable" type="astr">FALSE</Record>
   <Record name="dmsb.UserInterface.X_CISCO_COM_RemoteAccess.StartIp" type="astr">0.0.0.0</Record>
   <Record name="dmsb.UserInterface.X_CISCO_COM_RemoteAccess.EndIp" type="astr">0.0.0.0</Record>
   <Record name="dmsb.UserInterface.X_CISCO_COM_RemoteAccess.FromAnyIP" type="astr">FALSE</Record>
   <Record name="dmsb.UserInterface.X_CISCO_COM_RemoteAccess.HttpsPort" type="astr">50060</Record>
-  <Record name="dmsb.UserInterface.X_CISCO_COM_RemoteAccess.HttpPort" type="astr">50070</Record>
+  <Record name="dmsb.UserInterface.X_CISCO_COM_RemoteAccess.HttpPort" type="astr">8080</Record>
   <Record name="dmsb.X_CISCO_COM_Security.Firewall.FirewallLevel" type="astr">Low</Record>
   <Record name="eRT.com.cisco.spvtg.ccsp.Device.WiFi.Radio.1.Channel" type="astr" contentType="uint">6</Record>
   <Record name="eRT.com.cisco.spvtg.ccsp.Device.WiFi.Radio.2.Channel" type="astr" contentType="uint">36</Record>
@@ -1069,4 +1069,6 @@
   <Record name="eRT.com.cisco.spvtg.ccsp.harvester.RadioInterfaceStatisticsDefaultReportingPeriod" type="astr" contentType="uint">300</Record>  
   <Record name="dmsb.device.deviceinfo.X_RDKCENTRAL-COM_Syndication.TR69CertLocation" type="astr">/etc/cacert.pem</Record>
   <Record name="dmsb.device.deviceinfo.X_RDKCENTRAL-COM_Syndication.enable" type="astr">FALSE</Record>
+  <Record name="Device.DeviceInfo.X_RDKCENTRAL-COM_ConfigureWiFi" type="astr">true</Record> 
+  <Record name="Device.DeviceInfo.X_RDKCENTRAL-COM_CaptivePortalEnable" type="astr">true</Record>
 </Provision>

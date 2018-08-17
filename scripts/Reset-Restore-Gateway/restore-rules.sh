@@ -24,11 +24,12 @@
 dmcli simu psmsetv Provision.COSALibrary.NAT.PORTTRIGGER.NextInstanceNumber uint 1
 dmcli simu psmsetv Device.NAT.PortMapping.MaxInstance string 0
 dmcli simu psmsetv dmsb.UserInterface.X_CISCO_COM_RemoteAccess.HttpsEnable string FALSE
-dmcli simu psmsetv dmsb.UserInterface.X_CISCO_COM_RemoteAccess.HttpEnable string FALSE
+dmcli simu psmsetv dmsb.UserInterface.X_CISCO_COM_RemoteAccess.HttpEnable string TRUE
+dmcli simu psmsetv dmsb.UserInterface.X_CISCO_COM_RemoteAccess.HttpPort string 8080
 dmcli simu psmsetv dmsb.NAT.X_CISCO_COM_DMZ.Enable string FALSE
 dmcli simu psmsetv dmsb.nat.X_CISCO_COM_PortTriggers.Enable string 0
 dmcli simu psmsetv dmsb.nat.PortMapping.Enable string 0
-dmcli simu psmsetv dmsb.X_CISCO_COM_Security.Firewall.FirewallLevel string Disable
+dmcli simu psmsetv dmsb.X_CISCO_COM_Security.Firewall.FirewallLevel string Low
 dmcli simu psmsetv dmsb.dhcpv4.server.pool.1.StaticAddress.InstanceNumber string 0 
 dmcli simu psmsetv dmsb.X_Comcast_com_ParentalControl.ManagedSites.InstanceNumber string 0
 dmcli simu psmsetv dmsb.X_Comcast_com_ParentalControl.ManagedSites.TrustedUser.InstanceNumber string 0
@@ -40,3 +41,13 @@ dmcli simu psmsetv dmsb.X_Comcast_com_ParentalControl.ManagedServices.Enable str
 dmcli simu psmsetv dmsb.X_Comcast_com_ParentalControl.ManagedDevices.Enable string false
 dmcli simu psmsetv dmsb.X_Comcast_com_ParentalControl.ManagedDevices.AllowAll string false
 dmcli simu psmsetv dmsb.hotspot.tunnel.1.Enable string 1
+dmcli simu psmsetv dmsb.users.user.3.password string password
+dmcli simu psmsetv Device.DeviceInfo.X_RDKCENTRAL-COM_ConfigureWiFi string true
+dmcli simu psmsetv Device.DeviceInfo.X_RDKCENTRAL-COM_CaptivePortalEnable string true
+
+sleep 2
+
+if [ -f /nvram/captivemode_enabled ]; then
+                rm /nvram/captivemode_enabled
+		rm /nvram/updated_captiveportal_redirectionrules
+fi  

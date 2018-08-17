@@ -22,6 +22,11 @@
 ################################## SAVING & RESTORING IPTABLES RULES ###########################################
 sleep 20
 
+if [[ ! -f /nvram/captivemode_enabled  && ! -f /nvram/updated_captiveportal_redirectionrules ]] ; then
+	iptables -t nat -D PREROUTING -i brlan0 -p udp --dport 53 -j DNAT --to 10.0.0.1
+	iptables -t nat -D PREROUTING -i brlan0 -p tcp --dport 53 -j DNAT --to 10.0.0.1
+fi
+
 while true
 do
 ################# SAVING MANGLE TABLE & HOTSPOT #############################
@@ -31,7 +36,6 @@ do
 	iptables -t nat -D POSTROUTING -o eth0 -j MASQUERADE
 	iptables -D FORWARD -i eth0 -o brlan0 -m state --state RELATED,ESTABLISHED -j ACCEPT
 	iptables -D FORWARD -i brlan0 -o eth0 -j ACCEPT
-	iptables -t nat -D PREROUTING -j prerouting_mgmt_override
 	iptables -t nat -D prerouting_redirect -p tcp --dport 80 -j DNAT --to-destination 0.0.0.0:21515
 	iptables -t nat -D prerouting_redirect -p tcp --dport 443 -j DNAT --to-destination 0.0.0.0:21515
 	iptables -t nat -D prerouting_redirect -p tcp  -j DNAT --to-destination 0.0.0.0:21515
@@ -62,7 +66,6 @@ HOTSPOT_ENABLE=`dmcli simu getv Device.DeviceInfo.X_COMCAST_COM_xfinitywifiEnabl
 	iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
 	iptables -A FORWARD -i eth0 -o brlan0 -m state --state RELATED,ESTABLISHED -j ACCEPT
 	iptables -A FORWARD -i brlan0 -o eth0 -j ACCEPT
-	iptables -t nat -I PREROUTING -j prerouting_mgmt_override
 	iptables -t nat -A prerouting_redirect -p tcp --dport 80 -j DNAT --to-destination 0.0.0.0:21515
 	iptables -t nat -A prerouting_redirect -p tcp --dport 443 -j DNAT --to-destination 0.0.0.0:21515
 	iptables -t nat -A prerouting_redirect -p tcp  -j DNAT --to-destination 0.0.0.0:21515

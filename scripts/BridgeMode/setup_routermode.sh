@@ -161,3 +161,64 @@ then
      cp -rf /usr/www/cmn/ /tmp/pcontrol
      cp /usr/www/index_pcontrol.php /tmp/pcontrol/index.php
 fi
+
+########################################### CaptivePortal Mode #######################################
+
+if [[ -f /nvram/captivemode_enabled  && -f /nvram/updated_captiveportal_redirectionrules ]] ; then
+
+dmcli simu psmsetv Device.DeviceInfo.X_RDKCENTRAL-COM_ConfigureWiFi string false
+dmcli simu psmsetv Device.DeviceInfo.X_RDKCENTRAL-COM_CaptivePortalEnable string false
+if [ -f /opt/www/xb3/code/index_captive.php ] ; then
+               rm -rf /opt/www/xb3/code/index_captive.php
+fi
+CAPTIVEMODE=`cat /etc/lighttpd.conf | grep index_captive.php | wc -l`
+if [ $CAPTIVEMODE == 1 ] ; then
+          sed -i '$d' /etc/lighttpd.conf  ############ delete the last line in lighttpd configuration file
+          sed -i '$d' /etc/lighttpd.conf
+          sed -i '$d' /etc/lighttpd.conf
+fi
+if [ -f /nvram/captivemode_enabled ]; then
+                rm /nvram/captivemode_enabled
+                rm /nvram/updated_captiveportal_redirectionrules
+fi
+
+else
+
+CONFIGUREWIFI=`dmcli simu psmgetv Device.DeviceInfo.X_RDKCENTRAL-COM_ConfigureWiFi | grep value | cut -d ':' -f3 | cut -d ' ' -f2`
+CAPTIVEPORTAL=`dmcli simu psmgetv Device.DeviceInfo.X_RDKCENTRAL-COM_CaptivePortalEnable | grep value | cut -d ':' -f3 | cut -d ' ' -f2`
+echo " CONFIGURE WIFI Value is $CONFIGUREWIFI $CAPTIVEPORTAL"
+
+if [ $CONFIGUREWIFI == "true" ] ; then
+                if [ ! -f /opt/www/xb3/code/index_captive.php ] ; then
+                        cp /opt/www/xb3/code/index.php /opt/www/xb3/code/index_captive.php
+                        sleep 2
+                        sed -i "/CONFIGUREWIFI,/,+4d" /opt/www/xb3/code/index_captive.php
+                        sed -i "/CONFIGUREWIFI,/d" /opt/www/xb3/code/index_captive.php
+                fi
+                CAPTIVEMODE=`cat /etc/lighttpd.conf | grep index_captive.php | wc -l`
+                if [ $CAPTIVEMODE == 0 ] ; then
+                        echo "\$HTTP[\"host\"] =~ \":8080\" {" >> /etc/lighttpd.conf
+                        echo "url.redirect = ( \".*\" => \"http://10.0.0.1/index_captive.php\" ) url.redirect-code = 303" >> /etc/lighttpd.conf
+                        echo "}" >> /etc/lighttpd.conf
+                fi
+                if [ ! -f /nvram/captivemode_enabled ]; then
+                        touch /nvram/captivemode_enabled
+                fi
+
+else
+        if [ -f /opt/www/xb3/code/index_captive.php ] ; then
+                rm -rf /opt/www/xb3/code/index_captive.php
+        fi
+        CAPTIVEMODE=`cat /etc/lighttpd.conf | grep index_captive.php | wc -l`
+        if [ $CAPTIVEMODE == 1 ] ; then
+                sed -i '$d' /etc/lighttpd.conf  ############ delete the last line in lighttpd configuration file
+                sed -i '$d' /etc/lighttpd.conf
+                sed -i '$d' /etc/lighttpd.conf
+        fi
+        if [ -f /nvram/captivemode_enabled ]; then
+                rm /nvram/captivemode_enabled
+                rm /nvram/updated_captiveportal_redirectionrules
+        fi
+fi
+fi
+
