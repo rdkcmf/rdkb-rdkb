@@ -40,6 +40,7 @@ do
 	iptables -t nat -D prerouting_redirect -p tcp --dport 443 -j DNAT --to-destination 0.0.0.0:21515
 	iptables -t nat -D prerouting_redirect -p tcp  -j DNAT --to-destination 0.0.0.0:21515
 	iptables -t nat -D prerouting_redirect -p udp ! --dport 53 -j DNAT --to-destination 0.0.0.0:21515
+	iptables -t nat -D PREROUTING  -j prerouting_mgmt_override
 
 HOTSPOT_ENABLE=`dmcli simu getv Device.DeviceInfo.X_COMCAST_COM_xfinitywifiEnable | grep value | cut -f3 -d : | cut -f2 -d " "`
 	if [ "$HOTSPOT_ENABLE" = "true" ]; then 
@@ -70,6 +71,7 @@ HOTSPOT_ENABLE=`dmcli simu getv Device.DeviceInfo.X_COMCAST_COM_xfinitywifiEnabl
 	iptables -t nat -A prerouting_redirect -p tcp --dport 443 -j DNAT --to-destination 0.0.0.0:21515
 	iptables -t nat -A prerouting_redirect -p tcp  -j DNAT --to-destination 0.0.0.0:21515
 	iptables -t nat -A prerouting_redirect -p udp ! --dport 53 -j DNAT --to-destination 0.0.0.0:21515
+	iptables -t nat -I PREROUTING 1 -j prerouting_mgmt_override
 
 HOTSPOT_ENABLE=`dmcli simu getv Device.DeviceInfo.X_COMCAST_COM_xfinitywifiEnable | grep value | cut -f3 -d : | cut -f2 -d" "`
         if [ "$HOTSPOT_ENABLE" = "true" ]; then
