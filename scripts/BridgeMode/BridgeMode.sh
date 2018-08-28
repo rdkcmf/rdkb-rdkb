@@ -68,7 +68,7 @@ killall dnsmasq
 
 
 ######### Adding default WebUI Access LAN IP in lighttpd Webserver #############
-echo "\$SERVER[\"socket\"] == \"192.168.100.1:8080\"  { }" >> /etc/lighttpd.conf
+echo "\$SERVER[\"socket\"] == \"192.168.100.1:8081\"  { }" >> /etc/lighttpd.conf
 
 
 ############## TURN OFF the Private Wifi for Dual Bands ########################
