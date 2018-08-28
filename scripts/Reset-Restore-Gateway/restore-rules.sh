@@ -47,6 +47,9 @@ dmcli simu psmsetv Device.DeviceInfo.X_RDKCENTRAL-COM_CaptivePortalEnable string
 
 sleep 2
 
+sed -i '$d' /etc/lighttpd.conf
+sh /lib/rdk/webgui.sh
+
 if [ -f /nvram/captivemode_enabled ]; then
                 rm /nvram/captivemode_enabled
 		rm /nvram/updated_captiveportal_redirectionrules
