@@ -44,9 +44,11 @@ Restart_Hostapd () {
 
                                                                              
 Restart_Hostapd_5G () {
-	rmmod rtl8812au
+	rmmod rtl8812au 88x2bu
 	sleep 1
 	modprobe rtl8812au
+	sleep 1
+	modprobe 88x2bu
 	sleep 1                                                                                                    
         hostapd -B /nvram/hostapd1.conf                                                                                 
 	sleep 1

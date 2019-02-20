@@ -154,6 +154,10 @@ Driver_Count=`lsmod | grep rtl8812au | wc -l`
                        modprobe rtl8812au
           fi
 
+Driver_Count=`lsmod | grep 88x2bu | wc -l`
+          if [ $Driver_Count == 0 ]; then
+                       modprobe 88x2bu
+          fi
 ########################################## ParentalControl(Managed Devices) ##########################
 if [ ! -d "/tmp/pcontrol" ]
 then

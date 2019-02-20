@@ -27,9 +27,11 @@ Restart_Hostapd () {
 	ps -eaf | grep hostapd5 | grep -v grep | awk '{print $2}' | xargs kill -9
 	sleep 2
 	ps -eaf | grep hostapd1 | grep -v grep | awk '{print $2}' | xargs kill -9
-	rmmod rtl8812au
+	rmmod rtl8812au 88x2bu
 	sleep 1
 	modprobe rtl8812au
+	sleep 1
+	modprobe 88x2bu
 	sleep 2 
         ifconfig $INTERFACE_5G down
         sleep 3
