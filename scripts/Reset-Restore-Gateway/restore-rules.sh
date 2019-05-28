@@ -54,3 +54,25 @@ if [ -f /nvram/captivemode_enabled ]; then
                 rm /nvram/captivemode_enabled
 		rm /nvram/updated_captiveportal_redirectionrules
 fi  
+
+######### SELF HEAL SUPPORT
+
+SYSCFG_FILE="/nvram/syscfg.db"
+_update_db_value() {
+		INPUT=`cat $SYSCFG_FILE | grep $1 | cut -d "=" -f2`
+		OLD_VALUE="$1=$INPUT"
+		NEW_VALUE="$1=0"
+		sed -i "s/$OLD_VALUE/$NEW_VALUE/g" $SYSCFG_FILE
+}
+
+_update_db_value "ConnTest_PingInterval"
+_update_db_value "max_reboot_count"
+_update_db_value "max_reset_count"
+_update_db_value "ConnTest_PingRespWaitTime"
+_update_db_value "ConnTest_MinNumPingServer"
+_update_db_value "ConnTest_NumPingsPerServer"
+_update_db_value "resource_monitor_interval"
+_update_db_value "avg_cpu_threshold"
+_update_db_value "avg_memory_threshold"
+
+sed -i "s/ConnTest_CorrectiveAction=true/ConnTest_CorrectiveAction=false/g" $SYSCFG_FILE
