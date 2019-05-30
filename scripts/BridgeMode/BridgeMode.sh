@@ -38,6 +38,10 @@ Restart_Hostapd () {
         ifconfig mon.wlan0 up
         ifconfig wlan0_0 up
 }
+################# Hide the Private SSID Names in Bridge Mode set-up
+sed -i "s/ignore_broadcast_ssid=0/ignore_broadcast_ssid=1/g" /nvram/hostapd0.conf
+sed -i "s/ignore_broadcast_ssid=0/ignore_broadcast_ssid=1/g" /nvram/hostapd1.conf
+sh /lib/rdk/start_hostapd.sh
 
 INTERFACE_2G=`cat /nvram/hostapd0.conf | grep -w interface | head -1 | cut -d '=' -f2`
 INTERFACE_5G=`cat /nvram/hostapd1.conf | grep -w interface | head -1 | cut -d '=' -f2`

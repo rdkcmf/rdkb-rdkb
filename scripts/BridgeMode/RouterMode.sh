@@ -65,6 +65,9 @@ Hostapd_Restart () {
                                                                              
 }          
 
+sed -i "s/ignore_broadcast_ssid=1/ignore_broadcast_ssid=0/g" /nvram/hostapd0.conf
+sed -i "s/ignore_broadcast_ssid=1/ignore_broadcast_ssid=0/g" /nvram/hostapd1.conf
+
 ROUTER=`cat /etc/dnsmasq.conf | grep -w dhcp-range | cut -d ',' -f2 | cut -d '.' -f1-3`
 SUBNETMASK=`cat /etc/dnsmasq.conf | grep -w dhcp-range | cut -d ',' -f3`
 psmcli nosubsys set dmsb.dhcpv4.server.pool.0.IPRouters $ROUTER.1
