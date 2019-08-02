@@ -102,10 +102,3 @@ Driver_Count=`lsmod | grep 88x2bu | wc -l`
 	if [ $Driver_Count == 0 ]; then
 		modprobe 88x2bu
 	fi
-########################################## ParentalControl(Managed Devices) ##########################
-if [ ! -d "/tmp/pcontrol" ]                                                                                       
-then                                                                                
-     mkdir /tmp/pcontrol                                               
-     cp -rf /usr/www/cmn/ /tmp/pcontrol                                                            
-     cp /usr/www/index_pcontrol.php /tmp/pcontrol/index.php
-fi  
