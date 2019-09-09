@@ -74,5 +74,11 @@ _update_db_value "ConnTest_NumPingsPerServer"
 _update_db_value "resource_monitor_interval"
 _update_db_value "avg_cpu_threshold"
 _update_db_value "avg_memory_threshold"
+_update_db_value "PasswordLockoutAttempts"                                              
+_update_db_value "PasswordLockoutTime"                                                    
+_update_db_value "LockOutRemainingTime"                                              
+_update_db_value "NumOfFailedAttempts"
 
 sed -i "s/ConnTest_CorrectiveAction=true/ConnTest_CorrectiveAction=false/g" $SYSCFG_FILE
+sed -i "s/PasswordLockoutEnable=true/PasswordLockoutEnable=false/g" $SYSCFG_FILE                                                                                         
+sed -i '/hash_password_3=/c\user_password_3=password' $SYSCFG_FILE
