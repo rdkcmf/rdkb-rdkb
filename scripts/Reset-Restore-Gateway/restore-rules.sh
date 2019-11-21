@@ -65,20 +65,33 @@ _update_db_value() {
 		sed -i "s/$OLD_VALUE/$NEW_VALUE/g" $SYSCFG_FILE
 }
 
-_update_db_value "ConnTest_PingInterval"
-_update_db_value "max_reboot_count"
-_update_db_value "max_reset_count"
-_update_db_value "ConnTest_PingRespWaitTime"
-_update_db_value "ConnTest_MinNumPingServer"
-_update_db_value "ConnTest_NumPingsPerServer"
-_update_db_value "resource_monitor_interval"
-_update_db_value "avg_cpu_threshold"
-_update_db_value "avg_memory_threshold"
+_update_db_value "todays_reset_count"                                              
+_update_db_value "todays_reboot_count"                                              
+_update_db_value "lastActiontakentime"                                              
+_update_db_value "last_router_reboot_time"                                              
+_update_db_value "highloadavg_reboot_count"                                              
 _update_db_value "PasswordLockoutAttempts"                                              
 _update_db_value "PasswordLockoutTime"                                                    
 _update_db_value "LockOutRemainingTime"                                              
 _update_db_value "NumOfFailedAttempts"
 
-sed -i "s/ConnTest_CorrectiveAction=true/ConnTest_CorrectiveAction=false/g" $SYSCFG_FILE
+sed -i '/avg_memory_threshold=/c\avg_memory_threshold=100' $SYSCFG_FILE                  
+sed -i '/avg_cpu_threshold=/c\avg_cpu_threshold=100' $SYSCFG_FILE   
+sed -i '/router_reboot_Interval=/c\router_reboot_Interval=28800' $SYSCFG_FILE   
+sed -i '/ConnTest_PingInterval=/c\ConnTest_PingInterval=60' $SYSCFG_FILE   
+sed -i '/selfheal_ping_DataBlockSize=/c\selfheal_ping_DataBlockSize=50' $SYSCFG_FILE   
+sed -i '/selfheal_dns_pingtest_enable=/c\selfheal_dns_pingtest_enable=true' $SYSCFG_FILE   
+sed -i '/selfheal_dns_pingtest_url=/c\selfheal_dns_pingtest_url=www.google.com' $SYSCFG_FILE   
+sed -i '/ConnTest_CorrectiveAction=/c\ConnTest_CorrectiveAction=true' $SYSCFG_FILE   
+sed -i '/selfheal_enable=/c\selfheal_enable=true' $SYSCFG_FILE   
+sed -i '/max_reset_count=/c\max_reset_count=3' $SYSCFG_FILE   
+sed -i '/max_reboot_count=/c\max_reboot_count=3' $SYSCFG_FILE   
+sed -i '/resource_monitor_interval=/c\resource_monitor_interval=1' $SYSCFG_FILE   
+sed -i '/ConnTest_NumPingsPerServer=/c\ConnTest_NumPingsPerServer=3' $SYSCFG_FILE   
+sed -i '/ConnTest_MinNumPingServer=/c\ConnTest_MinNumPingServer=1' $SYSCFG_FILE   
+sed -i '/ConnTest_PingRespWaitTime=/c\ConnTest_PingRespWaitTime=1000' $SYSCFG_FILE   
+
+
+
 sed -i "s/PasswordLockoutEnable=true/PasswordLockoutEnable=false/g" $SYSCFG_FILE                                                                                         
 sed -i '/hash_password_3=/c\user_password_3=password' $SYSCFG_FILE
