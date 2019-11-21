@@ -21,19 +21,12 @@
 
 dmcli simu psmsetv Device.DeviceInfo.X_RDKCENTRAL-COM_ConfigureWiFi string true
 
-if [ ! -f /opt/www/xb3/code/index_captive.php ] ; then
-        cp /opt/www/xb3/code/index.php /opt/www/xb3/code/index_captive.php
-        sleep 2                                                           
-        sed -i "/CONFIGUREWIFI,/,+4d" /opt/www/xb3/code/index_captive.php
-        sed -i "/CONFIGUREWIFI,/d" /opt/www/xb3/code/index_captive.php   
-fi                                                                     
-
 #################### Updated lighttpd configuration to support captivemode enabling ###################
-CAPTIVEMODE=`cat /etc/lighttpd.conf | grep index_captive.php | wc -l`
+CAPTIVEMODE=`cat /etc/lighttpd.conf | grep captiveportal.php | wc -l`
 if [ $CAPTIVEMODE == 0 ] ; then                                      
-echo "\$HTTP[\"host\"] =~ \":8080\" {" >> /etc/lighttpd.conf            
-echo "url.redirect = ( \".*\" => \"http://10.0.0.1/index_captive.php\" ) url.redirect-code = 303" >> /etc/lighttpd.conf
-echo "}" >> /etc/lighttpd.conf                                                                                       
+echo "\$HTTP[\"host\"] !~ \":8080\" {  \$HTTP[\"url\"] !~ \"captiveportal.php\" {  \$HTTP[\"referer\"] == \"\" { url.redirect = ( \".*\" => \"http://10.0.0.1/captiveportal.php\" ) url.redirect-code = 303 }" >> /etc/lighttpd.conf
+echo "}" >> /etc/lighttpd.conf
+echo "}" >> /etc/lighttpd.conf
 fi
                                                                                                          
 if [ ! -f /nvram/captivemode_enabled ]; then

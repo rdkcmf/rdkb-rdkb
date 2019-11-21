@@ -22,12 +22,8 @@
 dmcli simu psmsetv Device.DeviceInfo.X_RDKCENTRAL-COM_ConfigureWiFi string false
 sleep 1
 
-if [ -f /opt/www/xb3/code/index_captive.php ] ; then                                                               
-                rm -rf /opt/www/xb3/code/index_captive.php                                                      
-fi
-
 ####################### Lighttpd Changes ##########################                                                                                                      
-CAPTIVEMODE=`cat /etc/lighttpd.conf | grep index_captive.php | wc -l`                                   
+CAPTIVEMODE=`cat /etc/lighttpd.conf | grep captiveportal.php | wc -l`                                   
 
 if [ $CAPTIVEMODE == 1 ] ; then                                                                         
                 sed -i '$d' /etc/lighttpd.conf  ############ delete the last line in lighttpd configuration file

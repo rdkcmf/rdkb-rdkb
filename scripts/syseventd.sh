@@ -18,9 +18,7 @@
 # limitations under the License.
 ##########################################################################
 
-if [ ! -f /var/syscfg.db ]; then
-     cp /nvram/syscfg.db /var/
-fi
+cp /nvram/syscfg.db /var/
 
 rm /tmp/syscfg.shmid
 syscfg_create -f /nvram/syscfg.db
