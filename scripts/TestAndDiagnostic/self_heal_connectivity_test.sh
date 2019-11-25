@@ -18,6 +18,7 @@
 # limitations under the License.
 ##########################################################################
 
+syscfg_create -f /nvram/syscfg.db
 
 calcRandom=1
 WAN_INTERFACE="eth0"
@@ -61,8 +62,29 @@ resetNeeded()
 }
 runDNSPingTest()
 {
-	nslookup www.google.com
-        RESPONSE=$?	
+	DNS_PING_TEST_STATUS=`syscfg get selfheal_dns_pingtest_enable`
+
+        if [ "$DNS_PING_TEST_STATUS" = "true" ]
+        then
+                urlToVerify=`syscfg get selfheal_dns_pingtest_url`
+
+                if [ -z "$urlToVerify" ]
+                then
+                        echo_t "DNS Response: DNS PING Test URL is empty"
+                        return
+                fi
+
+                DNS_PING_TEST_URL=`removehttp $urlToVerify`
+
+                if [ "$DNS_PING_TEST_URL" = "" ]
+                then
+                        echo_t "DNS Response: DNS PING Test URL is empty"
+                        return
+                fi
+
+         nslookup $DNS_PING_TEST_URL > /dev/null 2>&1
+         RESPONSE=$?
+
 	echo "Response : $RESPONSE"
 	if [ $RESPONSE -eq 0 ]                                                                            
                 then                                                                                              
@@ -78,6 +100,7 @@ runDNSPingTest()
                                 resetNeeded "" PING                                                               
                         fi                                                                                        
          fi         
+       fi
 }
 runPingTest()                                                          
 {
@@ -138,7 +161,7 @@ runPingTest()
 
 SELFHEAL_ENABLE=`syscfg get selfheal_enable`
 
-while [ $SELFHEAL_ENABLE = "true" ]
+while [ "$SELFHEAL_ENABLE" = "true" ]
 do                                        
                              
         if [ "$calcRandom" -eq 1 ]
