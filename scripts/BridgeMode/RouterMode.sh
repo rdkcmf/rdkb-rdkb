@@ -68,6 +68,9 @@ Hostapd_Restart () {
 sed -i "s/ignore_broadcast_ssid=1/ignore_broadcast_ssid=0/g" /nvram/hostapd0.conf
 sed -i "s/ignore_broadcast_ssid=1/ignore_broadcast_ssid=0/g" /nvram/hostapd1.conf
 
+hostapd_cli -i $INTERFACE_2G SET ignore_broadcast_ssid 0
+hostapd_cli -i $INTERFACE_5G SET ignore_broadcast_ssid 0
+
 ROUTER=`cat /etc/dnsmasq.conf | grep -w dhcp-range | cut -d ',' -f2 | cut -d '.' -f1-3`
 SUBNETMASK=`cat /etc/dnsmasq.conf | grep -w dhcp-range | cut -d ',' -f3`
 psmcli nosubsys set dmsb.dhcpv4.server.pool.0.IPRouters $ROUTER.1
@@ -76,9 +79,13 @@ psmcli nosubsys set dmsb.dhcpv4.server.pool.0.SubnetMask $SUBNETMASK
 ############ Deleting BridgeMode Interface and Adding Wireless Interface to Bridge ########
 brctl delif brlan0 eth2
 
-brctl addif brlan0 $INTERFACE_2G 
-brctl addif brlan0 $INTERFACE_5G 
+#brctl addif brlan0 $INTERFACE_2G 
+#brctl addif brlan0 $INTERFACE_5G 
 
+hostapd_cli -i $INTERFACE_2G DISABLE
+hostapd_cli -i $INTERFACE_2G ENABLE
+hostapd_cli -i $INTERFACE_5G DISABLE
+hostapd_cli -i $INTERFACE_5G ENABLE
 
 ################### Getting Current Router IP Address ##########
 dnsmasq_conf_file=/etc/dnsmasq.conf                                          
@@ -122,19 +129,19 @@ killall dnsmasq
 /usr/bin/dnsmasq &
 
 #Restart_Hostapd                                                              
-ps -eaf | grep hostapd0 | grep -v grep | awk '{print $2}' | xargs kill -9
-killall hostapd
-ifconfig $INTERFACE_2G down
-sleep 1
-ifconfig $VIRTUAL_INTERFACE_2G down
-sh /lib/rdk/start_hostapd.sh
-DONGLE_IDENTIFIACTION=`cat /nvram/hostapd0.conf | grep bss= | cut -c1`
-if [ "$DONGLE_IDENTIFIACTION" == "#" ] ; then
-echo "tp-link"
-else
-echo "tenda"
-Restart_Hostapd_5G                                                              
-fi
+#ps -eaf | grep hostapd0 | grep -v grep | awk '{print $2}' | xargs kill -9
+#killall hostapd
+#ifconfig $INTERFACE_2G down
+#sleep 1
+#ifconfig $VIRTUAL_INTERFACE_2G down
+#sh /lib/rdk/start_hostapd.sh
+#DONGLE_IDENTIFIACTION=`cat /nvram/hostapd0.conf | grep bss= | cut -c1`
+#if [ "$DONGLE_IDENTIFIACTION" == "#" ] ; then
+#echo "tp-link"
+#else
+#echo "tenda"
+#Restart_Hostapd_5G                                                              
+#fi
 
 echo "1" > /tmp/Get2gssidEnable.txt
 echo "1" > /tmp/Get5gssidEnable.txt
