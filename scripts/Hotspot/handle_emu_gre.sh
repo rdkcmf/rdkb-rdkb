@@ -107,24 +107,24 @@ create_tunnel () {
 	brctl addbr brlan1
 	brctl addbr brlan2
 
-	sleep 5
+	sleep 2
 
         ifconfig gretap0 up
-	ps -eaf | grep ibrlan1 | grep -v grep | awk '{print $2}' | xargs kill -9
-	ps -eaf | grep ibrlan2 | grep -v grep | awk '{print $2}' | xargs kill -9
+	#ps -eaf | grep ibrlan1 | grep -v grep | awk '{print $2}' | xargs kill -9
+	#ps -eaf | grep ibrlan2 | grep -v grep | awk '{print $2}' | xargs kill -9
 
 	vconfig add gretap0 100
 	vconfig add gretap0 101
 	ifconfig gretap0.100 up
 	ifconfig gretap0.101 up
 
-	sleep 3
+	#sleep 1
 	
 		
-	ps -eaf | grep igretap0.100 | grep -v grep | awk '{print $2}' | xargs kill -9
-	ps -eaf | grep igretap0.101 | grep -v grep | awk '{print $2}' | xargs kill -9
+	#ps -eaf | grep igretap0.100 | grep -v grep | awk '{print $2}' | xargs kill -9
+	#ps -eaf | grep igretap0.101 | grep -v grep | awk '{print $2}' | xargs kill -9
 	
-	sleep 2
+	sleep 3
 	
         brctl addif brlan1 $INTERFACE_2G
 	brctl addif brlan1 gretap0.100

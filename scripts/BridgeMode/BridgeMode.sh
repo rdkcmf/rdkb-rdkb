@@ -41,10 +41,23 @@ Restart_Hostapd () {
 ################# Hide the Private SSID Names in Bridge Mode set-up
 sed -i "s/ignore_broadcast_ssid=0/ignore_broadcast_ssid=1/g" /nvram/hostapd0.conf
 sed -i "s/ignore_broadcast_ssid=0/ignore_broadcast_ssid=1/g" /nvram/hostapd1.conf
-sh /lib/rdk/start_hostapd.sh
+#sh /lib/rdk/start_hostapd.sh
 
 INTERFACE_2G=`cat /nvram/hostapd0.conf | grep -w interface | head -1 | cut -d '=' -f2`
 INTERFACE_5G=`cat /nvram/hostapd1.conf | grep -w interface | head -1 | cut -d '=' -f2`
+
+hostapd_cli -i $INTERFACE_2G SET ignore_broadcast_ssid 1
+hostapd_cli -i $INTERFACE_5G SET ignore_broadcast_ssid 1
+
+hostapd_cli -i  $INTERFACE_2G DISABLE
+hostapd_cli -i  $INTERFACE_2G ENABLE
+hostapd_cli -i  $INTERFACE_5G DISABLE
+hostapd_cli -i  $INTERFACE_5G ENABLE
+
+
+ifconfig $INTERFACE_2G down
+ifconfig $INTERFACE_5G down
+
 ############ Adding two more IP Address to eth0 Interface ##########
 
 LAN_IP=`cat /var/dnsmasq_org.conf | grep -w dhcp-range | cut -d ',' -f2 | cut -d '.' -f1-3`
