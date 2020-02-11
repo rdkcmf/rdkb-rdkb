@@ -22,6 +22,7 @@
 ################################## SAVING & RESTORING IPTABLES RULES ###########################################
 sleep 20
 
+
 if [[ ! -f /nvram/captivemode_enabled  && ! -f /nvram/updated_captiveportal_redirectionrules ]] ; then
 	iptables -t nat -D PREROUTING -i brlan0 -p udp --dport 53 -j DNAT --to 10.0.0.1
 	iptables -t nat -D PREROUTING -i brlan0 -p tcp --dport 53 -j DNAT --to 10.0.0.1
@@ -41,6 +42,8 @@ do
 	iptables -t nat -D prerouting_redirect -p tcp  -j DNAT --to-destination 0.0.0.0:21515
 	iptables -t nat -D prerouting_redirect -p udp ! --dport 53 -j DNAT --to-destination 0.0.0.0:21515
 	iptables -t nat -D PREROUTING  -j prerouting_mgmt_override
+    TRPORT=`dmcli simu getv Device.ManagementServer.X_CISCO_COM_ConnectionRequestURLPort | grep value | cut -f3 -d : | cut -f2 -d" "`
+	iptables -t nat -D prerouting_mgmt_override -p tcp -m multiport --dports ${TRPORT},22 -j ACCEPT
 
 HOTSPOT_ENABLE=`dmcli simu getv Device.DeviceInfo.X_COMCAST_COM_xfinitywifiEnable | grep value | cut -f3 -d : | cut -f2 -d " "`
 	if [ "$HOTSPOT_ENABLE" = "true" ]; then 
@@ -72,6 +75,8 @@ HOTSPOT_ENABLE=`dmcli simu getv Device.DeviceInfo.X_COMCAST_COM_xfinitywifiEnabl
 	iptables -t nat -A prerouting_redirect -p tcp  -j DNAT --to-destination 0.0.0.0:21515
 	iptables -t nat -A prerouting_redirect -p udp ! --dport 53 -j DNAT --to-destination 0.0.0.0:21515
 	iptables -t nat -I PREROUTING 1 -j prerouting_mgmt_override
+	TRPORT=`dmcli simu getv Device.ManagementServer.X_CISCO_COM_ConnectionRequestURLPort | grep value | cut -f3 -d : | cut -f2 -d" "`
+	iptables -t nat -A prerouting_mgmt_override -p tcp -m multiport --dports ${TRPORT},22 -j ACCEPT
 
 HOTSPOT_ENABLE=`dmcli simu getv Device.DeviceInfo.X_COMCAST_COM_xfinitywifiEnable | grep value | cut -f3 -d : | cut -f2 -d" "`
         if [ "$HOTSPOT_ENABLE" = "true" ]; then
