@@ -23,6 +23,7 @@
 
 dmcli simu psmsetv Provision.COSALibrary.NAT.PORTTRIGGER.NextInstanceNumber uint 1
 dmcli simu psmsetv Device.NAT.PortMapping.MaxInstance string 0
+dmcli simu psmsetv dmsb.DeviceInfo.X_RDKCENTRAL-COM_LastRebootReason string factory-reset
 dmcli simu psmsetv dmsb.UserInterface.X_CISCO_COM_RemoteAccess.HttpsEnable string FALSE
 dmcli simu psmsetv dmsb.UserInterface.X_CISCO_COM_RemoteAccess.HttpEnable string TRUE
 dmcli simu psmsetv dmsb.UserInterface.X_CISCO_COM_RemoteAccess.HttpPort string 8080
