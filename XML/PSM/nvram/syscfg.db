@@ -405,3 +405,4 @@ router_reboot_Interval=28800
 selfheal_dns_pingtest_enable=true
 selfheal_dns_pingtest_url=www.google.com
 highloadavg_reboot_count=0
+PartnerID=RDKM
