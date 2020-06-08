@@ -75,6 +75,7 @@ _update_db_value "PasswordLockoutAttempts"
 _update_db_value "PasswordLockoutTime"                                                    
 _update_db_value "LockOutRemainingTime"                                              
 _update_db_value "NumOfFailedAttempts"
+_update_db_value "NeighboringWifiScan"
 
 sed -i '/avg_memory_threshold=/c\avg_memory_threshold=100' $SYSCFG_FILE                  
 sed -i '/avg_cpu_threshold=/c\avg_cpu_threshold=100' $SYSCFG_FILE   
