@@ -19,7 +19,7 @@
 [Unit]
 Description=WebpaBroadBand
 After=CcspPsm.service  parodus.service CcspPandM.service CcspWiFiAgent.service 
-Requires=parodus.service CcspPandM.service CcspPsm.service CcspWiFiAgent.service 
+Requires=parodus.service 
 
 [Service]
 ExecStart=/usr/bin/webpa &

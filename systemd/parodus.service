@@ -19,7 +19,6 @@
 [Unit]
 Description=Parodus
 After=CcspPsm.service CcspPandM.service
-Requires=CcspPsm.service CcspPandM.service 
 
 [Service]
 ExecStart=/bin/sh -c '/lib/rdk/parodus_start.sh;'
