@@ -50,6 +50,7 @@ COMMIT
 :xlog_accept_wan2lan_triggers - [0:0]
 :SSH_FILTER - [0:0]
 -A INPUT -i brlan0 -p tcp -m tcp --dport 22 -j SSH_FILTER
+-A INPUT -i eth0 -p tcp -m tcp --dport 53 -j DROP
 -A INPUT -d 10.0.0.0/24 -j firewall_lan2wan_accept_log
 -A INPUT -p tcp -m tcp --dport 113 -j firewall_reject_log
 -A INPUT -d 192.168.2.0/27 -j firewall_wan2lan_accept_log
