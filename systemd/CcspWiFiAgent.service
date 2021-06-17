@@ -19,7 +19,7 @@
 [Unit]
 Description=CcspWifiSsp
 After=CcspPsm.service hostapd.service
-Requires=network-setup.service hostapd.service
+#Requires=network-setup.service hostapd.service
 
 [Service]
 ExecStart=/bin/sh -c '/usr/bin/startwifi.sh;'
